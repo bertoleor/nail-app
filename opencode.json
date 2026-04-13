@@ -1,0 +1,96 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  "mcp": {
+    "supabase": {
+      "type": "local",
+      "command": ["mcp-server-supabase"],
+      "environment": {
+        "SUPABASE_ACCESS_TOKEN": "${SUPABASE_ACCESS_TOKEN}",
+        "SUPABASE_URL": "${NEXT_PUBLIC_SUPABASE_URL}",
+        "SUPABASE_ANON_KEY": "${NEXT_PUBLIC_SUPABASE_ANON_KEY}"
+      }
+    },
+    "sequential-thinking": {
+      "type": "local",
+      "command": ["mcp-server-sequential-thinking"]
+    },
+    "engram": {
+      "type": "local",
+      "command": ["engram.exe", "mcp", "stdio"]
+    },
+    "context7": {
+      "type": "local",
+      "command": ["context7-mcp"]
+    },
+    "github": {
+      "type": "local",
+      "command": ["mcp-server-github"],
+      "environment": { "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}" }
+    },
+    "playwright": {
+      "type": "local",
+      "command": ["playwright-mcp"]
+    }
+  },
+
+  "instructions": [
+    ".agents/rules/00-behavior.md",
+    ".agents/rules/01-typescript.md",
+    ".agents/rules/02-design-system.md",
+    ".agents/rules/05-security.md",
+    ".agents/rules/06-error-handling.md",
+    ".agents/rules/07-testing.md",
+    ".agents/rules/09-no-ai-traces.md",
+    ".agents/rules/10-accessibility.md",
+    ".agents/rules/11-git-commit.md",
+    ".agents/rules/16-rsc-patterns.md",
+    ".agents/rules/17-code-quality.md",
+    ".agents/rules/18-dates-and-time.md",
+    ".agents/rules/19-ui-resilience.md",
+    ".agents/rules/23-architecture-scope.md",
+    ".agents/rules/24-spec-driven-development.md",
+    ".agents/rules/25-judgment-day.md",
+    ".agents/rules/27-systematic-debugging.md",
+    ".agents/rules/29-tdd-protocol.md",
+    ".agents/rules/30-modern-stack-zod-zustand.md"
+  ],
+
+  "agent": {
+    "build": {
+      "temperature": 0,
+      "prompt": "{file:./.agents/rules/00-behavior.md}"
+    },
+    "plan": {
+      "temperature": 0.2,
+      "prompt": "{file:./.agents/rules/24-spec-driven-development.md}"
+    },
+    "quality-auditor": {
+      "description": "Expert in code quality and testing",
+      "mode": "subagent",
+      "prompt": "You are a quality auditor. Review code for: TypeScript strict compliance, test coverage, ESLint rules, accessibility, and performance. Be thorough and cite specific rule violations."
+    },
+    "security-ops": {
+      "description": "Expert in security and infrastructure",
+      "mode": "subagent",
+      "prompt": "You are a security expert. Review code for: input validation, auth guards, secret management, CSP, rate limiting, and data protection. Cite specific vulnerabilities."
+    },
+    "react-mentor": {
+      "description": "Expert in React 19 and Next.js 16 architectural guidance",
+      "mode": "subagent",
+      "prompt": "You are a React 19 and Next.js 16 expert. Review code for: RSC patterns, 'use client' boundaries, Server Actions, React 19 APIs (useActionState, useFormStatus, use), and performance patterns."
+    },
+    "accessibility-auditor": {
+      "description": "Expert in WCAG 2.1 AA compliance",
+      "mode": "subagent",
+      "prompt": "You are an accessibility expert. Review code for: ARIA labels, keyboard navigation, focus management, color contrast, screen reader support, and reduced motion. Cite specific WCAG violations."
+    }
+  },
+
+  "command": {
+    "commit": {
+      "description": "Conventional commit with validation",
+      "template": "Create a conventional commit for the current changes. Follow the format: <type>(<scope>): <description>. Use scopes: calculator, agenda, auth, ui, api, deps, config. Ensure lint and typecheck pass before committing."
+    }
+  }
+}
