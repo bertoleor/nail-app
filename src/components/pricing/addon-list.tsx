@@ -1,8 +1,8 @@
 "use client";
 
-import { usePricingStore } from "@/stores/pricing-store";
-import { ADDONS } from "@/lib/domain/pricing";
 import { Badge } from "@/components/ui/badge";
+import { ADDONS } from "@/lib/domain/pricing";
+import { usePricingStore } from "@/stores/pricing-store";
 
 export function AddonList() {
   const selectedServiceId = usePricingStore((state) => state.selectedServiceId);
@@ -27,12 +27,12 @@ export function AddonList() {
           const isSelected = selectedAddonIds.includes(addon.id);
           return (
             <button
-              key={addon.id}
-              type="button"
-              onClick={() => toggleAddon(addon.id)}
               className={`touch-manipulation ${isSelected ? "outline outline-2 outline-offset-2 outline-primary rounded-full" : ""}`}
+              key={addon.id}
+              onClick={() => { toggleAddon(addon.id); }}
+              type="button"
             >
-              <Badge variant={isSelected ? "success" : "default"} className="text-xs sm:text-sm whitespace-nowrap">
+              <Badge className="text-xs sm:text-sm whitespace-nowrap" variant={isSelected ? "success" : "default"}>
                 {addon.name} — ARS {addon.price}
               </Badge>
             </button>

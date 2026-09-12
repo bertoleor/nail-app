@@ -3,18 +3,18 @@
 import {
   addDays,
   endOfMonth,
+  endOfWeek,
   format,
   isSameDay,
   isSameMonth,
   startOfMonth,
   startOfWeek,
-  endOfWeek,
 } from "date-fns";
 import { es } from "date-fns/locale";
-
-import { useBookingStore } from "@/stores/booking-store";
-import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { useBookingStore } from "@/stores/booking-store";
 
 const DAYS = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
 
@@ -51,13 +51,13 @@ export function Calendar() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-2">
-        <Button variant="outline" size="sm" onClick={prevMonth} className="touch-manipulation">
+        <Button className="touch-manipulation" onClick={prevMonth} size="sm" variant="outline">
           <ChevronLeft className="size-4" />
         </Button>
         <h2 className="text-base sm:text-lg font-serif text-center">
           {format(currentDate, "MMMM yyyy", { locale: es })}
         </h2>
-        <Button variant="outline" size="sm" onClick={nextMonth} className="touch-manipulation">
+        <Button className="touch-manipulation" onClick={nextMonth} size="sm" variant="outline">
           <ChevronRight className="size-4" />
         </Button>
       </div>
@@ -65,8 +65,8 @@ export function Calendar() {
       <div className="grid grid-cols-7 gap-1">
         {DAYS.map((dayName) => (
           <div
-            key={dayName}
             className="text-center text-xs font-medium text-[rgba(15,15,20,0.5)] py-1 sm:py-2"
+            key={dayName}
           >
             {dayName}
           </div>
@@ -81,14 +81,14 @@ export function Calendar() {
 
             return (
               <button
-                key={dateStr}
-                type="button"
-                onClick={() => selectDate(dateStr)}
                 className={`
                   relative p-2 sm:p-3 rounded-xl text-xs sm:text-sm transition-all touch-manipulation
                   ${isCurrentMonth ? "text-[rgba(15,15,20,0.9)]" : "text-[rgba(15,15,20,0.3)]"}
                   ${isSelected ? "bg-[rgba(15,15,20,0.1)] font-medium" : "hover:bg-[rgba(15,15,20,0.05)]"}
                 `}
+                key={dateStr}
+                onClick={() => { selectDate(dateStr); }}
+                type="button"
               >
                 {format(date, "d")}
                 {hasBookings && (

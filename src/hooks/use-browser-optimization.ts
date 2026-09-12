@@ -1,22 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
 import {
+  type BrowserInfo,
   detectBrowser,
   getOptimalAnimationDuration,
   getOptimalGlassOpacity,
   shouldReduceMotion,
-  type BrowserInfo,
 } from "@/lib/browser/detect";
 
 export function useBrowserOptimization() {
   const [browser, setBrowser] = useState<BrowserInfo>({
-    isSafari: false,
-    isFirefox: false,
-    isChrome: false,
-    isMobile: false,
-    isIOS: false,
     isAndroid: false,
+    isChrome: false,
+    isFirefox: false,
+    isIOS: false,
+    isMobile: false,
+    isSafari: false,
     supportsBackdropFilter: true,
     supportsCssGrid: true,
   });
@@ -30,10 +31,10 @@ export function useBrowserOptimization() {
   }, []);
 
   return {
-    browser,
-    reducedMotion,
     animationDuration: getOptimalAnimationDuration(browser),
+    browser,
     glassOpacity: getOptimalGlassOpacity(browser),
     isLowEnd: browser.isMobile && !browser.isChrome,
+    reducedMotion,
   };
 }

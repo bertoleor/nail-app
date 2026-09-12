@@ -33,7 +33,7 @@ describe("Card", () => {
     expect(header).toHaveClass("p-8");
   });
 
-  it("renders CardTitle with serif font", () => {
+  it("renders CardTitle with correct typography", () => {
     render(
       <Card>
         <CardHeader>
@@ -44,7 +44,7 @@ describe("Card", () => {
 
     const title = screen.getByRole("heading", { name: /test title/i });
     expect(title).toBeInTheDocument();
-    expect(title.className).toMatch(/font-serif|text-3xl/);
+    expect(title.className).toMatch(/font-light|text-3xl/);
   });
 
   it("renders CardDescription with correct styling", () => {

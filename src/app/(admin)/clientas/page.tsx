@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import type { Client } from "@/lib/mock/data";
+
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -12,15 +14,55 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useAppStore, useClientHistory, MOCK_CLIENTS } from "@/stores/app-store";
 import { MOCK_SERVICES } from "@/lib/mock/data";
-import type { Client } from "@/lib/mock/data";
+import { MOCK_CLIENTS, useAppStore, useClientHistory } from "@/stores/app-store";
+
+function ClientCard({
+  client,
+  onSelect,
+}: {
+  client: Client;
+  onSelect: (client: Client) => void;
+}) {
+  const history = useClientHistory(client.id);
+
+  return (
+    <Card
+      className="cursor-pointer hover:shadow-md transition-shadow"
+      key={client.id}
+      onClick={() => { onSelect(client); }}
+    >
+      <CardContent className="p-4">
+        <div className="flex justify-between items-start mb-2">
+          <div>
+            <p className="font-medium">{client.name}</p>
+            <p className="text-sm text-[rgba(15,15,20,0.5)]">{client.phone}</p>
+          </div>
+          {client.email && (
+            <Badge className="text-xs" variant="outline">
+              ✉️
+            </Badge>
+          )}
+        </div>
+        <div className="flex gap-4 text-sm text-[rgba(15,15,20,0.5)]">
+          <span>{history.totalVisits} visitas</span>
+          <span>${history.totalSpent.toLocaleString("es-AR")}</span>
+        </div>
+        {history.lastVisit && (
+          <p className="text-xs text-[rgba(15,15,20,0.4)] mt-2">
+            Última visita: {history.lastVisit}
+          </p>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
 
 export default function AdminClientsPage() {
   const [search, setSearch] = useState("");
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [showNewClientDialog, setShowNewClientDialog] = useState(false);
-  const [newClient, setNewClient] = useState({ name: "", phone: "", email: "", notes: "" });
+  const [newClient, setNewClient] = useState({ email: "", name: "", notes: "", phone: "" });
 
   const { addClient } = useAppStore();
 
@@ -32,12 +74,12 @@ export default function AdminClientsPage() {
   const handleAddClient = () => {
     if (newClient.name && newClient.phone) {
       addClient({
-        name: newClient.name,
-        phone: newClient.phone,
         email: newClient.email || undefined,
+        name: newClient.name,
         notes: newClient.notes || undefined,
+        phone: newClient.phone,
       });
-      setNewClient({ name: "", phone: "", email: "", notes: "" });
+      setNewClient({ email: "", name: "", notes: "", phone: "" });
       setShowNewClientDialog(false);
     }
   };
@@ -52,7 +94,7 @@ export default function AdminClientsPage() {
             {MOCK_CLIENTS.length} clientas registradas
           </p>
         </div>
-        <Button onClick={() => setShowNewClientDialog(true)}>
+        <Button onClick={() => { setShowNewClientDialog(true); }}>
           Nueva clienta
         </Button>
       </div>
@@ -61,52 +103,26 @@ export default function AdminClientsPage() {
       <Card>
         <CardContent className="p-4">
           <Input
+            onChange={(e) => { setSearch(e.target.value); }}
             placeholder="Buscar por nombre o teléfono..."
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
           />
         </CardContent>
       </Card>
 
       {/* Clients List */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredClients.map((client) => {
-          const history = useClientHistory(client.id);
-          return (
-            <Card
-              key={client.id}
-              className="cursor-pointer hover:shadow-md transition-shadow"
-              onClick={() => setSelectedClient(client)}
-            >
-              <CardContent className="p-4">
-                <div className="flex justify-between items-start mb-2">
-                  <div>
-                    <p className="font-medium">{client.name}</p>
-                    <p className="text-sm text-[rgba(15,15,20,0.5)]">{client.phone}</p>
-                  </div>
-                  {client.email && (
-                    <Badge variant="outline" className="text-xs">
-                      ✉️
-                    </Badge>
-                  )}
-                </div>
-                <div className="flex gap-4 text-sm text-[rgba(15,15,20,0.5)]">
-                  <span>{history.totalVisits} visitas</span>
-                  <span>${history.totalSpent.toLocaleString("es-AR")}</span>
-                </div>
-                {history.lastVisit && (
-                  <p className="text-xs text-[rgba(15,15,20,0.4)] mt-2">
-                    Última visita: {history.lastVisit}
-                  </p>
-                )}
-              </CardContent>
-            </Card>
-          );
-        })}
+        {filteredClients.map((client) => (
+          <ClientCard
+            client={client}
+            key={client.id}
+            onSelect={setSelectedClient}
+          />
+        ))}
       </div>
 
       {/* Client Detail Dialog */}
-      <Dialog open={!!selectedClient} onOpenChange={() => setSelectedClient(null)}>
+      <Dialog onOpenChange={() => { setSelectedClient(null); }} open={!!selectedClient}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
             <DialogTitle>{selectedClient?.name}</DialogTitle>
@@ -118,7 +134,7 @@ export default function AdminClientsPage() {
       </Dialog>
 
       {/* New Client Dialog */}
-      <Dialog open={showNewClientDialog} onOpenChange={setShowNewClientDialog}>
+      <Dialog onOpenChange={setShowNewClientDialog} open={showNewClientDialog}>
         <DialogContent className="max-w-sm">
           <DialogHeader>
             <DialogTitle>Nueva clienta</DialogTitle>
@@ -127,43 +143,43 @@ export default function AdminClientsPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium">Nombre *</label>
               <Input
-                value={newClient.name}
-                onChange={(e) => setNewClient({ ...newClient, name: e.target.value })}
+                onChange={(e) => { setNewClient({ ...newClient, name: e.target.value }); }}
                 placeholder="Nombre completo"
+                value={newClient.name}
               />
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium">Teléfono *</label>
               <Input
-                value={newClient.phone}
-                onChange={(e) => setNewClient({ ...newClient, phone: e.target.value })}
+                onChange={(e) => { setNewClient({ ...newClient, phone: e.target.value }); }}
                 placeholder="+54 9 11 ..."
+                value={newClient.phone}
               />
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium">Email</label>
               <Input
+                onChange={(e) => { setNewClient({ ...newClient, email: e.target.value }); }}
+                placeholder="email@ejemplo.com"
                 type="email"
                 value={newClient.email}
-                onChange={(e) => setNewClient({ ...newClient, email: e.target.value })}
-                placeholder="email@ejemplo.com"
               />
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium">Notas</label>
               <Input
-                value={newClient.notes}
-                onChange={(e) => setNewClient({ ...newClient, notes: e.target.value })}
+                onChange={(e) => { setNewClient({ ...newClient, notes: e.target.value }); }}
                 placeholder="Preferencias, alergias..."
+                value={newClient.notes}
               />
             </div>
             <div className="flex gap-3 pt-2">
-              <Button variant="outline" onClick={() => setShowNewClientDialog(false)}>
+              <Button onClick={() => { setShowNewClientDialog(false); }} variant="outline">
                 Cancelar
               </Button>
               <Button
-                onClick={handleAddClient}
                 disabled={!newClient.name || !newClient.phone}
+                onClick={handleAddClient}
               >
                 Guardar
               </Button>
@@ -175,7 +191,7 @@ export default function AdminClientsPage() {
   );
 }
 
-function ClientDetail({ client }: { client: Client }) {
+function ClientDetail({ client }: { readonly client: Client }) {
   const history = useClientHistory(client.id);
 
   return (
@@ -233,8 +249,8 @@ function ClientDetail({ client }: { client: Client }) {
               const service = MOCK_SERVICES.find((s) => s.id === booking.serviceId);
               return (
                 <div
-                  key={booking.id}
                   className="flex justify-between items-center p-3 bg-gray-50 rounded-lg"
+                  key={booking.id}
                 >
                   <div>
                     <p className="font-medium">{service?.name}</p>
@@ -250,16 +266,16 @@ function ClientDetail({ client }: { client: Client }) {
                       variant={
                         booking.status === "completed"
                           ? "default"
-                          : booking.status === "cancelled"
+                          : (booking.status === "cancelled"
                           ? "destructive"
-                          : "secondary"
+                          : "secondary")
                       }
                     >
                       {booking.status === "completed"
                         ? "Completado"
-                        : booking.status === "cancelled"
+                        : (booking.status === "cancelled"
                         ? "Cancelado"
-                        : booking.status}
+                        : booking.status)}
                     </Badge>
                   </div>
                 </div>
@@ -271,7 +287,7 @@ function ClientDetail({ client }: { client: Client }) {
 
       {/* Actions */}
       <div className="flex gap-3">
-        <Button variant="outline" className="flex-1">
+        <Button className="flex-1" variant="outline">
           Agendar turno
         </Button>
         <Button className="flex-1">

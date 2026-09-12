@@ -14,7 +14,7 @@
     "fix:staged": "lint-staged",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
-    "test:unit": "vitest run --include='__tests__/**/*.{test,spec}.{ts,tsx}'",
+    "test:unit": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "test:ci": "vitest run --coverage --reporter=default",

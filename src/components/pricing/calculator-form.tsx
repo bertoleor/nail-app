@@ -1,9 +1,10 @@
 "use client";
 
-import { ServiceSelect } from "./service-select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import { AddonList } from "./addon-list";
 import { PriceSummary } from "./price-summary";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ServiceSelect } from "./service-select";
 
 export function CalculatorForm() {
   return (

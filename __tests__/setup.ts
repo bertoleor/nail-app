@@ -23,11 +23,16 @@ window.HTMLElement.prototype.setPointerCapture = () => {};
 window.HTMLElement.prototype.releasePointerCapture = () => {};
 window.HTMLElement.prototype.scrollIntoView = () => {};
 
-window.CSS.supports = (property: string, value: string) => {
-  if (property === "backdrop-filter" && value === "blur(1px)") return true;
-  if (property === "display" && value === "grid") return true;
-  return false;
-};
+window.CSS.supports = (
+  (propertyOrCondition: string, value?: string) => {
+    if (value !== undefined) {
+      if (propertyOrCondition === "backdrop-filter" && value === "blur(1px)") return true;
+      if (propertyOrCondition === "display" && value === "grid") return true;
+      return false;
+    }
+    return false;
+  }
+) as typeof CSS.supports;
 
 window.matchMedia = (query: string) => ({
   matches: false,

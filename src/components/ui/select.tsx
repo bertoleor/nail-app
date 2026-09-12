@@ -13,13 +13,13 @@ const SelectValue = SelectPrimitive.Value;
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+>(({ children, className, ...props }, ref) => (
   <SelectPrimitive.Trigger
-    ref={ref}
     className={cn(
       "flex h-12 w-full items-center justify-between gap-2 rounded-2xl border border-gray-200 bg-gray-50/50 px-4 py-3 text-sm hover:bg-gray-50/80 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
       className
     )}
+    ref={ref}
     {...props}
   >
     {children}
@@ -33,10 +33,9 @@ SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
->(({ className, children, position = "popper", ...props }, ref) => (
+>(({ children, className, position = "popper", ...props }, ref) => (
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
-      ref={ref}
       className={cn(
         "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-2xl glass-opaque border text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
         position === "popper" &&
@@ -44,6 +43,7 @@ const SelectContent = React.forwardRef<
         className
       )}
       position={position}
+      ref={ref}
       {...props}
     >
       <SelectPrimitive.Viewport
@@ -63,13 +63,13 @@ SelectContent.displayName = SelectPrimitive.Content.displayName;
 const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
->(({ className, children, ...props }, ref) => (
+>(({ children, className, ...props }, ref) => (
   <SelectPrimitive.Item
-    ref={ref}
     className={cn(
       "relative flex w-full cursor-default select-none items-center rounded-xl py-2 pl-8 pr-2 text-sm outline-none hover:bg-white/40 focus:bg-white/40 data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
+    ref={ref}
     {...props}
   >
     <span className="absolute left-2 flex size-3.5 items-center justify-center">

@@ -2,28 +2,28 @@ import { cn } from "@/lib/utils";
 
 export interface SkeletonProps {
   readonly className?: string;
-  readonly variant?: "text" | "circular" | "rectangular";
-  readonly glass?: boolean;
   readonly "data-testid"?: string;
+  readonly glass?: boolean;
+  readonly variant?: "circular" | "rectangular" | "text";
 }
 
 export function Skeleton({
   className,
-  variant = "rectangular",
   glass = true,
+  variant = "rectangular",
   ...props
 }: Readonly<SkeletonProps>) {
   const baseClasses = glass ? "skeleton-glass" : "bg-gray-200 animate-pulse";
   const variantClasses = {
-    text: "h-4 w-full rounded",
     circular: "rounded-full",
     rectangular: "rounded-2xl",
+    text: "h-4 w-full rounded",
   };
 
   return (
     <div
-      className={cn(baseClasses, variantClasses[variant], className)}
       aria-hidden="true"
+      className={cn(baseClasses, variantClasses[variant], className)}
       {...props}
     />
   );

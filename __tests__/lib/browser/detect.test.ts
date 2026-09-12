@@ -5,6 +5,7 @@ import {
   getOptimalGlassOpacity,
   shouldReduceMotion,
 } from "@/lib/browser/detect";
+import { createMockBrowser } from "../utils/test-helpers";
 
 describe("Browser Detection", () => {
   describe("detectBrowser", () => {
@@ -20,14 +21,14 @@ describe("Browser Detection", () => {
 
   describe("getOptimalAnimationDuration", () => {
     it("returns shorter duration for mobile", () => {
-      const mobileBrowser = { isMobile: true } as const;
+      const mobileBrowser = createMockBrowser({ isMobile: true });
       const result = getOptimalAnimationDuration(mobileBrowser);
 
       expect(result).toBe(150);
     });
 
     it("returns longer duration for desktop", () => {
-      const desktopBrowser = { isMobile: false } as const;
+      const desktopBrowser = createMockBrowser({ isMobile: false });
       const result = getOptimalAnimationDuration(desktopBrowser);
 
       expect(result).toBe(300);
@@ -36,21 +37,21 @@ describe("Browser Detection", () => {
 
   describe("getOptimalGlassOpacity", () => {
     it("returns higher opacity when backdrop-filter not supported", () => {
-      const browser = { supportsBackdropFilter: false, isSafari: false } as const;
+      const browser = createMockBrowser({ supportsBackdropFilter: false, isSafari: false });
       const result = getOptimalGlassOpacity(browser);
 
       expect(result).toBe(0.85);
     });
 
     it("returns lower opacity for Safari", () => {
-      const browser = { supportsBackdropFilter: true, isSafari: true } as const;
+      const browser = createMockBrowser({ supportsBackdropFilter: true, isSafari: true });
       const result = getOptimalGlassOpacity(browser);
 
       expect(result).toBe(0.4);
     });
 
     it("returns default opacity for Chrome", () => {
-      const browser = { supportsBackdropFilter: true, isSafari: false } as const;
+      const browser = createMockBrowser({ supportsBackdropFilter: true, isSafari: false });
       const result = getOptimalGlassOpacity(browser);
 
       expect(result).toBe(0.38);

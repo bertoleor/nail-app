@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { format } from "date-fns";
+import { useState } from "react";
 import { z } from "zod";
 
-import { useBookingStore } from "@/stores/booking-store";
-import { hasConflict } from "@/lib/domain/booking";
-import { SERVICES } from "@/lib/domain/pricing";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +12,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -23,6 +20,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { hasConflict } from "@/lib/domain/booking";
+import { SERVICES } from "@/lib/domain/pricing";
+import { useBookingStore } from "@/stores/booking-store";
 
 const bookingSchema = z.object({
   clientName: z.string().min(1, "Ingresá el nombre"),
@@ -63,15 +63,15 @@ export function BookingForm() {
     }
 
     const service = SERVICES.find((s) => s.id === data.serviceId);
-    if (!service) return;
+    if (!service) {return;}
 
     const newBooking = {
-      id: crypto.randomUUID(),
       clientName: data.clientName,
-      serviceId: data.serviceId,
       date: selectedDate,
-      startTime: data.startTime,
       duration: service.duration,
+      id: crypto.randomUUID(),
+      serviceId: data.serviceId,
+      startTime: data.startTime,
     };
 
     if (hasConflict(newBooking, bookings)) {
@@ -85,7 +85,7 @@ export function BookingForm() {
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
         <Button className="w-full sm:w-auto touch-manipulation">Nuevo turno</Button>
       </DialogTrigger>
@@ -107,16 +107,16 @@ export function BookingForm() {
       <form action={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <label
-              htmlFor="clientName"
               className="text-xs font-medium uppercase tracking-wider text-[rgba(15,15,20,0.5)]"
+              htmlFor="clientName"
             >
               Cliente
             </label>
             <Input
+              className="touch-manipulation"
               id="clientName"
               name="clientName"
               placeholder="Nombre de la clienta"
-              className="touch-manipulation"
             />
             {errors.clientName && (
               <p className="text-xs text-red-500">{errors.clientName}</p>
@@ -125,8 +125,8 @@ export function BookingForm() {
 
           <div className="space-y-2">
             <label
-              htmlFor="serviceId"
               className="text-xs font-medium uppercase tracking-wider text-[rgba(15,15,20,0.5)]"
+              htmlFor="serviceId"
             >
               Servicio
             </label>
@@ -149,18 +149,18 @@ export function BookingForm() {
 
           <div className="space-y-2">
             <label
-              htmlFor="startTime"
               className="text-xs font-medium uppercase tracking-wider text-[rgba(15,15,20,0.5)]"
+              htmlFor="startTime"
             >
               Horario
             </label>
             <Input
+              className="touch-manipulation"
               id="startTime"
+              max="20:00"
+              min="09:00"
               name="startTime"
               type="time"
-              min="09:00"
-              max="20:00"
-              className="touch-manipulation"
             />
             {errors.startTime && (
               <p className="text-xs text-red-500">{errors.startTime}</p>

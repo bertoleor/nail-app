@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -6,17 +7,17 @@ export const metadata: Metadata = {
 };
 
 const NAV_ITEMS = [
-  { href: "/admin", label: "Dashboard", icon: "📊" },
-  { href: "/admin/turnos", label: "Turnos", icon: "📅" },
-  { href: "/admin/clientas", label: "Clientas", icon: "👥" },
-  { href: "/admin/calculadora", label: "Calculadora", icon: "💰" },
-  { href: "/admin/servicios", label: "Servicios", icon: "💅" },
+  { href: "/admin", icon: "📊", label: "Dashboard" },
+  { href: "/admin/turnos", icon: "📅", label: "Turnos" },
+  { href: "/admin/clientas", icon: "👥", label: "Clientas" },
+  { href: "/admin/calculadora", icon: "💰", label: "Calculadora" },
+  { href: "/admin/servicios", icon: "💅", label: "Servicios" },
 ];
 
 export default function AdminLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  readonly children: React.ReactNode;
 }>) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-pink-50/30 flex">
@@ -29,9 +30,9 @@ export default function AdminLayout({
         <nav className="flex-1 space-y-1">
           {NAV_ITEMS.map((item) => (
             <Link
-              key={item.href}
-              href={item.href}
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm hover:bg-pink-50 hover:text-pink-600 transition-colors"
+              href={item.href}
+              key={item.href}
             >
               <span>{item.icon}</span>
               {item.label}
@@ -40,8 +41,8 @@ export default function AdminLayout({
         </nav>
 
         <Link
-          href="/"
           className="text-xs text-[rgba(15,15,20,0.5)] hover:text-pink-500 transition-colors"
+          href="/"
         >
           ← Volver al inicio
         </Link>

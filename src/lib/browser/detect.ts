@@ -1,23 +1,23 @@
 export interface BrowserInfo {
-  readonly isSafari: boolean;
-  readonly isFirefox: boolean;
-  readonly isChrome: boolean;
-  readonly isMobile: boolean;
-  readonly isIOS: boolean;
   readonly isAndroid: boolean;
+  readonly isChrome: boolean;
+  readonly isFirefox: boolean;
+  readonly isIOS: boolean;
+  readonly isMobile: boolean;
+  readonly isSafari: boolean;
   readonly supportsBackdropFilter: boolean;
   readonly supportsCssGrid: boolean;
 }
 
 export function detectBrowser(): BrowserInfo {
-  if (typeof window === "undefined") {
+  if (globalThis.window === undefined) {
     return {
-      isSafari: false,
-      isFirefox: false,
-      isChrome: false,
-      isMobile: false,
-      isIOS: false,
       isAndroid: false,
+      isChrome: false,
+      isFirefox: false,
+      isIOS: false,
+      isMobile: false,
+      isSafari: false,
       supportsBackdropFilter: true,
       supportsCssGrid: true,
     };
@@ -35,29 +35,29 @@ export function detectBrowser(): BrowserInfo {
   const supportsCssGrid = CSS.supports("display", "grid");
 
   return {
-    isSafari,
-    isFirefox,
-    isChrome,
-    isMobile,
-    isIOS,
     isAndroid,
+    isChrome,
+    isFirefox,
+    isIOS,
+    isMobile,
+    isSafari,
     supportsBackdropFilter,
     supportsCssGrid,
   };
 }
 
 export function getOptimalAnimationDuration(browser: BrowserInfo): number {
-  if (browser.isMobile) return 150;
+  if (browser.isMobile) {return 150;}
   return 300;
 }
 
-export function shouldReduceMotion(): boolean {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+export function getOptimalGlassOpacity(browser: BrowserInfo): number {
+  if (!browser.supportsBackdropFilter) {return 0.85;}
+  if (browser.isSafari) {return 0.4;}
+  return 0.38;
 }
 
-export function getOptimalGlassOpacity(browser: BrowserInfo): number {
-  if (!browser.supportsBackdropFilter) return 0.85;
-  if (browser.isSafari) return 0.4;
-  return 0.38;
+export function shouldReduceMotion(): boolean {
+  if (globalThis.window === undefined) {return false;}
+  return globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }

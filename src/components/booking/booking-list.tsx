@@ -3,10 +3,11 @@
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
-import { useBookingStore } from "@/stores/booking-store";
 import { getBookingsForDate } from "@/lib/domain/booking";
-import { BookingCard } from "./booking-card";
 import { SERVICES } from "@/lib/domain/pricing";
+import { useBookingStore } from "@/stores/booking-store";
+
+import { BookingCard } from "./booking-card";
 
 export function BookingList() {
   const selectedDate = useBookingStore((state) => state.selectedDate);
@@ -39,8 +40,8 @@ export function BookingList() {
             const service = SERVICES.find((s) => s.id === booking.serviceId);
             return (
               <BookingCard
-                key={booking.id}
                 booking={booking}
+                key={booking.id}
                 serviceName={service?.name ?? "Servicio"}
               />
             );

@@ -1,9 +1,10 @@
 "use client";
 
 import type { Booking } from "@/lib/domain/booking";
-import { calculateEndTime } from "@/lib/domain/booking";
-import { Card, CardContent } from "@/components/ui/card";
+
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { calculateEndTime } from "@/lib/domain/booking";
 
 interface BookingCardProps {
   readonly booking: Booking;

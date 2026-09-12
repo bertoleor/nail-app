@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("Mobile Responsive - Home", () => {
-  test.use({ viewport: { width: 375, height: 667 } });
+  test.use({ viewport: { height: 667, width: 375 } });
 
   test("home buttons stack vertically on mobile", async ({ page }) => {
     await page.goto("/");
@@ -23,7 +23,7 @@ test.describe("Mobile Responsive - Home", () => {
 });
 
 test.describe("Mobile Responsive - Calculator", () => {
-  test.use({ viewport: { width: 375, height: 667 } });
+  test.use({ viewport: { height: 667, width: 375 } });
 
   test("calculator form fills screen on mobile", async ({ page }) => {
     await page.goto("/calculator");
@@ -54,7 +54,7 @@ test.describe("Mobile Responsive - Calculator", () => {
 });
 
 test.describe("Mobile Responsive - Agenda", () => {
-  test.use({ viewport: { width: 375, height: 667 } });
+  test.use({ viewport: { height: 667, width: 375 } });
 
   test("calendar displays single column on mobile", async ({ page }) => {
     await page.goto("/agenda");

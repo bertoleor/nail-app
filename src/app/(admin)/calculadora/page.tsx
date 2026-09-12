@@ -2,9 +2,15 @@
 
 import { useState } from "react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -13,22 +19,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { MOCK_SERVICES, MOCK_ADDONS, MOCK_CLIENTS, type ServiceType } from "@/lib/mock/data";
+import { MOCK_ADDONS, MOCK_CLIENTS, MOCK_SERVICES, type ServiceType } from "@/lib/mock/data";
 import { useAppStore } from "@/stores/app-store";
 
 export default function AdminCalculatorPage() {
   const [clientName, setClientName] = useState("");
   const [clientPhone, setClientPhone] = useState("");
-  const [selectedClientId, setSelectedClientId] = useState<string>("");
-  const [serviceId, setServiceId] = useState<string>("");
+  const [selectedClientId, setSelectedClientId] = useState("");
+  const [serviceId, setServiceId] = useState("");
   const [serviceType, setServiceType] = useState<ServiceType>("new");
-  const [addonIds, setAddonIds] = useState<string[]>([]);
+  const [addonIds, setAddonIds] = useState<readonly string[]>([]);
   const [notes, setNotes] = useState("");
   const [showPdfPreview, setShowPdfPreview] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -41,18 +41,18 @@ export default function AdminCalculatorPage() {
   const selectedClient = MOCK_CLIENTS.find((c) => c.id === selectedClientId);
 
   const basePrice = selectedService
-    ? serviceType === "new"
+    ? (serviceType === "new"
       ? selectedService.basePriceNew
-      : selectedService.basePriceMaintenance
+      : selectedService.basePriceMaintenance)
     : 0;
 
   const addonsPrice = selectedAddons.reduce((sum, a) => sum + a.price, 0);
   const totalPrice = basePrice + addonsPrice;
 
   const duration = selectedService
-    ? serviceType === "new"
+    ? (serviceType === "new"
       ? selectedService.durationNew
-      : selectedService.durationMaintenance
+      : selectedService.durationMaintenance)
     : 0;
   const totalDuration = duration + selectedAddons.reduce((sum, a) => sum + a.duration, 0);
 
@@ -103,23 +103,23 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
     try {
       await navigator.clipboard.writeText(generateQuoteText());
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => { setCopied(false); }, 2000);
     } catch {
       // Fallback for older browsers
       const textArea = document.createElement("textarea");
       textArea.value = generateQuoteText();
-      document.body.appendChild(textArea);
+      document.body.append(textArea);
       textArea.select();
       document.execCommand("copy");
-      document.body.removeChild(textArea);
+      textArea.remove();
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => { setCopied(false); }, 2000);
     }
   };
 
   const handleWhatsApp = () => {
     const message = encodeURIComponent(generateQuoteText());
-    const phone = clientPhone.replace(/\D/g, "");
+    const phone = clientPhone.replaceAll(/\D/g, "");
     const waLink = phone
       ? `https://wa.me/${phone}?text=${message}`
       : `https://wa.me/?text=${message}`;
@@ -128,36 +128,36 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
 
   const handleSaveDraft = () => {
     addQuote({
+      addonIds,
+      clientId: selectedClientId || undefined,
       clientName: clientName || "Sin nombre",
       clientPhone: clientPhone || "-",
-      clientId: selectedClientId || undefined,
-      serviceId,
-      addonIds,
-      type: serviceType,
-      totalPrice,
-      status: "draft",
       notes: notes || undefined,
+      serviceId,
+      status: "draft",
+      totalPrice,
+      type: serviceType,
     });
     setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    setTimeout(() => { setSaved(false); }, 2000);
   };
 
   const handleSaveToClient = () => {
     if (selectedClientId) {
       const quote = addQuote({
+        addonIds,
+        clientId: selectedClientId,
         clientName: clientName,
         clientPhone: clientPhone,
-        clientId: selectedClientId,
-        serviceId,
-        addonIds,
-        type: serviceType,
-        totalPrice,
-        status: "saved",
         notes: notes || undefined,
+        serviceId,
+        status: "saved",
+        totalPrice,
+        type: serviceType,
       });
       saveQuoteToClient(quote.id, selectedClientId);
       setSaved(true);
-      setTimeout(() => setSaved(false), 2000);
+      setTimeout(() => { setSaved(false); }, 2000);
     }
   };
 
@@ -180,7 +180,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
               <CardTitle className="text-lg">Cliente</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Select value={selectedClientId} onValueChange={handleSelectClient}>
+              <Select onValueChange={handleSelectClient} value={selectedClientId}>
                 <SelectTrigger>
                   <SelectValue placeholder="Seleccionar clienta existente..." />
                 </SelectTrigger>
@@ -197,17 +197,17 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Nombre</label>
                   <Input
-                    value={clientName}
-                    onChange={(e) => setClientName(e.target.value)}
+                    onChange={(e) => { setClientName(e.target.value); }}
                     placeholder="Nombre"
+                    value={clientName}
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium">WhatsApp</label>
                   <Input
-                    value={clientPhone}
-                    onChange={(e) => setClientPhone(e.target.value)}
+                    onChange={(e) => { setClientPhone(e.target.value); }}
                     placeholder="+54 9 11..."
+                    value={clientPhone}
                   />
                 </div>
               </div>
@@ -220,7 +220,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
               <CardTitle className="text-lg">Servicio</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Select value={serviceId} onValueChange={setServiceId}>
+              <Select onValueChange={setServiceId} value={serviceId}>
                 <SelectTrigger>
                   <SelectValue placeholder="Seleccionar servicio..." />
                 </SelectTrigger>
@@ -236,12 +236,12 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
               {serviceId && (
                 <div className="grid grid-cols-2 gap-4">
                   <button
-                    onClick={() => setServiceType("new")}
                     className={`p-4 rounded-xl text-center transition-all border-2 ${
                       serviceType === "new"
                         ? "border-pink-500 bg-pink-50"
                         : "border-gray-200 hover:border-pink-200"
                     }`}
+                    onClick={() => { setServiceType("new"); }}
                   >
                     <p className="font-medium">Nuevo</p>
                     <p className="text-xl font-light text-pink-600">
@@ -252,12 +252,12 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                     </p>
                   </button>
                   <button
-                    onClick={() => setServiceType("maintenance")}
                     className={`p-4 rounded-xl text-center transition-all border-2 ${
                       serviceType === "maintenance"
                         ? "border-pink-500 bg-pink-50"
                         : "border-gray-200 hover:border-pink-200"
                     }`}
+                    onClick={() => { setServiceType("maintenance"); }}
                   >
                     <p className="font-medium">Mantenimiento</p>
                     <p className="text-xl font-light text-pink-600">
@@ -281,13 +281,13 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
               <div className="grid grid-cols-2 gap-2">
                 {MOCK_ADDONS.map((addon) => (
                   <button
-                    key={addon.id}
-                    onClick={() => toggleAddon(addon.id)}
                     className={`p-3 rounded-xl flex justify-between items-center transition-all border-2 ${
                       addonIds.includes(addon.id)
                         ? "border-pink-500 bg-pink-50"
                         : "border-gray-200 hover:border-pink-200"
                     }`}
+                    key={addon.id}
+                    onClick={() => { toggleAddon(addon.id); }}
                   >
                     <span className="text-sm">{addon.name}</span>
                     <Badge variant="secondary">
@@ -306,9 +306,9 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
             </CardHeader>
             <CardContent>
               <Input
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
+                onChange={(e) => { setNotes(e.target.value); }}
                 placeholder="Notas adicionales para el presupuesto..."
+                value={notes}
               />
             </CardContent>
           </Card>
@@ -338,7 +338,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
               {selectedAddons.length > 0 && (
                 <div className="space-y-1 pt-2 border-t">
                   {selectedAddons.map((addon) => (
-                    <div key={addon.id} className="flex justify-between text-sm">
+                    <div className="flex justify-between text-sm" key={addon.id}>
                       <span className="text-[rgba(15,15,20,0.6)]">{addon.name}</span>
                       <span>+${addon.price.toLocaleString("es-AR")}</span>
                     </div>
@@ -363,31 +363,31 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
               <div className="space-y-3 pt-4">
                 <Button
                   className="w-full"
-                  onClick={handleWhatsApp}
                   disabled={!serviceId || !clientName}
+                  onClick={handleWhatsApp}
                 >
                   📱 Enviar por WhatsApp
                 </Button>
                 <Button
-                  variant="outline"
                   className="w-full"
-                  onClick={handleCopy}
                   disabled={!serviceId}
+                  onClick={handleCopy}
+                  variant="outline"
                 >
                   {copied ? "✓ Copiado!" : "📋 Copiar al portapapeles"}
                 </Button>
                 <div className="grid grid-cols-2 gap-3">
                   <Button
-                    variant="outline"
-                    onClick={handleSaveDraft}
                     disabled={!serviceId}
+                    onClick={handleSaveDraft}
+                    variant="outline"
                   >
                     {saved ? "✓ Guardado!" : "Guardar borrador"}
                   </Button>
                   <Button
-                    variant="outline"
-                    onClick={handleSaveToClient}
                     disabled={!serviceId || !selectedClientId}
+                    onClick={handleSaveToClient}
+                    variant="outline"
                   >
                     Guardar en clienta
                   </Button>

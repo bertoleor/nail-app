@@ -1,20 +1,21 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { useTodayStats, useRecentBookings, MOCK_CLIENTS } from "@/stores/app-store";
-import { MOCK_SERVICES } from "@/lib/mock/data";
 import Link from "next/link";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MOCK_SERVICES } from "@/lib/mock/data";
+import { MOCK_CLIENTS, useRecentBookings, useTodayStats } from "@/stores/app-store";
 
 export default function AdminDashboard() {
   const stats = useTodayStats();
   const recentBookings = useRecentBookings(5);
 
   const today = new Date().toLocaleDateString("es-AR", {
-    weekday: "long",
     day: "numeric",
     month: "long",
+    weekday: "long",
   });
 
   return (
@@ -76,7 +77,7 @@ export default function AdminDashboard() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg">Turnos recientes</CardTitle>
-              <Link href="/admin/turnos" className="text-sm text-pink-500 hover:underline">
+              <Link className="text-sm text-pink-500 hover:underline" href="/admin/turnos">
                 Ver todos
               </Link>
             </div>
@@ -92,8 +93,8 @@ export default function AdminDashboard() {
                 const service = MOCK_SERVICES.find((s) => s.id === booking.serviceId);
                 return (
                   <div
-                    key={booking.id}
                     className="flex items-center justify-between p-3 bg-gray-50 rounded-xl"
+                    key={booking.id}
                   >
                     <div>
                       <p className="font-medium">{client?.name || "Cliente"}</p>
@@ -106,16 +107,16 @@ export default function AdminDashboard() {
                         variant={
                           booking.status === "confirmed"
                             ? "default"
-                            : booking.status === "pending"
+                            : (booking.status === "pending"
                             ? "secondary"
-                            : "outline"
+                            : "outline")
                         }
                       >
                         {booking.status === "confirmed"
                           ? "Confirmado"
-                          : booking.status === "pending"
+                          : (booking.status === "pending"
                           ? "Pendiente"
-                          : booking.status}
+                          : booking.status)}
                       </Badge>
                       <p className="text-sm font-medium mt-1">
                         ${booking.totalPrice.toLocaleString("es-AR")}

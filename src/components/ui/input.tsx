@@ -1,6 +1,6 @@
 "use client";
 
-import { type VariantProps, cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
@@ -8,6 +8,9 @@ import { cn } from "@/lib/utils";
 const inputVariants = cva(
   "flex w-full text-base transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium",
   {
+    defaultVariants: {
+      variant: "default",
+    },
     variants: {
       variant: {
         default: [
@@ -27,9 +30,6 @@ const inputVariants = cva(
         ],
       },
     },
-    defaultVariants: {
-      variant: "default",
-    },
   }
 );
 
@@ -41,9 +41,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type = "text", variant, ...props }, ref) => {
     return (
       <input
-        type={type}
         className={cn(inputVariants({ variant }), className)}
         ref={ref}
+        type={type}
         {...props}
       />
     );

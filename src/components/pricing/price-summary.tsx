@@ -1,15 +1,15 @@
 "use client";
 
-import { usePricingStore } from "@/stores/pricing-store";
+import { Card, CardContent } from "@/components/ui/card";
 import {
+  ADDONS,
   calculateDuration,
   calculatePrice,
   formatDuration,
   formatPrice,
   SERVICES,
-  ADDONS,
 } from "@/lib/domain/pricing";
-import { Card, CardContent } from "@/components/ui/card";
+import { usePricingStore } from "@/stores/pricing-store";
 
 export function PriceSummary() {
   const selectedServiceId = usePricingStore((state) => state.selectedServiceId);
@@ -20,7 +20,7 @@ export function PriceSummary() {
   }
 
   const service = SERVICES.find((s) => s.id === selectedServiceId);
-  if (!service) return null;
+  if (!service) {return null;}
 
   const selectedAddons = ADDONS.filter((a) => selectedAddonIds.includes(a.id));
   const totalPrice = calculatePrice(service, selectedAddons);

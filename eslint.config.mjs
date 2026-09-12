@@ -20,22 +20,24 @@ import globals from "globals";
 import ts from "typescript-eslint";
 
 export default [
-  {
-    ignores: [
-      "**/node_modules/**",
-      "**/.next/**",
-      "**/dist/**",
-      "**/coverage/**",
-      "**/.agents/**",
-      "**/.opencode/**",
-      "**/.claude/**",
-      "**/.vscode/**",
-      "**/.husky/**",
-      "**/public/**",
-      "**/__tests__/**",
-      "*.log",
-    ],
-  },
+{
+  ignores: [
+    "**/node_modules/**",
+    "**/.next/**",
+    "**/dist/**",
+    "**/coverage/**",
+    "**/.agents/**",
+    "**/.opencode/**",
+    "**/.claude/**",
+    "**/.vscode/**",
+    "**/.husky/**",
+    "**/public/**",
+    "**/__tests__/**",
+    "*.log",
+    "**/*.mjs",
+    "commitlint.config.js",
+  ],
+},
 
   js.configs.recommended,
   ...ts.configs.strictTypeChecked,
@@ -59,14 +61,14 @@ export default [
       "no-secrets": fixupPluginRules(noSecrets),
       "no-only-tests": noOnlyTests,
     },
-    languageOptions: {
-      globals: { ...globals.browser, ...globals.es2021, ...globals.node },
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-        ecmaFeatures: { jsx: true },
-      },
+languageOptions: {
+    globals: { ...globals.browser, ...globals.es2021, ...globals.node },
+    parserOptions: {
+      project: "./tsconfig.eslint.json",
+      tsconfigRootDir: import.meta.dirname,
+      ecmaFeatures: { jsx: true },
     },
+  },
     settings: {
       react: { version: "detect" },
     },

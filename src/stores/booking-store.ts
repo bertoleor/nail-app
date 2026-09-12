@@ -4,38 +4,38 @@ import { create } from "zustand";
 import type { Booking } from "@/lib/domain/booking";
 
 interface BookingState {
-  readonly currentDate: Date;
-  readonly selectedDate: string | null;
+  readonly addBooking: (booking: Booking) => void;
   readonly bookings: readonly Booking[];
+  readonly currentDate: Date;
 
   readonly nextMonth: () => void;
   readonly prevMonth: () => void;
   readonly selectDate: (date: string) => void;
-  readonly addBooking: (booking: Booking) => void;
+  readonly selectedDate: null | string;
 }
 
 export const useBookingStore = create<BookingState>((set) => ({
-  currentDate: new Date(),
-  selectedDate: null,
+  addBooking: (booking: Booking) =>
+    { set((state) => ({
+      bookings: [...state.bookings, booking],
+    })); },
   bookings: [],
+  currentDate: new Date(),
 
   nextMonth: () =>
-    set((state) => ({
+    { set((state) => ({
       currentDate: addMonths(state.currentDate, 1),
-    })),
+    })); },
 
   prevMonth: () =>
-    set((state) => ({
+    { set((state) => ({
       currentDate: subMonths(state.currentDate, 1),
-    })),
+    })); },
 
   selectDate: (date: string) =>
-    set({
+    { set({
       selectedDate: date,
-    }),
+    }); },
 
-  addBooking: (booking: Booking) =>
-    set((state) => ({
-      bookings: [...state.bookings, booking],
-    })),
+  selectedDate: null,
 }));

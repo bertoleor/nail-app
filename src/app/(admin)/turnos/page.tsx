@@ -1,25 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import { format, addDays, subDays, isToday, isSameDay } from "date-fns";
+import { addDays, format, isSameDay, isToday, subDays } from "date-fns";
 import { es } from "date-fns/locale";
+import { useState } from "react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { type BookingStatus, MOCK_SERVICES } from "@/lib/mock/data";
 import {
-  useAppStore,
-  useBookingsByDate,
-  useBlockedSlotsByDate,
   MOCK_CLIENTS,
+  useAppStore,
+  useBlockedSlotsByDate,
+  useBookingsByDate,
 } from "@/stores/app-store";
-import { MOCK_SERVICES, type BookingStatus } from "@/lib/mock/data";
 
 const HOURS = [
   "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
@@ -29,33 +29,33 @@ const HOURS = [
 ];
 
 const STATUS_LABELS: Record<BookingStatus, string> = {
-  pending: "Pendiente",
-  confirmed: "Confirmado",
-  completed: "Completado",
   cancelled: "Cancelado",
+  completed: "Completado",
+  confirmed: "Confirmado",
+  pending: "Pendiente",
 };
 
 const STATUS_COLORS: Record<BookingStatus, string> = {
-  pending: "bg-amber-100 text-amber-700",
-  confirmed: "bg-green-100 text-green-700",
-  completed: "bg-blue-100 text-blue-700",
   cancelled: "bg-red-100 text-red-700",
+  completed: "bg-blue-100 text-blue-700",
+  confirmed: "bg-green-100 text-green-700",
+  pending: "bg-amber-100 text-amber-700",
 };
 
 export default function AdminBookingsPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedBooking, setSelectedBooking] = useState<string | null>(null);
+  const [selectedBooking, setSelectedBooking] = useState<null | string>(null);
   const [showBlockDialog, setShowBlockDialog] = useState(false);
   const [blockReason, setBlockReason] = useState("");
 
   const dateStr = currentDate.toISOString().split("T")[0];
   const bookings = useBookingsByDate(dateStr);
   const blockedSlots = useBlockedSlotsByDate(dateStr);
-  const { updateBookingStatus, cancelBooking, addBlockedSlot, removeBlockedSlot } = useAppStore();
+  const { addBlockedSlot, cancelBooking, removeBlockedSlot, updateBookingStatus } = useAppStore();
 
-  const prevDay = () => setCurrentDate(subDays(currentDate, 1));
-  const nextDay = () => setCurrentDate(addDays(currentDate, 1));
-  const goToToday = () => setCurrentDate(new Date());
+  const prevDay = () => { setCurrentDate(subDays(currentDate, 1)); };
+  const nextDay = () => { setCurrentDate(addDays(currentDate, 1)); };
+  const goToToday = () => { setCurrentDate(new Date()); };
 
   const isSlotBlocked = (hour: string) => {
     return blockedSlots.some((slot) => {
@@ -67,11 +67,11 @@ export default function AdminBookingsPage() {
 
   const getBookingForHour = (hour: string) => {
     return bookings.find((b) => {
-      const startHour = parseInt(b.startTime.split(":")[0]);
-      const startMin = parseInt(b.startTime.split(":")[1]);
+      const startHour = Number.parseInt(b.startTime.split(":")[0]);
+      const startMin = Number.parseInt(b.startTime.split(":")[1]);
       const duration = b.duration;
       const endMinutes = startHour * 60 + startMin + duration;
-      const currentMinutes = parseInt(hour.split(":")[0]) * 60 + parseInt(hour.split(":")[1]);
+      const currentMinutes = Number.parseInt(hour.split(":")[0]) * 60 + Number.parseInt(hour.split(":")[1]);
       return currentMinutes >= startHour * 60 + startMin && currentMinutes < endMinutes;
     });
   };
@@ -95,9 +95,9 @@ export default function AdminBookingsPage() {
     if (blockReason) {
       addBlockedSlot({
         date: dateStr,
-        startTime: "09:00",
         endTime: "19:00",
         reason: blockReason,
+        startTime: "09:00",
       });
       setBlockReason("");
       setShowBlockDialog(false);
@@ -117,7 +117,7 @@ export default function AdminBookingsPage() {
           </p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" onClick={() => setShowBlockDialog(true)}>
+          <Button onClick={() => { setShowBlockDialog(true); }} variant="outline">
             Bloquear horario
           </Button>
           <Button>Nuevo turno</Button>
@@ -128,7 +128,7 @@ export default function AdminBookingsPage() {
       <Card>
         <CardContent className="p-4">
           <div className="flex items-center justify-between">
-            <Button variant="outline" size="sm" onClick={prevDay}>
+            <Button onClick={prevDay} size="sm" variant="outline">
               ← Anterior
             </Button>
             <div className="text-center">
@@ -137,14 +137,14 @@ export default function AdminBookingsPage() {
               </p>
               {!isToday(currentDate) && (
                 <button
-                  onClick={goToToday}
                   className="text-xs text-pink-500 hover:underline"
+                  onClick={goToToday}
                 >
                   Ir a hoy
                 </button>
               )}
             </div>
-            <Button variant="outline" size="sm" onClick={nextDay}>
+            <Button onClick={nextDay} size="sm" variant="outline">
               Siguiente →
             </Button>
           </div>
@@ -166,14 +166,14 @@ export default function AdminBookingsPage() {
 
               return (
                 <div
-                  key={hour}
                   className={`flex items-center gap-4 p-2 rounded-lg ${
                     blocked
                       ? "bg-gray-100"
-                      : booking
+                      : (booking
                       ? "bg-pink-50 cursor-pointer hover:bg-pink-100"
-                      : "hover:bg-gray-50"
+                      : "hover:bg-gray-50")
                   }`}
+                  key={hour}
                   onClick={() => booking && setSelectedBooking(booking.id)}
                 >
                   <span className="w-16 text-sm font-medium text-[rgba(15,15,20,0.5)]">
@@ -185,12 +185,12 @@ export default function AdminBookingsPage() {
                         {blockedSlots.find((s) => hour >= s.startTime && hour < s.endTime)?.reason}
                       </span>
                       <button
+                        className="text-xs text-red-500 hover:underline"
                         onClick={(e) => {
                           e.stopPropagation();
                           const slot = blockedSlots.find((s) => hour >= s.startTime && hour < s.endTime);
-                          if (slot) removeBlockedSlot(slot.id);
+                          if (slot) {removeBlockedSlot(slot.id);}
                         }}
-                        className="text-xs text-red-500 hover:underline"
                       >
                         Desbloquear
                       </button>
@@ -222,7 +222,7 @@ export default function AdminBookingsPage() {
       </Card>
 
       {/* Booking Detail Dialog */}
-      <Dialog open={!!selectedBooking} onOpenChange={() => setSelectedBooking(null)}>
+      <Dialog onOpenChange={() => { setSelectedBooking(null); }} open={!!selectedBooking}>
         <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle>Detalle del turno</DialogTitle>
@@ -265,20 +265,20 @@ export default function AdminBookingsPage() {
               </Badge>
               <div className="flex gap-2 pt-4">
                 {selectedBookingData.status === "pending" && (
-                  <Button onClick={() => handleConfirm(selectedBookingData.id)}>
+                  <Button onClick={() => { handleConfirm(selectedBookingData.id); }}>
                     Confirmar
                   </Button>
                 )}
                 {selectedBookingData.status === "confirmed" && (
-                  <Button onClick={() => handleComplete(selectedBookingData.id)}>
+                  <Button onClick={() => { handleComplete(selectedBookingData.id); }}>
                     Marcar completado
                   </Button>
                 )}
                 {(selectedBookingData.status === "pending" || selectedBookingData.status === "confirmed") && (
                   <Button
-                    variant="outline"
                     className="text-red-500"
-                    onClick={() => handleCancel(selectedBookingData.id)}
+                    onClick={() => { handleCancel(selectedBookingData.id); }}
+                    variant="outline"
                   >
                     Cancelar
                   </Button>
@@ -290,7 +290,7 @@ export default function AdminBookingsPage() {
       </Dialog>
 
       {/* Block Slot Dialog */}
-      <Dialog open={showBlockDialog} onOpenChange={setShowBlockDialog}>
+      <Dialog onOpenChange={setShowBlockDialog} open={showBlockDialog}>
         <DialogContent className="max-w-sm">
           <DialogHeader>
             <DialogTitle>Bloquear horario</DialogTitle>
@@ -302,18 +302,18 @@ export default function AdminBookingsPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium">Motivo</label>
               <input
+                className="w-full px-3 py-2 border rounded-lg"
+                onChange={(e) => { setBlockReason(e.target.value); }}
+                placeholder="Ej: Día libre, curso, feriado..."
                 type="text"
                 value={blockReason}
-                onChange={(e) => setBlockReason(e.target.value)}
-                placeholder="Ej: Día libre, curso, feriado..."
-                className="w-full px-3 py-2 border rounded-lg"
               />
             </div>
             <div className="flex gap-3">
-              <Button variant="outline" onClick={() => setShowBlockDialog(false)}>
+              <Button onClick={() => { setShowBlockDialog(false); }} variant="outline">
                 Cancelar
               </Button>
-              <Button onClick={handleBlockSlot} disabled={!blockReason}>
+              <Button disabled={!blockReason} onClick={handleBlockSlot}>
                 Bloquear
               </Button>
             </div>

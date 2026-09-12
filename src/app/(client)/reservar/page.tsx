@@ -1,18 +1,19 @@
 "use client";
 
-import { useState } from "react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { useState } from "react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -20,14 +21,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
 import {
-  MOCK_SERVICES,
   MOCK_ADDONS,
+  MOCK_SERVICES,
   type ServiceType,
 } from "@/lib/mock/data";
 
-type Step = "client" | "service" | "schedule" | "confirm";
+type Step = "client" | "confirm" | "schedule" | "service";
 
 const HOURS = [
   "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
@@ -39,14 +39,14 @@ const HOURS = [
 export default function ClientBookingPage() {
   const [step, setStep] = useState<Step>("client");
   const [clientData, setClientData] = useState({
+    email: "",
     name: "",
     phone: "",
-    email: "",
   });
   const [serviceData, setServiceData] = useState({
+    addonIds: [] as readonly string[],
     serviceId: "",
-    type: "" as ServiceType | "",
-    addonIds: [] as string[],
+    type: "" as "" | ServiceType,
   });
   const [scheduleData, setScheduleData] = useState({
     date: "",
@@ -58,7 +58,7 @@ export default function ClientBookingPage() {
   const selectedAddons = MOCK_ADDONS.filter((a) => serviceData.addonIds.includes(a.id));
 
   const calculateTotal = () => {
-    if (!selectedService || !serviceData.type) return 0;
+    if (!selectedService || !serviceData.type) {return 0;}
     const basePrice = serviceData.type === "new"
       ? selectedService.basePriceNew
       : selectedService.basePriceMaintenance;
@@ -67,7 +67,7 @@ export default function ClientBookingPage() {
   };
 
   const calculateDuration = () => {
-    if (!selectedService || !serviceData.type) return 0;
+    if (!selectedService || !serviceData.type) {return 0;}
     const baseDuration = serviceData.type === "new"
       ? selectedService.durationNew
       : selectedService.durationMaintenance;
@@ -99,7 +99,7 @@ export default function ClientBookingPage() {
       `👤 ${clientData.name}\n` +
       `📱 ${clientData.phone}\n` +
       `💅 ${selectedService?.name} (${serviceData.type === "new" ? "Nuevo" : "Mantenimiento"})\n` +
-      `${selectedAddons.length > 0 ? `✨ Add-ons: ${selectedAddons.map(a => a.name).join(", ")}\n` : ""}` +
+      (selectedAddons.length > 0 ? `✨ Add-ons: ${selectedAddons.map(a => a.name).join(", ")}\n` : "") +
       `📅 ${scheduleData.date} a las ${scheduleData.startTime}\n` +
       `💰 Total: $${calculateTotal().toLocaleString("es-AR")}\n\n` +
       `¡Gracias!`
@@ -118,8 +118,8 @@ export default function ClientBookingPage() {
         {/* Progress indicator */}
         <div className="flex justify-center mb-8">
           <div className="flex items-center gap-2">
-            {(["client", "service", "schedule", "confirm"] as Step[]).map((s, i) => (
-              <div key={s} className="flex items-center">
+            {(["client", "service", "schedule", "confirm"] as readonly Step[]).map((s, i) => (
+              <div className="flex items-center" key={s}>
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                     step === s || (step === "confirm" && i < 3) || 
@@ -152,36 +152,36 @@ export default function ClientBookingPage() {
               <CardTitle className="text-xl">Tus datos</CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmitClient} className="space-y-4">
+              <form className="space-y-4" onSubmit={handleSubmitClient}>
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Nombre completo *</label>
                   <Input
-                    value={clientData.name}
-                    onChange={(e) => setClientData({ ...clientData, name: e.target.value })}
+                    onChange={(e) => { setClientData({ ...clientData, name: e.target.value }); }}
                     placeholder="Ej: María García"
                     required
+                    value={clientData.name}
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium">WhatsApp *</label>
                   <Input
-                    value={clientData.phone}
-                    onChange={(e) => setClientData({ ...clientData, phone: e.target.value })}
+                    onChange={(e) => { setClientData({ ...clientData, phone: e.target.value }); }}
                     placeholder="Ej: +54 9 11 1234-5678"
-                    type="tel"
                     required
+                    type="tel"
+                    value={clientData.phone}
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Email (opcional)</label>
                   <Input
-                    value={clientData.email}
-                    onChange={(e) => setClientData({ ...clientData, email: e.target.value })}
+                    onChange={(e) => { setClientData({ ...clientData, email: e.target.value }); }}
                     placeholder="Ej: maria@email.com"
                     type="email"
+                    value={clientData.email}
                   />
                 </div>
-                <Button type="submit" className="w-full">
+                <Button className="w-full" type="submit">
                   Continuar
                 </Button>
               </form>
@@ -196,20 +196,20 @@ export default function ClientBookingPage() {
               <CardTitle className="text-xl">Elegí tu servicio</CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmitService} className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmitService}>
                 <div className="space-y-3">
                   <label className="text-sm font-medium">Servicio *</label>
                   <div className="grid gap-3">
                     {MOCK_SERVICES.map((service) => (
                       <button
-                        key={service.id}
-                        type="button"
-                        onClick={() => setServiceData({ ...serviceData, serviceId: service.id, type: "", addonIds: [] })}
                         className={`p-4 rounded-xl text-left transition-all border-2 ${
                           serviceData.serviceId === service.id
                             ? "border-pink-500 bg-pink-50"
                             : "border-gray-200 hover:border-pink-200"
                         }`}
+                        key={service.id}
+                        onClick={() => { setServiceData({ ...serviceData, addonIds: [], serviceId: service.id, type: "" }); }}
+                        type="button"
                       >
                         <div className="flex justify-between items-start">
                           <div>
@@ -232,13 +232,13 @@ export default function ClientBookingPage() {
                     <label className="text-sm font-medium">Tipo de sesión *</label>
                     <div className="grid grid-cols-2 gap-3">
                       <button
-                        type="button"
-                        onClick={() => setServiceData({ ...serviceData, type: "new" })}
                         className={`p-4 rounded-xl text-center transition-all border-2 ${
                           serviceData.type === "new"
                             ? "border-pink-500 bg-pink-50"
                             : "border-gray-200 hover:border-pink-200"
                         }`}
+                        onClick={() => { setServiceData({ ...serviceData, type: "new" }); }}
+                        type="button"
                       >
                         <p className="font-medium">Nuevo</p>
                         <p className="text-2xl font-light text-pink-600">
@@ -249,13 +249,13 @@ export default function ClientBookingPage() {
                         </p>
                       </button>
                       <button
-                        type="button"
-                        onClick={() => setServiceData({ ...serviceData, type: "maintenance" })}
                         className={`p-4 rounded-xl text-center transition-all border-2 ${
                           serviceData.type === "maintenance"
                             ? "border-pink-500 bg-pink-50"
                             : "border-gray-200 hover:border-pink-200"
                         }`}
+                        onClick={() => { setServiceData({ ...serviceData, type: "maintenance" }); }}
+                        type="button"
                       >
                         <p className="font-medium">Mantenimiento</p>
                         <p className="text-2xl font-light text-pink-600">
@@ -275,8 +275,12 @@ export default function ClientBookingPage() {
                     <div className="grid gap-2">
                       {MOCK_ADDONS.map((addon) => (
                         <button
+                          className={`p-3 rounded-xl flex justify-between items-center transition-all border-2 ${
+                            serviceData.addonIds.includes(addon.id)
+                              ? "border-pink-500 bg-pink-50"
+                              : "border-gray-200 hover:border-pink-200"
+                          }`}
                           key={addon.id}
-                          type="button"
                           onClick={() => {
                             const isSelected = serviceData.addonIds.includes(addon.id);
                             setServiceData({
@@ -286,11 +290,7 @@ export default function ClientBookingPage() {
                                 : [...serviceData.addonIds, addon.id],
                             });
                           }}
-                          className={`p-3 rounded-xl flex justify-between items-center transition-all border-2 ${
-                            serviceData.addonIds.includes(addon.id)
-                              ? "border-pink-500 bg-pink-50"
-                              : "border-gray-200 hover:border-pink-200"
-                          }`}
+                          type="button"
                         >
                           <span>{addon.name}</span>
                           <span className="text-pink-600 font-medium">
@@ -312,10 +312,10 @@ export default function ClientBookingPage() {
                 </div>
 
                 <div className="flex gap-3">
-                  <Button type="button" variant="outline" onClick={() => setStep("client")}>
+                  <Button onClick={() => { setStep("client"); }} type="button" variant="outline">
                     Volver
                   </Button>
-                  <Button type="submit" className="flex-1" disabled={!serviceData.type}>
+                  <Button className="flex-1" disabled={!serviceData.type} type="submit">
                     Continuar
                   </Button>
                 </div>
@@ -335,11 +335,11 @@ export default function ClientBookingPage() {
                 <div className="space-y-3">
                   <label className="text-sm font-medium">Fecha *</label>
                   <Input
+                    min={new Date().toISOString().split("T")[0]}
+                    onChange={(e) => { setScheduleData({ ...scheduleData, date: e.target.value }); }}
+                    required
                     type="date"
                     value={scheduleData.date}
-                    onChange={(e) => setScheduleData({ ...scheduleData, date: e.target.value })}
-                    min={new Date().toISOString().split("T")[0]}
-                    required
                   />
                 </div>
 
@@ -349,14 +349,14 @@ export default function ClientBookingPage() {
                     <div className="grid grid-cols-4 gap-2">
                       {HOURS.map((hour) => (
                         <button
-                          key={hour}
-                          type="button"
-                          onClick={() => setScheduleData({ ...scheduleData, startTime: hour })}
                           className={`p-2 rounded-lg text-sm font-medium transition-all ${
                             scheduleData.startTime === hour
                               ? "bg-pink-500 text-white"
                               : "bg-gray-100 hover:bg-pink-100"
                           }`}
+                          key={hour}
+                          onClick={() => { setScheduleData({ ...scheduleData, startTime: hour }); }}
+                          type="button"
                         >
                           {hour}
                         </button>
@@ -389,7 +389,7 @@ export default function ClientBookingPage() {
                 )}
 
                 <div className="flex gap-3">
-                  <Button type="button" variant="outline" onClick={() => setStep("service")}>
+                  <Button onClick={() => { setStep("service"); }} type="button" variant="outline">
                     Volver
                   </Button>
                   <Button
@@ -406,7 +406,7 @@ export default function ClientBookingPage() {
         )}
 
         {/* Success Dialog */}
-        <Dialog open={showSuccess} onOpenChange={setShowSuccess}>
+        <Dialog onOpenChange={setShowSuccess} open={showSuccess}>
           <DialogContent className="max-w-sm mx-auto">
             <DialogHeader>
               <DialogTitle className="text-center text-2xl">¡Reserva enviada!</DialogTitle>
@@ -422,7 +422,7 @@ export default function ClientBookingPage() {
                 <Button className="w-full" onClick={handleSendWhatsApp}>
                   📱 Enviar por WhatsApp
                 </Button>
-                <Button variant="outline" className="w-full" onClick={() => setShowSuccess(false)}>
+                <Button className="w-full" onClick={() => { setShowSuccess(false); }} variant="outline">
                   Cerrar
                 </Button>
               </div>

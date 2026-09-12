@@ -1,9 +1,12 @@
-import { calculateEndTime } from "./time-utils";
 import type { Booking } from "./types";
 
-function timeToMinutes(time: string): number {
-  const [hours, minutes] = time.split(":").map(Number);
-  return hours * 60 + minutes;
+import { calculateEndTime } from "./time-utils";
+
+export function getBookingsForDate(
+  bookings: readonly Booking[],
+  date: string
+): readonly Booking[] {
+  return bookings.filter((b) => b.date === date);
 }
 
 export function hasConflict(
@@ -31,9 +34,7 @@ export function hasConflict(
   return false;
 }
 
-export function getBookingsForDate(
-  bookings: readonly Booking[],
-  date: string
-): readonly Booking[] {
-  return bookings.filter((b) => b.date === date);
+function timeToMinutes(time: string): number {
+  const [hours, minutes] = time.split(":").map(Number);
+  return hours * 60 + minutes;
 }
