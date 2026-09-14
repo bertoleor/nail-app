@@ -2,11 +2,26 @@
 
 ## Resumen
 
-NailApp es una aplicación mockup para manicuristas argentinas con dos features principales:
-1. **Calculadora de precios**: Calcula el costo del servicio según tipo, addons y duración.
-2. **Agenda de turnos**: Gestión de turnos para la manicura y sus clientas.
+NailApp es una aplicación mockup de alta fidelidad para manicuristas argentinas con dos features principales, ambas implementadas con UI completa y datos de ejemplo:
+1. **Calculadora de precios**: Calcula el costo del servicio según tipo (Nuevo/Mantenimiento), addons (extras) y duración.
+2. **Agenda de turnos**: Gestión de turnos para la manicura y sus clientas, con reserva del lado clienta y panel del lado manicurista.
 
-Es un mockup sin backend real, pero preparado para futura integración con Supabase.
+Es un mockup sin backend real: los datos viven en memoria (Zustand) y el catálogo se sirve desde `src/lib/domain/pricing` (fuente única). Preparada para futura integración con Supabase.
+
+### Rutas Reales
+
+| Ruta | Rol | Descripción |
+|------|-----|-------------|
+| `/` | Público | Home: eliges "Soy Clienta" (→ `/reservar`) o "Soy Manicurista" (→ `/admin`). |
+| `/reservar` | Clienta | Wizard de reserva en 4 pasos (datos personales → servicio/extras → fecha/horario → confirmación). Envío del resumen por WhatsApp configurable. |
+| `/calculator` | Público | Calculadora de precios rápida (reutiliza `CalculatorForm`). |
+| `/admin` | Manicurista | Dashboard con stats de turnos (hoy/semana) y accesos rápidos. |
+| `/admin/turnos` | Manicurista | Agenda por día: grilla horaria 09:00–18:30, bloqueos de horario, detalle de turno. |
+| `/admin/calculadora` | Manicurista | Presupuesto: clienta + servicio + extras + notas → copiar / WhatsApp / guardar borrador. |
+| `/admin/clientas` | Manicurista | Lista de clientas. |
+| `/admin/services` | Manicurista | Catálogo de servicios con precio/duración. |
+
+> Nota de coherencia: la ruta del catálogo es `/admin/services` (carpeta `src/app/(admin)/services/`), pero el link del sidebar de admin aún apunta a `/admin/servicios` (en español). Deuda de código, no de documentación.
 
 ## Estética
 
@@ -104,24 +119,35 @@ nail-app/
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx          ← Root layout con fonts + BackgroundMesh
-│   │   ├── page.tsx            ← Home page
+│   │   ├── page.tsx            ← Home (Soy Clienta / Soy Manicurista)
 │   │   ├── globals.css         ← Paleta Eros + glass + botones + animaciones
-│   │   ├── calculator/page.tsx ← Feature: Calculadora de precios
-│   │   └── agenda/page.tsx     ← Feature: Agenda de turnos
+│   │   ├── (client)/
+│   │   │   ├── reservar/        ← Wizard de reserva (4 pasos) → /reservar
+│   │   │   ├── calculator/      ← Calculadora rápida → /calculator
+│   │   │   └── layout.tsx       ← Layout clienta
+│   │   └── (admin)/
+│   │       ├── page.tsx         ← Dashboard → /admin
+│   │       ├── turnos/          ← Agenda → /admin/turnos
+│   │       ├── calculadora/     ← Presupuestos → /admin/calculadora
+│   │       ├── clientas/        ← Lista de clientas → /admin/clientas
+│   │       ├── services/        ← Catálogo de servicios → /admin/services
+│   │       └── layout.tsx       ← Layout admin (sidebar)
 │   ├── components/
 │   │   ├── client/
 │   │   │   └── BackgroundMesh.tsx  ← Canvas con partículas dinámicas
 │   │   ├── ui/                 ← Componentes atómicos base
-│   │   ├── layout/             ← Layout components
 │   │   ├── pricing/            ← Componentes de calculadora
 │   │   └── booking/            ← Componentes de agenda
 │   ├── lib/
 │   │   ├── utils.ts            ← cn() helper (clsx + tailwind-merge)
 │   │   ├── types.ts            ← ActionResult type
 │   │   ├── result.ts           ← successResult/errorResult helpers
+│   │   ├── config/whatsapp.ts  ← Número WhatsApp (NEXT_PUBLIC_WHATSAPP_NUMBER)
+│   │   ├── mock/data.ts        ← Datos mock (re-exporta catálogo de domain/pricing)
 │   │   └── domain/
-│   │       ├── pricing/        ← Lógica de calculadora (pendiente)
-│   │       └── booking/        ← Lógica de agenda (pendiente)
+│   │       ├── pricing/        ← Fuente única del catálogo + calculadora
+│   │       └── booking/        ← Lógica de agenda/turnos
+│   ├── stores/                 ← Zustand stores
 │   └── hooks/                  ← Custom hooks
 ├── __tests__/
 │   ├── unit/
@@ -208,7 +234,11 @@ Ver `.agents/rules/` para las 18 reglas completas. Las más importantes:
 - [x] ESLint 9.x con 18+ plugins
 - [x] Prettier + Husky + commitlint
 - [x] Build pasa sin errores
-- [ ] Calculadora de precios (pendiente)
-- [ ] Agenda de turnos (pendiente)
-- [ ] Componentes UI base (pendiente)
-- [ ] Tests (pendiente)
+- [x] Calculadora de precios implementada (/calculator y /admin/calculadora)
+- [x] Agenda de turnos implementada (/admin/turnos)
+- [x] Reserva de turnos (wizard 4 pasos) implementada (/reservar)
+- [x] Catálogo unificado: `src/lib/domain/pricing` es fuente única; `src/lib/mock/data.ts` re-exporta
+- [x] WhatsApp configurable via NEXT_PUBLIC_WHATSAPP_NUMBER (fallback en whatsapp.ts)
+- [x] Componentes UI base implementados (ui/, pricing/, booking/)
+- [x] Tests implementados (Vitest unit + Playwright E2E)
+- [ ] Integración con backend real / Supabase (futuro, planificado)

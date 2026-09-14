@@ -10,12 +10,12 @@ Aplicación mockup para servicios cosméticos (uñas), diseñada para ofrecer a 
 
 ## Features Principales
 
-1. **Calculadora de precios**: Calcula el costo del servicio según tipo de servicio, addons y duración.
-2. **Agenda**: Gestión de turnos para la manicura y sus clientas.
+1. **Calculadora de precios**: Calcula el costo del servicio según tipo (Nuevo/Mantenimiento), addons y duración. Implementada en `/calculator` (público) y `/admin/calculadora` (presupuestos).
+2. **Agenda**: Gestión de turnos para la manicura y sus clientas. Reserva de clienta en `/reservar` (wizard 4 pasos) y gestión en `/admin/turnos`.
 
 ## Arquitectura
 
-- **Mockup primero**: Sin backend real, pero preparada para integración futura con Supabase.
+- **Mockup de alta fidelidad**: Sin backend real, datos en memoria (Zustand) y catálogo único en `lib/domain/pricing`. Preparada para integración futura con Supabase.
 - **Server Actions**: Preparadas para cuando se conecte el backend.
 - **Domain-Driven**: Lógica de negocio pura en `lib/domain/`, separada de infraestructura.
 
@@ -31,19 +31,26 @@ Aplicación mockup para servicios cosméticos (uñas), diseñada para ofrecer a 
 ## Directorios Clave
 
 ```
-app/
-  calculator/     # Feature: Calculadora de precios
-  agenda/         # Feature: Agenda de turnos
-  api/            # API routes (futuro backend)
-  actions/        # Server Actions
+src/app/
+  (client)/           # Rutas de clienta
+    reservar/         # Feature: Reserva (wizard 4 pasos) → /reservar
+    calculator/       # Feature: Calculadora de precios → /calculator
+  (admin)/            # Panel manicurista
+    page.tsx          # Dashboard → /admin
+    turnos/           # Feature: Agenda de turnos → /admin/turnos
+    calculadora/      # Feature: Presupuestos → /admin/calculadora
+    clientas/         # Feature: Lista de clientas → /admin/clientas
+    services/         # Feature: Catálogo de servicios → /admin/services
 
-lib/
+src/lib/
   domain/
-    pricing/      # Lógica de calculadora de precios
-    booking/      # Lógica de agenda/turnos
-  shared/         # Utilidades compartidas
+    pricing/          # Fuente única del catálogo + calculadora
+    booking/          # Lógica de agenda/turnos
+  mock/data.ts        # Datos mock (re-exporta catálogo de domain/pricing)
+  config/whatsapp.ts  # Número WhatsApp (NEXT_PUBLIC_WHATSAPP_NUMBER)
+  shared/             # Utilidades compartidas
 
-components/
+src/components/
   ui/             # Componentes atómicos base
   pricing/        # Componentes de calculadora
   booking/        # Componentes de agenda
@@ -57,5 +64,6 @@ components/
 - [x] Configuración OpenCode (opencode.json)
 - [x] Skills curados instalados
 - [x] Skill registry creado
-- [ ] Calculadora de precios (pendiente)
-- [ ] Agenda de turnos (pendiente)
+- [x] Calculadora de precios implementada
+- [x] Agenda de turnos implementada
+- [ ] Backend real / Supabase (futuro, planificado)
