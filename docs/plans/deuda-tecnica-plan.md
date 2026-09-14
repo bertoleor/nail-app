@@ -52,7 +52,7 @@ Detectados por auditor-general, no instalados (instalar cambia entorno global; s
 - [ ] **21-content:** textos de UI en español rioplatense OK de tono, pero sin fuente única (hay strings duplicados entre admin/cliente, ej. títulos de agenda). Acción: centralizar copies al instalar i18n.
 - [ ] **18-i18n:** ver I-1 arriba.
 - [ ] **15-a11y:** canvas decorativo bien (`aria-hidden`, `tabIndex=-1`, respeta `prefers-reduced-motion` — bien). Gap: botones/controles de agenda y calculadora sin verificar labels/foco/teclado. Acción: auditoría a11y con skill (P2).
-- [ ] **23-legal:** sin LICENSE, sin términos, sin privacidad. No se eligió licencia por el usuario (requiere decisión). Acción: el usuario elige licencia (MIT/Apache-2.0/propietaria) y se agregan términos + privacidad antes de cualquier deploy público con datos reales.
+- [x] **23-legal:** LICENSE elegida → **MIT** (repo público, precedente KHAL; commit `5534e49`, `LICENSE` + `package.json` "MIT"). Pendiente: términos + privacidad antes de cualquier deploy público con datos reales.
 
 ## 6. Kanban dry-run (simulado, sin escrituras)
 
@@ -84,4 +84,4 @@ Tarjetas que `audit_to_kanban.py` generaría (no se escribieron, dry-run):
 - `npm update` minor — bloqueado por V-1.
 - Instalar skills globalmente — requiere aprobación (§4).
 - Borrar dirs vacíos o custom (`.agents/rules/*`, estilos glass) — prohibido sin autorización.
-- Elegir licencia / redactar legales finales — decisión del usuario.
+- Elegir licencia — RESUELTO (MIT, commit `5534e49`). Redactar términos + privacidad — pendiente de datos reales/titular.

@@ -13,12 +13,22 @@ describe("Pricing Constants", () => {
     for (const service of SERVICES) {
       expect(service).toHaveProperty("id");
       expect(service).toHaveProperty("name");
-      expect(service).toHaveProperty("basePrice");
-      expect(service).toHaveProperty("duration");
+      expect(service).toHaveProperty("basePriceNew");
+      expect(service).toHaveProperty("basePriceMaintenance");
+      expect(service).toHaveProperty("durationNew");
+      expect(service).toHaveProperty("durationMaintenance");
       expect(typeof service.id).toBe("string");
       expect(typeof service.name).toBe("string");
-      expect(typeof service.basePrice).toBe("number");
-      expect(typeof service.duration).toBe("number");
+      expect(typeof service.basePriceNew).toBe("number");
+      expect(typeof service.basePriceMaintenance).toBe("number");
+      expect(typeof service.durationNew).toBe("number");
+      expect(typeof service.durationMaintenance).toBe("number");
+    }
+  });
+
+  it("maintenance price is lower than new price", () => {
+    for (const service of SERVICES) {
+      expect(service.basePriceMaintenance).toBeLessThan(service.basePriceNew);
     }
   });
 

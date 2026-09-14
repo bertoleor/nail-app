@@ -12,17 +12,24 @@ describe("Calculator Functions", () => {
   describe("calculatePrice", () => {
     it("returns base price when no addons", () => {
       const service = SERVICES[0];
-      const result = calculatePrice(service, []);
+      const result = calculatePrice(service, [], "new");
 
-      expect(result).toBe(service.basePrice);
+      expect(result).toBe(service.basePriceNew);
+    });
+
+    it("uses maintenance price for maintenance type", () => {
+      const service = SERVICES[0];
+      const result = calculatePrice(service, [], "maintenance");
+
+      expect(result).toBe(service.basePriceMaintenance);
     });
 
     it("adds addon prices to base", () => {
       const service = SERVICES[0];
       const addons = [ADDONS[0], ADDONS[1]];
 
-      const expected = service.basePrice + ADDONS[0].price + ADDONS[1].price;
-      const result = calculatePrice(service, addons);
+      const expected = service.basePriceNew + ADDONS[0].price + ADDONS[1].price;
+      const result = calculatePrice(service, addons, "new");
 
       expect(result).toBe(expected);
     });
@@ -31,34 +38,41 @@ describe("Calculator Functions", () => {
       const service = SERVICES[1];
       const addons = [ADDONS[2]];
 
-      const expected = service.basePrice + ADDONS[2].price;
-      const result = calculatePrice(service, addons);
+      const expected = service.basePriceNew + ADDONS[2].price;
+      const result = calculatePrice(service, addons, "new");
 
       expect(result).toBe(expected);
     });
 
     it("returns 0 for empty addons array", () => {
       const service = SERVICES[0];
-      const result = calculatePrice(service, []);
+      const result = calculatePrice(service, [], "new");
 
-      expect(result).toBe(service.basePrice);
+      expect(result).toBe(service.basePriceNew);
     });
   });
 
   describe("calculateDuration", () => {
     it("returns service duration when no addons", () => {
       const service = SERVICES[0];
-      const result = calculateDuration(service, []);
+      const result = calculateDuration(service, [], "new");
 
-      expect(result).toBe(service.duration);
+      expect(result).toBe(service.durationNew);
+    });
+
+    it("uses maintenance duration for maintenance type", () => {
+      const service = SERVICES[0];
+      const result = calculateDuration(service, [], "maintenance");
+
+      expect(result).toBe(service.durationMaintenance);
     });
 
     it("adds addon durations", () => {
       const service = SERVICES[0];
       const addons = [ADDONS[0], ADDONS[1]];
 
-      const expected = service.duration + ADDONS[0].duration + ADDONS[1].duration;
-      const result = calculateDuration(service, addons);
+      const expected = service.durationNew + ADDONS[0].duration + ADDONS[1].duration;
+      const result = calculateDuration(service, addons, "new");
 
       expect(result).toBe(expected);
     });

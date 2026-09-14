@@ -68,7 +68,7 @@ export function BookingForm() {
     const newBooking = {
       clientName: data.clientName,
       date: selectedDate,
-      duration: service.duration,
+      duration: service.durationNew,
       id: crypto.randomUUID(),
       serviceId: data.serviceId,
       startTime: data.startTime,

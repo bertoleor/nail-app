@@ -9,6 +9,7 @@ describe("PriceSummary", () => {
     usePricingStore.setState({
       selectedServiceId: null,
       selectedAddonIds: [],
+      selectedServiceType: "new",
     });
   });
 
@@ -23,7 +24,7 @@ describe("PriceSummary", () => {
     render(<PriceSummary />);
 
     expect(screen.getByText(/ARS/)).toBeInTheDocument();
-    expect(screen.getByText(/2\.500/)).toBeInTheDocument();
+    expect(screen.getByText(/3\.500/)).toBeInTheDocument();
   });
 
   it("displays duration", () => {
@@ -40,7 +41,7 @@ describe("PriceSummary", () => {
     });
     render(<PriceSummary />);
 
-    expect(screen.getByText(/3\.000/)).toBeInTheDocument();
+    expect(screen.getByText(/4\.300/)).toBeInTheDocument();
   });
 
   it("shows updated duration with addons", () => {
@@ -50,7 +51,7 @@ describe("PriceSummary", () => {
     });
     render(<PriceSummary />);
 
-    expect(screen.getByText(/95 minutos/)).toBeInTheDocument();
+    expect(screen.getByText(/105 minutos/)).toBeInTheDocument();
   });
 
   it("renders in a Card component", () => {

@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { getWhatsAppNumber } from "@/lib/config/whatsapp";
 import {
   MOCK_ADDONS,
   MOCK_SERVICES,
@@ -104,7 +105,7 @@ export default function ClientBookingPage() {
       `💰 Total: $${calculateTotal().toLocaleString("es-AR")}\n\n` +
       `¡Gracias!`
     );
-    window.open(`https://wa.me/5491112345678?text=${message}`, "_blank");
+    window.open(`https://wa.me/${getWhatsAppNumber()}?text=${message}`, "_blank");
   };
 
   return (

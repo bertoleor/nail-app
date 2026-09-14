@@ -15,20 +15,41 @@ export default function AdminServicesPage() {
         </div>
         <Button>Nuevo servicio</Button>
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {SERVICES.map((service) => (
           <Card key={service.id}>
-            <CardContent className="p-4">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="font-medium">{service.name}</h3>
-                <Badge variant="default">
-                  ARS {service.basePrice.toLocaleString()}
-                </Badge>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base font-medium">
+                {service.name}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-4 space-y-3">
+              {service.description && (
+                <p className="text-sm text-[rgba(15,15,20,0.5)]">
+                  {service.description}
+                </p>
+              )}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <p className="text-xs text-[rgba(15,15,20,0.5)]">Nuevo</p>
+                  <Badge variant="default">
+                    ARS {service.basePriceNew.toLocaleString()}
+                  </Badge>
+                  <p className="text-xs text-[rgba(15,15,20,0.5)] mt-1">
+                    {service.durationNew} minutos
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs text-[rgba(15,15,20,0.5)]">Mantenimiento</p>
+                  <Badge variant="default">
+                    ARS {service.basePriceMaintenance.toLocaleString()}
+                  </Badge>
+                  <p className="text-xs text-[rgba(15,15,20,0.5)] mt-1">
+                    {service.durationMaintenance} minutos
+                  </p>
+                </div>
               </div>
-              <p className="text-sm text-[rgba(15,15,20,0.5)]">
-                {service.duration} minutos
-              </p>
             </CardContent>
           </Card>
         ))}

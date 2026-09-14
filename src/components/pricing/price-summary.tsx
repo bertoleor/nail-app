@@ -14,6 +14,7 @@ import { usePricingStore } from "@/stores/pricing-store";
 export function PriceSummary() {
   const selectedServiceId = usePricingStore((state) => state.selectedServiceId);
   const selectedAddonIds = usePricingStore((state) => state.selectedAddonIds);
+  const selectedServiceType = usePricingStore((state) => state.selectedServiceType);
 
   if (!selectedServiceId) {
     return null;
@@ -23,8 +24,8 @@ export function PriceSummary() {
   if (!service) {return null;}
 
   const selectedAddons = ADDONS.filter((a) => selectedAddonIds.includes(a.id));
-  const totalPrice = calculatePrice(service, selectedAddons);
-  const totalDuration = calculateDuration(service, selectedAddons);
+  const totalPrice = calculatePrice(service, selectedAddons, selectedServiceType);
+  const totalDuration = calculateDuration(service, selectedAddons, selectedServiceType);
 
   return (
     <Card className="mt-6">

@@ -5,16 +5,21 @@ import type { Addon, Service } from "@/lib/domain/pricing/types";
 describe("Pricing Types", () => {
   it("exports Service interface", () => {
     const service: Service = {
+      basePriceMaintenance: 800,
+      basePriceNew: 1000,
+      description: "Test service",
+      durationMaintenance: 45,
+      durationNew: 60,
       id: "test-service",
       name: "Test Service",
-      basePrice: 1000,
-      duration: 60,
     };
 
     expect(service.id).toBe("test-service");
     expect(service.name).toBe("Test Service");
-    expect(service.basePrice).toBe(1000);
-    expect(service.duration).toBe(60);
+    expect(service.basePriceNew).toBe(1000);
+    expect(service.basePriceMaintenance).toBe(800);
+    expect(service.durationNew).toBe(60);
+    expect(service.durationMaintenance).toBe(45);
   });
 
   it("exports Addon interface", () => {
