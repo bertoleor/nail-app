@@ -11,13 +11,13 @@ export const buttonVariants = cva(
       size: {
         default: "min-h-[2.5rem] px-6 py-2",
         icon: "size-10",
-        lg: "min-h-[3rem] px-8 py-3 uppercase tracking-widest",
+        lg: "min-h-[2.875rem] px-[28px] py-[13px] text-[12px] font-medium tracking-[0.13em] uppercase",
         sm: "min-h-[2rem] px-4 text-sm",
         xs: "min-h-[1.75rem] px-3 text-xs",
       },
       variant: {
         default:
-          "bg-white/38 backdrop-blur-[20px] border-white/60 text-[rgba(15,15,20,0.82)] hover:bg-white/55 hover:border-white/80 hover:-translate-y-px active:translate-y-0",
+          "relative overflow-hidden btn-noise bg-white/38 backdrop-blur-[20px] saturate-150 border-white/60 text-[rgba(15,15,20,0.82)] hover:bg-white/55 hover:border-white/80 hover:-translate-y-px active:translate-y-0 active:bg-white/30",
         destructive:
           "bg-red-500/20 border-red-300/40 text-red-600 hover:bg-red-500/30",
         ghost: "hover:bg-accent hover:text-accent-foreground",

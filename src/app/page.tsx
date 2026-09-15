@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { Button } from "@/components/ui/button";
+
 export default function HomePage() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center gap-8 px-4 py-12 relative z-0">
@@ -19,12 +21,9 @@ export default function HomePage() {
           <p className="text-sm glass-text-secondary mb-4">
             Reservá tu turno de forma fácil y rápida
           </p>
-          <Link
-            className="btn-primary w-full"
-            href="/reservar"
-          >
-            Reservar turno
-          </Link>
+          <Button asChild className="w-full" size="lg">
+            <Link href="/reservar">Reservar turno</Link>
+          </Button>
         </div>
 
         {/* Admin section */}
@@ -33,12 +32,9 @@ export default function HomePage() {
           <p className="text-sm glass-text-secondary mb-4">
             Gestióná tu agenda, clientas y presupuestos
           </p>
-          <Link
-            className="btn-outline w-full"
-            href="/admin"
-          >
-            Ir al panel
-          </Link>
+          <Button asChild className="w-full" size="lg" variant="outline">
+            <Link href="/admin">Ir al panel</Link>
+          </Button>
         </div>
       </div>
 

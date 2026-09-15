@@ -14,11 +14,11 @@ const inputVariants = cva(
     variants: {
       variant: {
         default: [
-          "min-h-[3.5rem] rounded-2xl border border-gray-200",
-          "bg-gray-50/50 hover:bg-gray-50/80",
+          "min-h-[3.5rem] rounded-2xl border border-white/50",
+          "bg-white/60 backdrop-blur-[12px] hover:bg-white/75",
           "px-5 py-2 shadow-sm ring-offset-background",
-          "placeholder:text-gray-400",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/20 focus-visible:border-blue-500",
+          "text-[rgba(15,15,20,0.88)] placeholder:text-[rgba(15,15,20,0.35)]",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:border-white/70",
         ],
         underline: [
           "rounded-none border-0 border-b border-[rgba(15,15,20,0.14)]",

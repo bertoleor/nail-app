@@ -1,17 +1,25 @@
 import type { Metadata } from "next";
 
 import Link from "next/link";
+import {
+  Calculator,
+  CalendarDays,
+  ChevronLeft,
+  LayoutDashboard,
+  Sparkles,
+  Users,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Admin — NailApp",
 };
 
 const NAV_ITEMS = [
-  { href: "/admin", icon: "📊", label: "Dashboard" },
-  { href: "/admin/turnos", icon: "📅", label: "Turnos" },
-  { href: "/admin/clientas", icon: "👥", label: "Clientas" },
-  { href: "/admin/calculadora", icon: "💰", label: "Calculadora" },
-  { href: "/admin/servicios", icon: "💅", label: "Servicios" },
+  { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
+  { href: "/admin/turnos", icon: CalendarDays, label: "Turnos" },
+  { href: "/admin/clientas", icon: Users, label: "Clientas" },
+  { href: "/admin/calculadora", icon: Calculator, label: "Calculadora" },
+  { href: "/admin/servicios", icon: Sparkles, label: "Servicios" },
 ];
 
 export default function AdminLayout({
@@ -34,17 +42,18 @@ export default function AdminLayout({
               href={item.href}
               key={item.href}
             >
-              <span>{item.icon}</span>
+              <item.icon aria-hidden className="size-4" />
               {item.label}
             </Link>
           ))}
         </nav>
 
         <Link
-          className="text-xs text-[rgba(15,15,20,0.5)] hover:text-pink-500 transition-colors"
+          className="flex items-center gap-1 text-xs text-[rgba(15,15,20,0.5)] hover:text-pink-500 transition-colors"
           href="/"
         >
-          ← Volver al inicio
+          <ChevronLeft aria-hidden className="size-3.5" />
+          Volver al inicio
         </Link>
       </aside>
 

@@ -39,7 +39,8 @@ describe("Button", () => {
     render(<Button size="lg">Large</Button>);
 
     const button = screen.getByRole("button");
-    expect(button.className).toMatch(/min-h-\[3rem\]|px-8|py-3/);
+    expect(button.className).toMatch(/min-h-\[2\.875rem\]|px-\[28px\]|py-\[13px\]/);
+    expect(button.className).toMatch(/uppercase|tracking/);
   });
 
   it('applies size="sm" with correct padding', () => {

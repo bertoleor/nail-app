@@ -1,6 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import {
+  CalendarPlus,
+  Calculator,
+  Sparkles,
+  TriangleAlert,
+  Users,
+} from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -137,28 +144,28 @@ export default function AdminDashboard() {
           <CardContent className="grid grid-cols-2 gap-3">
             <Link href="/admin/calculadora">
               <div className="p-4 bg-pink-50 rounded-xl hover:bg-pink-100 transition-colors cursor-pointer">
-                <span className="text-2xl mb-2 block">💰</span>
+                <Calculator aria-hidden className="size-8 mb-2" />
                 <p className="font-medium">Calculadora</p>
                 <p className="text-xs text-[rgba(15,15,20,0.5)]">Armar presupuesto</p>
               </div>
             </Link>
             <Link href="/admin/turnos?action=new">
               <div className="p-4 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors cursor-pointer">
-                <span className="text-2xl mb-2 block">📅</span>
+                <CalendarPlus aria-hidden className="size-8 mb-2" />
                 <p className="font-medium">Nuevo turno</p>
                 <p className="text-xs text-[rgba(15,15,20,0.5)]">Agendar manualmente</p>
               </div>
             </Link>
             <Link href="/admin/clientas">
               <div className="p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors cursor-pointer">
-                <span className="text-2xl mb-2 block">👥</span>
+                <Users aria-hidden className="size-8 mb-2" />
                 <p className="font-medium">Clientas</p>
                 <p className="text-xs text-[rgba(15,15,20,0.5)]">{MOCK_CLIENTS.length} registradas</p>
               </div>
             </Link>
             <Link href="/admin/servicios">
               <div className="p-4 bg-amber-50 rounded-xl hover:bg-amber-100 transition-colors cursor-pointer">
-                <span className="text-2xl mb-2 block">💅</span>
+                <Sparkles aria-hidden className="size-8 mb-2" />
                 <p className="font-medium">Servicios</p>
                 <p className="text-xs text-[rgba(15,15,20,0.5)]">Configurar precios</p>
               </div>
@@ -172,7 +179,7 @@ export default function AdminDashboard() {
         <Card className="bg-amber-50 border-amber-200">
           <CardContent className="p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="text-2xl">⚠️</span>
+              <TriangleAlert aria-hidden className="size-8 shrink-0" />
               <div>
                 <p className="font-medium">Tenés {stats.pendingCount} turnos pendientes de confirmación</p>
                 <p className="text-sm text-[rgba(15,15,20,0.6)]">

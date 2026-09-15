@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Mail } from "lucide-react";
 
 import type { Client } from "@/lib/mock/data";
 
@@ -40,7 +41,7 @@ function ClientCard({
           </div>
           {client.email && (
             <Badge className="text-xs" variant="outline">
-              ✉️
+              <Mail aria-hidden className="size-3.5" />
             </Badge>
           )}
         </div>
