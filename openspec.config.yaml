@@ -1,0 +1,31 @@
+# openspec.config.yaml — contrato de calibración SDD Init (GATE-CFG-01/02/03)
+# Generado 2026-09-15 por inspección del repo. Si cambia el stack o aparecen
+# nuevos runners, re-calibrar antes de arrancar cualquier cambio.
+proyecto: NAIL-APP
+stack:
+  - nextjs-16
+  - react-19
+  - typescript
+  - nodejs
+  - npm
+runners:
+  unit: npm run test:unit
+  coverage: npm run test:coverage
+  ci: npm run test:ci
+  e2e: npm run test:e2e
+  all: npm run test:all
+  typecheck: npm run typecheck
+strict_tdd: true
+convenciones:
+  - typescript-strict
+  - tsconfig
+  - zod-4
+  - tailwind-4
+  - react-hook-form
+  - testing-library
+  - jsdom
+  - react-compiler
+  - eslint
+  - prettier
+  - husky
+  - lint-staged
