@@ -40,6 +40,7 @@ Cuando el uso del Servicio requiera registro:
 - El usuario es responsable de mantener la confidencialidad de sus credenciales de acceso.
 - El usuario debe notificar al Titular de inmediato cualquier uso no autorizado de su cuenta.
 - Las cuentas son personales e intransferibles.
+- El usuario podrá solicitar la baja de su cuenta y la supresión de sus datos en cualquier momento escribiendo al email de contacto del Titular (ver §12); la baja se hará efectiva en un plazo máximo de 15 días, salvo obligación legal de conservación.
 
 ## 5. Cancelaciones y turnos
 
@@ -86,7 +87,7 @@ Estos Términos se rigen por las leyes de la **República Argentina**. Toda cont
 
 ## 11. Modificaciones
 
-El Titular podrá modificar estos Términos y Condiciones en cualquier momento. Los cambios entrarán en vigencia desde su publicación en esta página, actualizándose la fecha de "Última actualización". Si los cambios fueran sustanciales, se notificará a los usuarios por los canales disponibles en el Servicio. El uso continuado del Servicio tras una modificación implica la aceptación de los nuevos términos.
+El Titular podrá modificar estos Términos y Condiciones en cualquier momento. Los cambios entrarán en vigencia desde su publicación en esta página, actualizándose la fecha de "Última actualización". Los cambios sustanciales se notificarán con al menos 15 días de antelación por los canales disponibles en el Servicio, y el uso continuado del Servicio tras ese plazo implica la aceptación de los nuevos términos. Si el usuario no los acepta, podrá dar de baja su cuenta conforme al §4.
 
 ## 12. Contacto
 

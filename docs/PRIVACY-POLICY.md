@@ -44,7 +44,7 @@ Los datos se utilizan exclusivamente para:
 - Cumplir con obligaciones legales aplicables.
 
 Los datos no serán cedidos, vendidos ni compartidos con terceros, salvo:
-- Cuando fuera necesario para prestar el Servicio (p. ej., infraestructura de hosting o proveedor de base de datos).
+- Cuando fuera necesario para prestar el Servicio (p. ej., infraestructura de hosting o proveedor de base de datos). En ese caso se informará al usuario la identidad del proveedor encargado del tratamiento.
 - Cuando lo exija la ley o una autoridad competente.
 - Con el consentimiento expreso del titular.
 
@@ -60,7 +60,7 @@ Los datos de clientes solo deben cargarse en la medida necesaria para la gestió
 
 - Los datos se almacenan en servidores **[POR COMPLETAR — ubicación/hosting, p. ej., regional Argentina o según el proveedor de nube contratado]**.
 - Se adoptan medidas técnicas y organizativas razonables para proteger los datos contra accesos no autorizados, pérdida o alteración.
-- Los datos se conservan únicamente por el tiempo necesario para las finalidades descritas o el plazo legal aplicable, y luego se eliminan o anonimizan.
+- Los datos se conservan únicamente por el tiempo necesario para las finalidades descritas o el plazo legal aplicable: mientras la cuenta esté activa y hasta 2 años después de su baja, salvo obligación legal de conservarlos por más tiempo; luego se eliminan o anonimizan.
 
 Dado que el Servicio se encuentra en etapa de desarrollo, se recomienda a las profesionales incluir en la agenda únicamente los datos de clientes estrictamente necesarios.
 

@@ -13,5 +13,5 @@
 - **Gate:** regla visual firmada + docs al día + demo recorrible sin rupturas.
 
 ## Fase 3 — Camino a producción (solo si se decide venderlo como SaaS) · due 2026-10-03 · dueño: Product Manager senior + Backend Developer senior
-- **Decisión humana:** ¿sigue demo o se convierte en producto con backend real? Si sí: auth, persistencia, multi-tenant por manicurista, testing.
+- **Decisión humana — PENDIENTE:** ¿sigue demo o se convierte en producto con backend real? Si sí: auth, persistencia, multi-tenant por manicurista, testing. Registro: `docs/ADR-003-demo-vs-saas.md` (PENDIENTE, dueños PM senior + Backend senior, vencimiento 2026-10-03).
 - **Gate:** decisión sí/no firmada; si es sí, nuevo plan con backend.
