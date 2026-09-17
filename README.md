@@ -28,4 +28,4 @@ Env: copiar `.env.example` a `.env.local` (vars Supabase a futuro, hoy vacías).
 
 ## Estado
 
-Auditoría 2026-09-12: gate NO PASS (baseline sin verde + WIP sin commitear). Ver `docs/plans/deuda-tecnica-plan.md` y `E:/Hermes/docs/reports/general-nailapp.md`. Todo UNVERIFIED.
+Fase 1 cerrada (2026-09-16): build + typecheck + 208 tests unitarios verdes, Fase 2 en curso (due 2026-09-26). Deuda técnica priorizada en `docs/plans/deuda-tecnica-plan.md`. Documentación canónica en `docs/` (producto: `docs/PRODUCTO.md`, índice: `docs/README.md`).

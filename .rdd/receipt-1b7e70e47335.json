@@ -1,0 +1,19 @@
+{
+  "tool": "rdd-receipt-mvp",
+  "at": "2026-09-17T07:03:35.121780+00:00",
+  "repo": "E:\\sitios web E\\nail-app",
+  "base_head": "c860d916866473cebb6999b2fef95061b08230b2",
+  "frozen_sha256": "1b7e70e473350c5a0e91b1cd1eba6e350d27fe769053cff8200f569ffa3005be",
+  "files": [
+    ".github/workflows/ci.yml",
+    "ESTADO-FLOTA-2026-09-14.md",
+    "README.md",
+    "docs/OVERVIEW.md",
+    "docs/PRODUCTO.md",
+    "docs/README.md",
+    "docs/plans/plan-accion-2026-09-12.md",
+    "reports/realtime-health.md"
+  ],
+  "verdict": "Approved-staged",
+  "note": "MVP: firma hash de staging. El juicio 4R/refutador corre aparte y su veredicto se anexa con --annex."
+}

@@ -1,5 +1,7 @@
 # NailApp — Qué es (Overview)
 
+> Resumen ejecutivo. Documento de producto canónico: `docs/PRODUCTO.md`. Índice completo: `docs/README.md`.
+
 - **Qué:** mockup de alta fidelidad para manicuristas argentinas, etapa demo/venta, sin backend real.
 - **Para quién:** dos roles — **clienta** (reserva) y **manicurista** (administra).
 - **Propuesta en una frase:** "Sistema de gestión para manicuristas" (tagline del home `/`).
