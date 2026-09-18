@@ -30,8 +30,16 @@ function ClientCard({
   return (
     <Card
       className="cursor-pointer hover:shadow-md transition-shadow"
-      key={client.id}
       onClick={() => { onSelect(client); }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onSelect(client);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      key={client.id}
     >
       <CardContent className="p-4">
         <div className="flex justify-between items-start mb-2">
@@ -104,6 +112,7 @@ export default function AdminClientsPage() {
       <Card>
         <CardContent className="p-4">
           <Input
+            aria-label="Buscar clientas por nombre o teléfono"
             onChange={(e) => { setSearch(e.target.value); }}
             placeholder="Buscar por nombre o teléfono..."
             value={search}
@@ -142,24 +151,27 @@ export default function AdminClientsPage() {
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Nombre *</label>
+              <label className="text-sm font-medium" htmlFor="new-client-name">Nombre *</label>
               <Input
+                id="new-client-name"
                 onChange={(e) => { setNewClient({ ...newClient, name: e.target.value }); }}
                 placeholder="Nombre completo"
                 value={newClient.name}
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Teléfono *</label>
+              <label className="text-sm font-medium" htmlFor="new-client-phone">Teléfono *</label>
               <Input
+                id="new-client-phone"
                 onChange={(e) => { setNewClient({ ...newClient, phone: e.target.value }); }}
                 placeholder="+54 9 11 ..."
                 value={newClient.phone}
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Email</label>
+              <label className="text-sm font-medium" htmlFor="new-client-email">Email</label>
               <Input
+                id="new-client-email"
                 onChange={(e) => { setNewClient({ ...newClient, email: e.target.value }); }}
                 placeholder="email@ejemplo.com"
                 type="email"
@@ -167,8 +179,9 @@ export default function AdminClientsPage() {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Notas</label>
+              <label className="text-sm font-medium" htmlFor="new-client-notes">Notas</label>
               <Input
+                id="new-client-notes"
                 onChange={(e) => { setNewClient({ ...newClient, notes: e.target.value }); }}
                 placeholder="Preferencias, alergias..."
                 value={newClient.notes}

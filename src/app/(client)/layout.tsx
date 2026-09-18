@@ -27,9 +27,9 @@ export default function ClientLayout({
             </Link>
             <Link 
               className="text-sm text-[rgba(15,15,20,0.7)] hover:text-[rgba(15,15,20,0.9)] transition-colors"
-              href="/agenda"
+              href="/reservar"
             >
-              Agenda
+              Reservar turno
             </Link>
           </div>
         </nav>

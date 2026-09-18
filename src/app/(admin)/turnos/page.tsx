@@ -166,6 +166,7 @@ export default function AdminBookingsPage() {
 
               return (
                 <div
+                  aria-label={booking ? `${client?.name}, ${service?.name}, ${hour}` : `${hour}, disponible`}
                   className={`flex items-center gap-4 p-2 rounded-lg ${
                     blocked
                       ? "bg-gray-100"
@@ -175,6 +176,14 @@ export default function AdminBookingsPage() {
                   }`}
                   key={hour}
                   onClick={() => booking && setSelectedBooking(booking.id)}
+                  onKeyDown={(e) => {
+                    if (booking && (e.key === "Enter" || e.key === " ")) {
+                      e.preventDefault();
+                      setSelectedBooking(booking.id);
+                    }
+                  }}
+                  role={booking ? "button" : undefined}
+                  tabIndex={booking ? 0 : undefined}
                 >
                   <span className="w-16 text-sm font-medium text-[rgba(15,15,20,0.5)]">
                     {hour}
@@ -300,9 +309,10 @@ export default function AdminBookingsPage() {
               Bloquear todo el día del {format(currentDate, "d 'de' MMMM", { locale: es })}
             </p>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Motivo</label>
+              <label className="text-sm font-medium" htmlFor="motivo-bloqueo">Motivo</label>
               <input
                 className="w-full px-3 py-2 border rounded-lg"
+                id="motivo-bloqueo"
                 onChange={(e) => { setBlockReason(e.target.value); }}
                 placeholder="Ej: Día libre, curso, feriado..."
                 type="text"

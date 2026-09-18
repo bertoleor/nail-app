@@ -195,16 +195,18 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
               </Select>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Nombre</label>
+                  <label className="text-sm font-medium" htmlFor="calc-client-name">Nombre</label>
                   <Input
+                    id="calc-client-name"
                     onChange={(e) => { setClientName(e.target.value); }}
                     placeholder="Nombre"
                     value={clientName}
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">WhatsApp</label>
+                  <label className="text-sm font-medium" htmlFor="calc-client-phone">WhatsApp</label>
                   <Input
+                    id="calc-client-phone"
                     onChange={(e) => { setClientPhone(e.target.value); }}
                     placeholder="+54 9 11..."
                     value={clientPhone}
@@ -236,6 +238,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
               {serviceId && (
                 <div className="grid grid-cols-2 gap-4">
                   <button
+                    aria-pressed={serviceType === "new"}
                     className={`p-4 rounded-xl text-center transition-all border-2 ${
                       serviceType === "new"
                         ? "border-pink-500 bg-pink-50"
@@ -252,6 +255,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                     </p>
                   </button>
                   <button
+                    aria-pressed={serviceType === "maintenance"}
                     className={`p-4 rounded-xl text-center transition-all border-2 ${
                       serviceType === "maintenance"
                         ? "border-pink-500 bg-pink-50"
@@ -281,6 +285,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
               <div className="grid grid-cols-2 gap-2">
                 {MOCK_ADDONS.map((addon) => (
                   <button
+                    aria-pressed={addonIds.includes(addon.id)}
                     className={`p-3 rounded-xl flex justify-between items-center transition-all border-2 ${
                       addonIds.includes(addon.id)
                         ? "border-pink-500 bg-pink-50"
@@ -306,6 +311,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
             </CardHeader>
             <CardContent>
               <Input
+                id="notes-input"
                 onChange={(e) => { setNotes(e.target.value); }}
                 placeholder="Notas adicionales para el presupuesto..."
                 value={notes}

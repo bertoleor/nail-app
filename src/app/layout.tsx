@@ -16,7 +16,6 @@ const geist = Geist({
 
 export const viewport: Viewport = {
   initialScale: 1,
-  maximumScale: 1,
   themeColor: "#ffffff",
   userScalable: true,
   width: "device-width",

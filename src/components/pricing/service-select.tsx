@@ -52,6 +52,7 @@ export function ServiceSelect() {
       {selectedService && (
         <div className="grid grid-cols-2 gap-2 pt-2">
           <button
+            aria-pressed={selectedServiceType === "new"}
             className={`p-3 rounded-xl text-center transition-all border-2 ${
               selectedServiceType === "new"
                 ? "border-primary bg-primary/10"
@@ -68,6 +69,7 @@ export function ServiceSelect() {
             )}
           </button>
           <button
+            aria-pressed={selectedServiceType === "maintenance"}
             className={`p-3 rounded-xl text-center transition-all border-2 ${
               selectedServiceType === "maintenance"
                 ? "border-primary bg-primary/10"

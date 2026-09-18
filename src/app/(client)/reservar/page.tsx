@@ -155,8 +155,9 @@ export default function ClientBookingPage() {
             <CardContent>
               <form className="space-y-4" onSubmit={handleSubmitClient}>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Nombre completo *</label>
+                  <label className="text-sm font-medium" htmlFor="rb-name">Nombre completo *</label>
                   <Input
+                    id="rb-name"
                     onChange={(e) => { setClientData({ ...clientData, name: e.target.value }); }}
                     placeholder="Ej: María García"
                     required
@@ -164,8 +165,9 @@ export default function ClientBookingPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">WhatsApp *</label>
+                  <label className="text-sm font-medium" htmlFor="rb-phone">WhatsApp *</label>
                   <Input
+                    id="rb-phone"
                     onChange={(e) => { setClientData({ ...clientData, phone: e.target.value }); }}
                     placeholder="Ej: +54 9 11 1234-5678"
                     required
@@ -174,8 +176,9 @@ export default function ClientBookingPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Email (opcional)</label>
+                  <label className="text-sm font-medium" htmlFor="rb-email">Email (opcional)</label>
                   <Input
+                    id="rb-email"
                     onChange={(e) => { setClientData({ ...clientData, email: e.target.value }); }}
                     placeholder="Ej: maria@email.com"
                     type="email"
@@ -203,6 +206,7 @@ export default function ClientBookingPage() {
                   <div className="grid gap-3">
                     {MOCK_SERVICES.map((service) => (
                       <button
+                        aria-pressed={serviceData.serviceId === service.id}
                         className={`p-4 rounded-xl text-left transition-all border-2 ${
                           serviceData.serviceId === service.id
                             ? "border-pink-500 bg-pink-50"
@@ -233,6 +237,7 @@ export default function ClientBookingPage() {
                     <label className="text-sm font-medium">Tipo de sesión *</label>
                     <div className="grid grid-cols-2 gap-3">
                       <button
+                        aria-pressed={serviceData.type === "new"}
                         className={`p-4 rounded-xl text-center transition-all border-2 ${
                           serviceData.type === "new"
                             ? "border-pink-500 bg-pink-50"
@@ -250,6 +255,7 @@ export default function ClientBookingPage() {
                         </p>
                       </button>
                       <button
+                        aria-pressed={serviceData.type === "maintenance"}
                         className={`p-4 rounded-xl text-center transition-all border-2 ${
                           serviceData.type === "maintenance"
                             ? "border-pink-500 bg-pink-50"
@@ -276,6 +282,7 @@ export default function ClientBookingPage() {
                     <div className="grid gap-2">
                       {MOCK_ADDONS.map((addon) => (
                         <button
+                          aria-pressed={serviceData.addonIds.includes(addon.id)}
                           className={`p-3 rounded-xl flex justify-between items-center transition-all border-2 ${
                             serviceData.addonIds.includes(addon.id)
                               ? "border-pink-500 bg-pink-50"
@@ -334,8 +341,9 @@ export default function ClientBookingPage() {
             <CardContent>
               <div className="space-y-6">
                 <div className="space-y-3">
-                  <label className="text-sm font-medium">Fecha *</label>
+                  <label className="text-sm font-medium" htmlFor="rb-date">Fecha *</label>
                   <Input
+                    id="rb-date"
                     min={new Date().toISOString().split("T")[0]}
                     onChange={(e) => { setScheduleData({ ...scheduleData, date: e.target.value }); }}
                     required
@@ -350,6 +358,7 @@ export default function ClientBookingPage() {
                     <div className="grid grid-cols-4 gap-2">
                       {HOURS.map((hour) => (
                         <button
+                          aria-pressed={scheduleData.startTime === hour}
                           className={`p-2 rounded-lg text-sm font-medium transition-all ${
                             scheduleData.startTime === hour
                               ? "bg-pink-500 text-white"

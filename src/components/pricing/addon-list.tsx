@@ -27,6 +27,7 @@ export function AddonList() {
           const isSelected = selectedAddonIds.includes(addon.id);
           return (
             <button
+              aria-pressed={isSelected}
               className={`touch-manipulation ${isSelected ? "outline outline-2 outline-offset-2 outline-primary rounded-full" : ""}`}
               key={addon.id}
               onClick={() => { toggleAddon(addon.id); }}
