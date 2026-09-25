@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { calculateEndTime, formatTime } from "@/lib/domain/booking/time-utils";
+import { calculateEndTime } from "@/lib/domain/booking/time-utils";
 
 describe("Time Utilities", () => {
   describe("calculateEndTime", () => {
@@ -32,18 +32,6 @@ describe("Time Utilities", () => {
     it("handles crossing midnight", () => {
       const result = calculateEndTime("23:00", 120);
       expect(result).toBe("01:00");
-    });
-  });
-
-  describe("formatTime", () => {
-    it("returns time as-is for valid format", () => {
-      const result = formatTime("14:00");
-      expect(result).toBe("14:00");
-    });
-
-    it("handles single digit hour", () => {
-      const result = formatTime("09:30");
-      expect(result).toBe("09:30");
     });
   });
 });

@@ -6,7 +6,3 @@ export function calculateEndTime(startTime: string, duration: number): string {
 
   return `${String(endHours).padStart(2, "0")}:${String(endMinutes).padStart(2, "0")}`;
 }
-
-export function formatTime(time: string): string {
-  return time;
-}
