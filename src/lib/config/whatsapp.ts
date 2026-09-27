@@ -1,5 +1,7 @@
-const FALLBACK_WHATSAPP_NUMBER = "5491112345678";
+import { FALLBACK_WHATSAPP_NUMBER, getEnv } from "@/lib/env";
+
+export { FALLBACK_WHATSAPP_NUMBER, getEnv };
 
 export function getWhatsAppNumber(): string {
-  return process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || FALLBACK_WHATSAPP_NUMBER;
+  return getEnv("NEXT_PUBLIC_WHATSAPP_NUMBER", FALLBACK_WHATSAPP_NUMBER);
 }
