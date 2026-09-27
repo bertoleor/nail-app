@@ -1,4 +1,5 @@
 # Reporte de Producto, Marketing y Estilo — NailApp
+> Parte de: [[README]] · Relacionados: [[dead-dirs-report]]
 
 > Fecha: 2026-09-12 · Autor: subagente (reporte delegado) · Alcance: producto + marketing + estilo
 > Fuente: lectura directa de `docs/`, `src/`, `.agents/rules/`, `src/lib/mock/data.ts`.

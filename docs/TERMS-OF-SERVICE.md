@@ -1,4 +1,5 @@
 # Términos y Condiciones de Uso — NailApp
+> Parte de: [[README]] · Relacionados: [[PRIVACY-POLICY]]
 
 - **Última actualización:** 14 de septiembre de 2026
 - **Aplicación:** NailApp — herramienta para manicuristas argentinas (calculadora de precios y agenda de turnos)

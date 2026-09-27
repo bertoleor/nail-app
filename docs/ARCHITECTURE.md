@@ -1,4 +1,5 @@
 # NailApp — Cómo se arma (Arquitectura)
+> Parte de: [[README]] · Relacionados: [[STACK]] · [[ADR-001-mockup-sin-backend]]
 
 ## Modelo
 

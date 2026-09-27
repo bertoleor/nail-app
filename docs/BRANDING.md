@@ -1,4 +1,5 @@
 # NailApp — Branding e identidad visual
+> Parte de: [[README]] · Relacionados: [[MARKETING]]
 
 Dirección: **"Premium-Beauty"** — minimalismo cálido y femenino, basada en la estética **Portadora de Eros**. Fuente de verdad de tokens: `src/app/globals.css`. Detalle histórico: `docs/PROJECT.md` + `docs/reports/producto-marketing-estilo.md` §4.
 

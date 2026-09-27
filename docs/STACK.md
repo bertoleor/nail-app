@@ -1,4 +1,5 @@
 # NailApp — Stack (Framework y tecnologías)
+> Parte de: [[README]] · Relacionados: [[ARCHITECTURE]]
 
 Fuente: `package.json` + `docs/PROJECT.md` (verificado por lectura directa).
 

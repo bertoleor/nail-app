@@ -1,4 +1,5 @@
 # Reporte: destino de directorios vacíos actions/agenda
+> Parte de: [[README]] · Relacionados: [[producto-marketing-estilo]]
 
 Task: `t_1fa98962` (Decide disposition of empty actions/agenda directories)
 Fecha: 2026-09-14 · Perfil: 22-operations · Repo: `E:/sitios web E/nail-app`

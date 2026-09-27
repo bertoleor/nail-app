@@ -1,4 +1,5 @@
 # ADR-002 — Español rioplatense como único idioma (pendiente de decisión)
+> Parte de: [[README]] · Relacionados: [[ADR-001-mockup-sin-backend]] · [[ADR-003-demo-vs-saas]]
 
 - Estado: propuesto (2026-09-12, UNVERIFIED)
 - Contexto: toda la UI está en español hardcodeado; no existe infra i18n (`src/i18n`, `locales/`).

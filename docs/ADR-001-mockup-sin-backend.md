@@ -1,4 +1,5 @@
 # ADR-001 — Mockup sin backend real
+> Parte de: [[README]] · Relacionados: [[ADR-002-es-ar-only]] · [[ADR-003-demo-vs-saas]]
 
 - Estado: aceptado (2026-09-12)
 - Contexto: NailApp gestiona turnos y precios para manicuristas argentinas. Aún no hay backend.

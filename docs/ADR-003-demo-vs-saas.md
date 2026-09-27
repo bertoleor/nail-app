@@ -1,4 +1,5 @@
 # ADR-003 — Modelo de entrega: demo vs SaaS (PENDIENTE de decisión)
+> Parte de: [[README]] · Relacionados: [[ADR-001-mockup-sin-backend]] · [[ADR-002-es-ar-only]]
 
 - Estado: propuesto / **PENDIENTE** (2026-09-15, UNVERIFIED) — necesita decisión humana.
 - Dueño de la decisión: **Product Manager senior + Backend Developer senior** (vencimiento: 2026-10-03).

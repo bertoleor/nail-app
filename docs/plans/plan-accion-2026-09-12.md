@@ -1,4 +1,5 @@
 # NAIL-APP — Plan de acción 2026-09-12 (UNVERIFIED)
+> Parte de: [[README]] · Relacionados: [[PRD-nail-app-minimo]] · [[deuda-tecnica-plan]]
 
 > Fuente: consolidado 2026-09-12 + `docs/reports/producto-marketing-estilo.md`. Mockup de alta fidelidad para demo/venta, sin backend. Nada aplicado sin OK.
 

@@ -1,4 +1,5 @@
 # NailApp — Marketing
+> Parte de: [[README]] · Relacionados: [[BRANDING]] · [[PRODUCTO]]
 
 Consolidación canónica de `docs/reports/producto-marketing-estilo.md` §3 (reporte UNVERIFIED por lectura estática).
 

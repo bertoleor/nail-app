@@ -1,4 +1,5 @@
 # NailApp — Documento de producto
+> Parte de: [[README]] · Relacionados: [[OVERVIEW]] · [[FEATURES]]
 
 > Única fuente de verdad de producto. Detalle técnico en `docs/PROJECT.md`, funciones en `docs/FEATURES.md`, stack en `docs/STACK.md`, arquitectura en `docs/ARCHITECTURE.md`.
 > Fecha: 2026-09-16 · Idioma: español rioplatense con voseo.

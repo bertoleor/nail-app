@@ -1,4 +1,5 @@
 # NailApp — Documentación del Proyecto
+> Parte de: [[README]] · Relacionados: [[PRODUCTO]]
 
 ## Resumen
 

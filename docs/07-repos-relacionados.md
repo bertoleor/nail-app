@@ -1,4 +1,5 @@
 # 07 — Repos relacionados
+> Parte de: [[README]] · Relacionados: [[PRODUCTO]]
 
 > Relevamiento web (2026-09-15) para NailApp: booking de nail salon / beauty salon y calculadora de precios para manicurista. Solo referencia — no se copia código sin revisar licencia.
 

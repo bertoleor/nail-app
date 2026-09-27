@@ -1,4 +1,5 @@
 # NailApp — Funciones
+> Parte de: [[README]] · Relacionados: [[PRODUCTO]]
 
 Superficie real verificada por lectura de `src/` (rutas, dominio, mock). Detalle de diseño en `docs/PROJECT.md`.
 

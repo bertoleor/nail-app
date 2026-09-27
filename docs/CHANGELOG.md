@@ -1,4 +1,5 @@
 # Changelog — NailApp
+> Parte de: [[README]] · Relacionados: [[PROJECT]]
 
 Formato: Keep a Changelog. Todo UNVERIFIED hasta baseline verde.
 

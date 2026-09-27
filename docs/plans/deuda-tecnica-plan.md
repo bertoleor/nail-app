@@ -1,4 +1,5 @@
 # Plan de deuda técnica global — NailApp
+> Parte de: [[README]] · Relacionados: [[PRD-nail-app-minimo]] · [[plan-accion-2026-09-12]]
 
 > Estado: **BASELINE VERDE (2026-09-12, G0 heartbeat)** — `tsc --noEmit` 0 errores, `vitest run` 222/222, `next build` OK. Queda `eslint` (127 err / 192 warn) como único gate rojo, ver §V-1-ESLINT.
 > Alcance: técnico (código, config, stack, skills) + no-técnico (09-product, 10-uiux, 19-writer, 21-content, 18-i18n, 15-a11y, 23-legal).
