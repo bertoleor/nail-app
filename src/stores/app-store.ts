@@ -10,7 +10,6 @@ import type {
   Quote,
   QuoteStatus,
 } from "@/lib/mock/data";
-
 import {
   MOCK_BLOCKED_SLOTS,
   MOCK_BOOKINGS,

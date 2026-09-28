@@ -1,6 +1,5 @@
 import type { Addon, Service, ServiceType } from "@/lib/domain/pricing";
 import { ADDONS, SERVICES } from "@/lib/domain/pricing";
-
 export type { Addon, Service, ServiceType } from "@/lib/domain/pricing";
 
 export interface BlockedSlot {

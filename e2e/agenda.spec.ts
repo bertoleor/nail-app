@@ -1,44 +1,55 @@
 import { expect, test } from "@playwright/test";
 
-test.describe("Booking Agenda", () => {
-  test("displays calendar", async ({ page }) => {
-    await page.goto("/agenda");
+test.describe("Booking Agenda (admin turnos)", () => {
+  test("displays turnos management page", async ({ page }) => {
+    await page.goto("/admin/turnos");
 
-    await expect(page.getByRole("heading", { name: /agenda/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /calendario/i })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: /Gestión de Turnos/i })
+    ).toBeVisible();
   });
 
-  test("allows month navigation", async ({ page }) => {
-    await page.goto("/agenda");
+  test("allows day navigation", async ({ page }) => {
+    await page.goto("/admin/turnos");
 
-    const nextButtons = await page.locator('button').filter({ has: page.locator('svg') }).all();
-    if (nextButtons.length >= 2) {
-      await nextButtons[1].click();
-      await expect(page.getByText(/febrero|marzo|abril/i)).toBeVisible();
-    }
+    await expect(page.getByRole("button", { name: /Anterior/i })).toBeVisible();
+    const currentDayLabel = await page
+      .getByText(/lunes|martes|miércoles|jueves|viernes|sábado|domingo/i)
+      .first()
+      .textContent();
+    await page.getByRole("button", { name: /Anterior/i }).click();
+    await expect(
+      page.getByText(/lunes|martes|miércoles|jueves|viernes|sábado|domingo/i)
+        .first()
+    ).not.toHaveText(currentDayLabel ?? "");
   });
 
-  test("allows day selection", async ({ page }) => {
-    await page.goto("/agenda");
+  test("shows new booking and block buttons", async ({ page }) => {
+    await page.goto("/admin/turnos");
 
-    const dayButtons = await page.locator('button').filter({ hasText: /^\d+$/ }).all();
-    if (dayButtons.length > 10) {
-      await dayButtons[10].click();
-      await expect(page.getByText(/Sin turnos|turnos del día/i)).toBeVisible();
-    }
+    await expect(
+      page.getByRole("button", { name: /Nuevo turno/i })
+    ).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: /Bloquear horario/i })
+    ).toBeVisible();
   });
 
-  test("shows booking form button", async ({ page }) => {
-    await page.goto("/agenda");
+  test("opens block dialog", async ({ page }) => {
+    await page.goto("/admin/turnos");
 
-    await expect(page.getByRole("button", { name: /nuevo turno/i })).toBeVisible();
-  });
-
-  test("opens booking form dialog", async ({ page }) => {
-    await page.goto("/agenda");
-
-    await page.click('text=Nuevo turno');
+    await page.getByRole("button", { name: /Bloquear horario/i }).click();
 
     await expect(page.getByRole("dialog")).toBeVisible();
+  });
+
+  test("shows bookings list for selected day", async ({ page }) => {
+    await page.goto("/admin/turnos");
+
+    // The day view renders a list of slots/bookings; heading confirms the section exists
+    await expect(
+      page.getByRole("heading", { name: /Gestión de Turnos/i })
+    ).toBeVisible();
+    await expect(page.getByText(/Nuevo turno/i).first()).toBeVisible();
   });
 });

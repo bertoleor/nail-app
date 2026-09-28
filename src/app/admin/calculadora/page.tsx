@@ -5,12 +5,6 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -30,7 +24,6 @@ export default function AdminCalculatorPage() {
   const [serviceType, setServiceType] = useState<ServiceType>("new");
   const [addonIds, setAddonIds] = useState<readonly string[]>([]);
   const [notes, setNotes] = useState("");
-  const [showPdfPreview, setShowPdfPreview] = useState(false);
   const [copied, setCopied] = useState(false);
   const [saved, setSaved] = useState(false);
 
@@ -38,7 +31,6 @@ export default function AdminCalculatorPage() {
 
   const selectedService = MOCK_SERVICES.find((s) => s.id === serviceId);
   const selectedAddons = MOCK_ADDONS.filter((a) => addonIds.includes(a.id));
-  const selectedClient = MOCK_CLIENTS.find((c) => c.id === selectedClientId);
 
   const basePrice = selectedService
     ? (serviceType === "new"

@@ -4,20 +4,22 @@ test.describe("Home Page", () => {
   test("displays hero section", async ({ page }) => {
     await page.goto("/");
 
-    await expect(page.getByRole("heading", { name: /nail-app/i })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: /^NailApp$/ })
+    ).toBeVisible();
   });
 
-  test("has navigation to calculator", async ({ page }) => {
+  test("has navigation to calculator (Soy Clienta)", async ({ page }) => {
     await page.goto("/");
 
-    await page.click('text=Calculadora');
-    await expect(page).toHaveURL(/calculator/);
+    await page.getByRole("link", { name: "Reservar turno" }).click();
+    await expect(page).toHaveURL(/\/reservar/);
   });
 
-  test("has navigation to agenda", async ({ page }) => {
+  test("has navigation to manicurista panel", async ({ page }) => {
     await page.goto("/");
 
-    await page.click('text=Agenda');
-    await expect(page).toHaveURL(/agenda/);
+    await page.getByRole("link", { name: "Ir al panel" }).click();
+    await expect(page).toHaveURL(/\/admin/);
   });
 });
