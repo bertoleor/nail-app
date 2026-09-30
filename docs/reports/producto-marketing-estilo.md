@@ -43,7 +43,7 @@ NailApp es un **mockup de alta fidelidad** (sin backend real, con datos mock) pa
 
 **Dominio (lógica de negocio pura) en `src/lib/domain/`:**
 
-- `pricing/` → `SERVICES` + `ADDONS` (`constants.ts`), `calculatePrice` / `calculateDuration` / `formatPrice` / `formatDuration` (`calculator.ts`). Precios en **ARS** con `toLocaleString("es-AR")`.
+- `pricing/` → `SERVICES` + `ADDONS` (`constants.ts`), `calculatePrice` / `calculateDuration` / `formatPrice` / `formatDuration` (`calculator.ts`). Precios en **pesos con `$`** vía `formatPrice` del dominio (NAIL-M2: única fuente, antes divergía ARS/`$`).
 - `booking/` → `types.ts` (`Booking` básico), `conflict.ts`, `time-utils.ts`.
 
 **Catálogo de servicios (precio base, ARS):**

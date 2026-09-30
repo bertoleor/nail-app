@@ -19,7 +19,7 @@ Superficie real verificada por lectura de `src/` (rutas, dominio, mock). Detalle
 ## Dominio pricing (`src/lib/domain/pricing`)
 
 - `calculatePrice(service, addons, type)` = base + addons; `calculateDuration` igual en minutos.
-- `formatPrice` en ARS con `es-AR`; `formatDuration` en minutos.
+- `formatPrice` en pesos con prefijo `$` (`es-AR`, NAIL-M2); `formatDuration` en minutos.
 - Tipos: `ServiceType` = `new` | `maintenance`.
 
 ### Catálogo (ARS)
