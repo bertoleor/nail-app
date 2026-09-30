@@ -23,7 +23,7 @@ describe("PriceSummary", () => {
     usePricingStore.setState({ selectedServiceId: "manicura" });
     render(<PriceSummary />);
 
-    expect(screen.getByText(/ARS/)).toBeInTheDocument();
+    expect(screen.getByText(/\$/)).toBeInTheDocument();
     expect(screen.getByText(/3\.500/)).toBeInTheDocument();
   });
 

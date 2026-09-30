@@ -13,6 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { formatPrice } from "@/lib/domain/pricing";
 import { type BookingStatus, MOCK_SERVICES } from "@/lib/mock/data";
 import {
   MOCK_CLIENTS,
@@ -266,7 +267,7 @@ export default function AdminBookingsPage() {
               <div>
                 <p className="text-sm text-[rgba(15,15,20,0.5)]">Total</p>
                 <p className="text-xl font-medium">
-                  ${selectedBookingData.totalPrice.toLocaleString("es-AR")}
+                  {formatPrice(selectedBookingData.totalPrice)}
                 </p>
               </div>
               <Badge className={STATUS_COLORS[selectedBookingData.status]}>

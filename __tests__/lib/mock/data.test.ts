@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { formatPrice as domainFormatPrice } from "@/lib/domain/pricing/calculator";
 import {
   MOCK_CLIENTS,
   MOCK_SERVICES,
@@ -230,6 +231,12 @@ describe("Getter functions", () => {
 
 describe("Format functions", () => {
   describe("formatPrice", () => {
+    it("delegates to the domain formatter (NAIL-M2 single source)", () => {
+      expect(formatPrice(2500)).toBe(domainFormatPrice(2500));
+      expect(formatPrice(0)).toBe(domainFormatPrice(0));
+      expect(formatPrice(12345)).toBe(domainFormatPrice(12345));
+    });
+
     it("formats price with $ sign", () => {
       expect(formatPrice(2500)).toBe("$2.500");
     });

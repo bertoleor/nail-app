@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SERVICES, type ServiceType } from "@/lib/domain/pricing";
+import { SERVICES, type ServiceType, formatPrice } from "@/lib/domain/pricing";
 import { usePricingStore } from "@/stores/pricing-store";
 
 export function ServiceSelect() {
@@ -64,7 +64,7 @@ export function ServiceSelect() {
             <p className="text-sm font-medium">Nuevo</p>
             {basePrice !== null && (
               <p className="text-xs text-[rgba(15,15,20,0.5)]">
-                ${basePrice.toLocaleString("es-AR")} · {duration} min
+                {formatPrice(basePrice)} · {duration} min
               </p>
             )}
           </button>
@@ -81,7 +81,7 @@ export function ServiceSelect() {
             <p className="text-sm font-medium">Mantenimiento</p>
             {selectedService && (
               <p className="text-xs text-[rgba(15,15,20,0.5)]">
-                ${selectedService.basePriceMaintenance.toLocaleString("es-AR")} · {selectedService.durationMaintenance} min
+                {formatPrice(selectedService.basePriceMaintenance)} · {selectedService.durationMaintenance} min
               </p>
             )}
           </button>

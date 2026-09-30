@@ -13,6 +13,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  calculateDuration,
+  calculatePrice,
+  formatPrice,
+  getBaseDuration,
+  getBasePrice,
+} from "@/lib/domain/pricing";
 import { MOCK_ADDONS, MOCK_CLIENTS, MOCK_SERVICES, type ServiceType } from "@/lib/mock/data";
 import { useAppStore } from "@/stores/app-store";
 
@@ -33,20 +40,20 @@ export default function AdminCalculatorPage() {
   const selectedAddons = MOCK_ADDONS.filter((a) => addonIds.includes(a.id));
 
   const basePrice = selectedService
-    ? (serviceType === "new"
-      ? selectedService.basePriceNew
-      : selectedService.basePriceMaintenance)
+    ? getBasePrice(selectedService, serviceType)
     : 0;
 
-  const addonsPrice = selectedAddons.reduce((sum, a) => sum + a.price, 0);
-  const totalPrice = basePrice + addonsPrice;
+  const totalPrice = selectedService
+    ? calculatePrice(selectedService, selectedAddons, serviceType)
+    : 0;
 
   const duration = selectedService
-    ? (serviceType === "new"
-      ? selectedService.durationNew
-      : selectedService.durationMaintenance)
+    ? getBaseDuration(selectedService, serviceType)
     : 0;
-  const totalDuration = duration + selectedAddons.reduce((sum, a) => sum + a.duration, 0);
+
+  const totalDuration = selectedService
+    ? calculateDuration(selectedService, selectedAddons, serviceType)
+    : 0;
 
   const toggleAddon = (id: string) => {
     setAddonIds((prev) =>
@@ -79,12 +86,12 @@ export default function AdminCalculatorPage() {
 
 💅 Servicio: ${selectedService?.name}
    Tipo: ${serviceType === "new" ? "Nuevo" : "Mantenimiento"}
-   Precio: $${basePrice.toLocaleString("es-AR")}
+   Precio: ${formatPrice(basePrice)}
 
-${selectedAddons.length > 0 ? `✨ Extras:\n${selectedAddons.map((a) => `   • ${a.name}: $${a.price.toLocaleString("es-AR")}`).join("\n")}\n` : ""}━━━━━━━━━━━━━━━━━━
+${selectedAddons.length > 0 ? `✨ Extras:\n${selectedAddons.map((a) => `   • ${a.name}: ${formatPrice(a.price)}`).join("\n")}\n` : ""}━━━━━━━━━━━━━━━━━━
 
 ⏱️ Duración estimada: ${totalDuration} min
-💰 TOTAL: $${totalPrice.toLocaleString("es-AR")}
+💰 TOTAL: ${formatPrice(totalPrice)}
 
 ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━━━━━━
 
@@ -240,7 +247,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                   >
                     <p className="font-medium">Nuevo</p>
                     <p className="text-xl font-light text-pink-600">
-                      ${selectedService?.basePriceNew.toLocaleString("es-AR")}
+                      {formatPrice(selectedService?.basePriceNew ?? 0)}
                     </p>
                     <p className="text-xs text-[rgba(15,15,20,0.5)]">
                       {selectedService?.durationNew} min
@@ -257,7 +264,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                   >
                     <p className="font-medium">Mantenimiento</p>
                     <p className="text-xl font-light text-pink-600">
-                      ${selectedService?.basePriceMaintenance.toLocaleString("es-AR")}
+                      {formatPrice(selectedService?.basePriceMaintenance ?? 0)}
                     </p>
                     <p className="text-xs text-[rgba(15,15,20,0.5)]">
                       {selectedService?.durationMaintenance} min
@@ -288,7 +295,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                   >
                     <span className="text-sm">{addon.name}</span>
                     <Badge variant="secondary">
-                      +${addon.price.toLocaleString("es-AR")}
+                      {formatPrice(addon.price)}
                     </Badge>
                   </button>
                 ))}
@@ -324,7 +331,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span>{selectedService.name}</span>
-                    <span>${basePrice.toLocaleString("es-AR")}</span>
+                    <span>{formatPrice(basePrice)}</span>
                   </div>
                   <p className="text-sm text-[rgba(15,15,20,0.5)]">
                     {serviceType === "new" ? "Nuevo" : "Mantenimiento"} · {duration} min
@@ -338,7 +345,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                   {selectedAddons.map((addon) => (
                     <div className="flex justify-between text-sm" key={addon.id}>
                       <span className="text-[rgba(15,15,20,0.6)]">{addon.name}</span>
-                      <span>+${addon.price.toLocaleString("es-AR")}</span>
+                      <span>{formatPrice(addon.price)}</span>
                     </div>
                   ))}
                 </div>
@@ -349,7 +356,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                 <div className="flex justify-between items-center">
                   <span className="font-medium">Total</span>
                   <span className="text-3xl font-light">
-                    ${totalPrice.toLocaleString("es-AR")}
+                    {formatPrice(totalPrice)}
                   </span>
                 </div>
                 <p className="text-sm text-[rgba(15,15,20,0.5)] mt-1">

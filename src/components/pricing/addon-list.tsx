@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { ADDONS } from "@/lib/domain/pricing";
+import { ADDONS, formatPrice } from "@/lib/domain/pricing";
 import { usePricingStore } from "@/stores/pricing-store";
 
 export function AddonList() {
@@ -34,7 +34,7 @@ export function AddonList() {
               type="button"
             >
               <Badge className="text-xs sm:text-sm whitespace-nowrap" variant={isSelected ? "success" : "default"}>
-                {addon.name} — ARS {addon.price}
+                {addon.name} — {formatPrice(addon.price)}
               </Badge>
             </button>
           );

@@ -5,6 +5,8 @@ import {
   calculatePrice,
   formatDuration,
   formatPrice,
+  getBaseDuration,
+  getBasePrice,
 } from "@/lib/domain/pricing/calculator";
 import { ADDONS, SERVICES } from "@/lib/domain/pricing/constants";
 
@@ -78,24 +80,47 @@ describe("Calculator Functions", () => {
     });
   });
 
+  describe("getBasePrice", () => {
+    it("returns new price for new type", () => {
+      const service = SERVICES[0];
+      expect(getBasePrice(service, "new")).toBe(service.basePriceNew);
+    });
+
+    it("returns maintenance price for maintenance type", () => {
+      const service = SERVICES[0];
+      expect(getBasePrice(service, "maintenance")).toBe(service.basePriceMaintenance);
+    });
+  });
+
+  describe("getBaseDuration", () => {
+    it("returns new duration for new type", () => {
+      const service = SERVICES[0];
+      expect(getBaseDuration(service, "new")).toBe(service.durationNew);
+    });
+
+    it("returns maintenance duration for maintenance type", () => {
+      const service = SERVICES[0];
+      expect(getBaseDuration(service, "maintenance")).toBe(service.durationMaintenance);
+    });
+  });
+
   describe("formatPrice", () => {
-    it("formats price as ARS currency", () => {
+    it("formats price as es-AR pesos with $ prefix (NAIL-M2 canonical)", () => {
       const result = formatPrice(2500);
 
-      expect(result).toMatch(/ARS/);
-      expect(result).toMatch(/2\.?500/);
+      expect(result).toBe("$2.500");
     });
 
     it("handles zero", () => {
       const result = formatPrice(0);
 
-      expect(result).toMatch(/0/);
+      expect(result).toBe("$0");
     });
 
     it("handles large numbers", () => {
       const result = formatPrice(10000);
 
-      expect(result).toMatch(/10\.?000/);
+      expect(result).toBe("$10.000");
     });
   });
 

@@ -34,9 +34,8 @@ export function formatDuration(minutes: number): string {
 }
 
 export function formatPrice(price: number): string {
-  const formatted = new Intl.NumberFormat("es-AR", {
+  return `$${new Intl.NumberFormat("es-AR", {
     maximumFractionDigits: 0,
     minimumFractionDigits: 0,
-  }).format(price);
-  return `ARS ${formatted}`;
+  }).format(price)}`;
 }

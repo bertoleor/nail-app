@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { MOCK_SERVICES } from "@/lib/mock/data";
+import { formatPrice } from "@/lib/domain/pricing";
 import { MOCK_CLIENTS, useAppStore, useClientHistory } from "@/stores/app-store";
 
 function ClientCard({
@@ -55,7 +56,7 @@ function ClientCard({
         </div>
         <div className="flex gap-4 text-sm text-[rgba(15,15,20,0.5)]">
           <span>{history.totalVisits} visitas</span>
-          <span>${history.totalSpent.toLocaleString("es-AR")}</span>
+          <span>{formatPrice(history.totalSpent)}</span>
         </div>
         {history.lastVisit && (
           <p className="text-xs text-[rgba(15,15,20,0.4)] mt-2">
@@ -231,7 +232,7 @@ function ClientDetail({ client }: { readonly client: Client }) {
           <p className="text-xs text-[rgba(15,15,20,0.5)]">Visitas</p>
         </div>
         <div className="text-center">
-          <p className="text-2xl font-light">${history.totalSpent.toLocaleString("es-AR")}</p>
+          <p className="text-2xl font-light">{formatPrice(history.totalSpent)}</p>
           <p className="text-xs text-[rgba(15,15,20,0.5)]">Total gastado</p>
         </div>
         <div className="text-center">
@@ -274,7 +275,7 @@ function ClientDetail({ client }: { readonly client: Client }) {
                   </div>
                   <div className="text-right">
                     <p className="font-medium">
-                      ${booking.totalPrice.toLocaleString("es-AR")}
+                      {formatPrice(booking.totalPrice)}
                     </p>
                     <Badge
                       variant={

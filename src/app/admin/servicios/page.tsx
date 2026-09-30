@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { SERVICES } from "@/lib/domain/pricing";
+import { formatPrice, SERVICES } from "@/lib/domain/pricing";
 
 export default function AdminServicesPage() {
   return (
@@ -34,7 +34,7 @@ export default function AdminServicesPage() {
                 <div>
                   <p className="text-xs text-[rgba(15,15,20,0.5)]">Nuevo</p>
                   <Badge variant="default">
-                    ARS {service.basePriceNew.toLocaleString()}
+                    {formatPrice(service.basePriceNew)}
                   </Badge>
                   <p className="text-xs text-[rgba(15,15,20,0.5)] mt-1">
                     {service.durationNew} minutos
@@ -43,7 +43,7 @@ export default function AdminServicesPage() {
                 <div>
                   <p className="text-xs text-[rgba(15,15,20,0.5)]">Mantenimiento</p>
                   <Badge variant="default">
-                    ARS {service.basePriceMaintenance.toLocaleString()}
+                    {formatPrice(service.basePriceMaintenance)}
                   </Badge>
                   <p className="text-xs text-[rgba(15,15,20,0.5)] mt-1">
                     {service.durationMaintenance} minutos

@@ -36,7 +36,7 @@ test.describe("Mobile Responsive - Calculator", () => {
     await page.getByRole("combobox").click();
     await page.getByRole("option", { name: /Manicura clásica/i }).click();
 
-    await expect(page.getByText("ARS 3.500")).toBeVisible();
+    await expect(page.getByText("$3.500")).toBeVisible();
   });
 
   test("addon badges wrap properly on mobile", async ({ page }) => {

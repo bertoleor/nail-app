@@ -16,9 +16,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { getWhatsAppNumber } from "@/lib/config/whatsapp";
 import {
+  calculateDuration as domainCalculateDuration,
+  calculatePrice,
+  formatPrice,
+  type ServiceType,
+} from "@/lib/domain/pricing";
+import {
   MOCK_ADDONS,
   MOCK_SERVICES,
-  type ServiceType,
 } from "@/lib/mock/data";
 
 type Step = "client" | "confirm" | "schedule" | "service";
@@ -53,20 +58,12 @@ export default function ClientBookingPage() {
 
   const calculateTotal = () => {
     if (!selectedService || !serviceData.type) {return 0;}
-    const basePrice = serviceData.type === "new"
-      ? selectedService.basePriceNew
-      : selectedService.basePriceMaintenance;
-    const addonsPrice = selectedAddons.reduce((sum, a) => sum + a.price, 0);
-    return basePrice + addonsPrice;
+    return calculatePrice(selectedService, selectedAddons, serviceData.type);
   };
 
   const calculateDuration = () => {
     if (!selectedService || !serviceData.type) {return 0;}
-    const baseDuration = serviceData.type === "new"
-      ? selectedService.durationNew
-      : selectedService.durationMaintenance;
-    const addonsDuration = selectedAddons.reduce((sum, a) => sum + a.duration, 0);
-    return baseDuration + addonsDuration;
+    return domainCalculateDuration(selectedService, selectedAddons, serviceData.type);
   };
 
   const handleSubmitClient = (e: React.FormEvent) => {
@@ -95,7 +92,7 @@ export default function ClientBookingPage() {
       `💅 ${selectedService?.name} (${serviceData.type === "new" ? "Nuevo" : "Mantenimiento"})\n` +
       (selectedAddons.length > 0 ? `✨ Add-ons: ${selectedAddons.map(a => a.name).join(", ")}\n` : "") +
       `📅 ${scheduleData.date} a las ${scheduleData.startTime}\n` +
-      `💰 Total: $${calculateTotal().toLocaleString("es-AR")}\n\n` +
+      `💰 Total: ${formatPrice(calculateTotal())}\n\n` +
       `¡Gracias!`
     );
     window.open(`https://wa.me/${getWhatsAppNumber()}?text=${message}`, "_blank");
@@ -217,7 +214,7 @@ export default function ClientBookingPage() {
                             </p>
                           </div>
                           <Badge variant="secondary">
-                            desde ${service.basePriceNew.toLocaleString("es-AR")}
+                            desde {formatPrice(service.basePriceNew)}
                           </Badge>
                         </div>
                       </button>
@@ -241,7 +238,7 @@ export default function ClientBookingPage() {
                       >
                         <p className="font-medium">Nuevo</p>
                         <p className="text-2xl font-light text-pink-600">
-                          ${selectedService?.basePriceNew.toLocaleString("es-AR")}
+                          {formatPrice(selectedService?.basePriceNew ?? 0)}
                         </p>
                         <p className="text-xs text-[rgba(15,15,20,0.5)]">
                           {selectedService?.durationNew} min
@@ -259,7 +256,7 @@ export default function ClientBookingPage() {
                       >
                         <p className="font-medium">Mantenimiento</p>
                         <p className="text-2xl font-light text-pink-600">
-                          ${selectedService?.basePriceMaintenance.toLocaleString("es-AR")}
+                          {formatPrice(selectedService?.basePriceMaintenance ?? 0)}
                         </p>
                         <p className="text-xs text-[rgba(15,15,20,0.5)]">
                           {selectedService?.durationMaintenance} min
@@ -295,7 +292,7 @@ export default function ClientBookingPage() {
                         >
                           <span>{addon.name}</span>
                           <span className="text-pink-600 font-medium">
-                            +${addon.price.toLocaleString("es-AR")}
+                            {formatPrice(addon.price)}
                           </span>
                         </button>
                       ))}
@@ -307,7 +304,7 @@ export default function ClientBookingPage() {
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-sm text-[rgba(15,15,20,0.6)]">Total estimado</span>
                     <span className="text-2xl font-light">
-                      ${calculateTotal().toLocaleString("es-AR")}
+                      {formatPrice(calculateTotal())}
                     </span>
                   </div>
                 </div>
@@ -386,7 +383,7 @@ export default function ClientBookingPage() {
                     </p>
                     <p className="text-sm">⏰ {scheduleData.startTime} hs</p>
                     <p className="text-lg font-medium pt-2">
-                      Total: ${calculateTotal().toLocaleString("es-AR")}
+                      Total: {formatPrice(calculateTotal())}
                     </p>
                   </div>
                 )}

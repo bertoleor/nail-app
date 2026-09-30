@@ -12,6 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatPrice } from "@/lib/domain/pricing";
 import { MOCK_SERVICES } from "@/lib/mock/data";
 import { MOCK_CLIENTS, useRecentBookings, useTodayStats } from "@/stores/app-store";
 
@@ -70,7 +71,7 @@ export default function AdminDashboard() {
           <CardContent className="p-4">
             <p className="text-sm text-[rgba(15,15,20,0.5)] mb-1">Hoy</p>
             <p className="text-3xl font-light text-pink-500">
-              ${stats.todayRevenue.toLocaleString("es-AR")}
+              {formatPrice(stats.todayRevenue)}
             </p>
             <p className="text-xs text-[rgba(15,15,20,0.4)]">facturación</p>
           </CardContent>
@@ -126,7 +127,7 @@ export default function AdminDashboard() {
                           : booking.status)}
                       </Badge>
                       <p className="text-sm font-medium mt-1">
-                        ${booking.totalPrice.toLocaleString("es-AR")}
+                        {formatPrice(booking.totalPrice)}
                       </p>
                     </div>
                   </div>

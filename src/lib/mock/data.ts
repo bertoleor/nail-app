@@ -300,9 +300,9 @@ export function formatPhone(phone: string): string {
   return phone;
 }
 
-export function formatPrice(price: number): string {
-  return `$${price.toLocaleString("es-AR")}`;
-}
+// NAIL-M2: formatPrice re-exported from the pricing domain — single source of truth.
+// Duplicated es-AR formatting (and the former "ARS" prefix) removed.
+export { formatPrice } from "@/lib/domain/pricing/calculator";
 
 export function getAddonById(id: string): Addon | undefined {
   return MOCK_ADDONS.find((a) => a.id === id);
