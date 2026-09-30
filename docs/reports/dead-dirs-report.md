@@ -57,3 +57,13 @@ restos legacy. Mantener con `.gitkeep`; no requiere borrado.
 
 - Este hallazgo queda registrado en `docs/plans/deuda-tecnica-plan.md` §2 (P2)
   y lo consumirá el task `t_b4bd52dd` (deuda-tecnica-plan.md).
+
+## Actualización 2026-09-30 (NAIL-H2 `t_f4af1f5c`)
+
+La evidencia del punto 2 quedó desactualizada: el link `href="/agenda"` del nav
+cliente (layout.tsx:30) fue **removido en `6ed57d7` (2026-09-18, kickoff a11y)**
+y reemplazado por `/reservar`. El 404 del hallazgo NAIL-H2 ya no es reproducible:
+el nav linkea solo rutas con `page.tsx`. La recomendación de KEEP de los tres
+placeholders se mantiene — la agenda cliente sigue siendo una ruta futura, y el
+conflicto latente `src/app/agenda/` vs `src/app/(client)/agenda/` se resuelve al
+implementar (recomendado: `(client)/agenda`).
