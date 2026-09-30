@@ -8,6 +8,7 @@
 /playwright-report/
 /test-results/
 vitest.config.ts.timestamp*
+.vitest-localstorage.json
 
 # next.js
 /.next/
