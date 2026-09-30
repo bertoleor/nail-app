@@ -42,3 +42,6 @@ next-env.d.ts
 .vscode/settings.json
 .vscode/tasks.json
 .vscode/launch.json
+
+# rdd receipts (local)
+.rdd/
