@@ -20,9 +20,9 @@ Es un mockup sin backend real: los datos viven en memoria (Zustand) y el catálo
 | `/admin/turnos` | Manicurista | Agenda por día: grilla horaria 09:00–18:30, bloqueos de horario, detalle de turno. |
 | `/admin/calculadora` | Manicurista | Presupuesto: clienta + servicio + extras + notas → copiar / WhatsApp / guardar borrador. |
 | `/admin/clientas` | Manicurista | Lista de clientas. |
-| `/admin/services` | Manicurista | Catálogo de servicios con precio/duración. |
+| `/admin/servicios` | Manicurista | Catálogo de servicios con precio/duración. |
 
-> Nota de coherencia: la ruta del catálogo es `/admin/services` (carpeta `src/app/(admin)/services/`), pero el link del sidebar de admin aún apunta a `/admin/servicios` (en español). Deuda de código, no de documentación.
+> Coherencia de rutas: el catálogo vive en `/admin/servicios` (carpeta `src/app/admin/servicios/`), en español como sus rutas hermanas (`turnos`, `clientas`, `calculadora`). El contract test `__tests__/components/admin/admin-nav-routes.test.ts` garantiza que todo href `/admin/*` del nav resuelva a una página real (fix NAIL-H1, 2026-09-30).
 
 ## Estética
 
@@ -131,7 +131,7 @@ nail-app/
 │   │       ├── turnos/          ← Agenda → /admin/turnos
 │   │       ├── calculadora/     ← Presupuestos → /admin/calculadora
 │   │       ├── clientas/        ← Lista de clientas → /admin/clientas
-│   │       ├── services/        ← Catálogo de servicios → /admin/services
+│   │       ├── servicios/       ← Catálogo de servicios → /admin/servicios
 │   │       └── layout.tsx       ← Layout admin (sidebar)
 │   ├── components/
 │   │   ├── client/

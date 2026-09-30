@@ -17,30 +17,34 @@ class MockPointerEvent extends Event {
   }
 }
 
-window.PointerEvent = MockPointerEvent as unknown as typeof PointerEvent;
-window.HTMLElement.prototype.hasPointerCapture = () => false;
-window.HTMLElement.prototype.setPointerCapture = () => {};
-window.HTMLElement.prototype.releasePointerCapture = () => {};
-window.HTMLElement.prototype.scrollIntoView = () => {};
+if (typeof window !== "undefined") {
+  window.PointerEvent = MockPointerEvent as unknown as typeof PointerEvent;
+  window.HTMLElement.prototype.hasPointerCapture = () => false;
+  window.HTMLElement.prototype.setPointerCapture = () => {};
+  window.HTMLElement.prototype.releasePointerCapture = () => {};
+  window.HTMLElement.prototype.scrollIntoView = () => {};
+}
 
-window.CSS.supports = (
-  (propertyOrCondition: string, value?: string) => {
-    if (value !== undefined) {
-      if (propertyOrCondition === "backdrop-filter" && value === "blur(1px)") return true;
-      if (propertyOrCondition === "display" && value === "grid") return true;
+if (typeof window !== "undefined") {
+  window.CSS!.supports = (
+    (propertyOrCondition: string, value?: string) => {
+      if (value !== undefined) {
+        if (propertyOrCondition === "backdrop-filter" && value === "blur(1px)") return true;
+        if (propertyOrCondition === "display" && value === "grid") return true;
+        return false;
+      }
       return false;
     }
-    return false;
-  }
-) as typeof CSS.supports;
+  ) as typeof CSS.supports;
 
-window.matchMedia = (query: string) => ({
-  matches: false,
-  media: query,
-  onchange: null,
-  addListener: () => {},
-  removeListener: () => {},
-  addEventListener: () => {},
-  removeEventListener: () => {},
-  dispatchEvent: () => false,
-});
+  window.matchMedia = (query: string) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: () => {},
+    removeListener: () => {},
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    dispatchEvent: () => false,
+  });
+}

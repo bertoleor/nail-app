@@ -59,9 +59,7 @@ Dos roles:
 | `/admin/turnos` | Manicurista | Agenda por día + bloqueos + detalle de turno |
 | `/admin/calculadora` | Manicurista | Presupuestos + envío por WhatsApp |
 | `/admin/clientas` | Manicurista | Lista de clientas |
-| `/admin/services` | Manicurista | Catálogo con precio/duración |
-
-> Deuda conocida: el sidebar de admin aún linkea `/admin/servicios` (en español, 404) mientras la ruta real es `/admin/services` (ver `docs/plans/deuda-tecnica-plan.md` y `docs/FEATURES.md`).
+| `/admin/servicios` | Manicurista | Catálogo con precio/duración |
 
 ## Índice de producto
 

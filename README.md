@@ -23,7 +23,7 @@
 - Env: copiar `.env.example` a `.env.local` y completar. Solo 2 vars se consumen hoy (`NEXT_PUBLIC_WHATSAPP_NUMBER`, `NEXT_PUBLIC_SITE_URL`); el resto es para el backend futuro. Ver `src/lib/env.ts` (validación Zod).
 
 ## 3. Estructura de carpetas (solo primer nivel)
-- `src/app/(admin)` — admin: turnos, clientas, servicios, calculadora.
+- `src/app/admin` — admin: turnos, clientas, servicios, calculadora.
 - `src/app/(client)` — cliente: agenda, calculator, reservar.
 - `src/lib/domain` — lógica booking/pricing pura · `src/lib/mock` — datos mock · `src/lib/env.ts` — env validado con Zod.
 - `src/stores` — zustand (app, booking, pricing).

@@ -26,6 +26,6 @@ Mockup sin backend (ver `docs/ADR-001-mockup-sin-backend.md`): UI Next.js App Ro
 
 ## Deudas conocidas
 
-- Link del sidebar apunta a `/admin/servicios` pero la ruta real es `/admin/services` (ver `docs/PROJECT.md`).
+- ~~Link del sidebar apunta a `/admin/servicios` pero la ruta real es `/admin/services`~~ — RESUELTO (NAIL-H1, 2026-09-30): la ruta ahora es `/admin/servicios`, consistente con el nav.
 - WhatsApp de reserva con fallback hardcodeado si falta la env var.
 - Detalle de deuda técnica: `docs/plans/deuda-tecnica-plan.md`.

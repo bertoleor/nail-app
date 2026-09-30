@@ -14,7 +14,7 @@ Superficie real verificada por lectura de `src/` (rutas, dominio, mock). Detalle
 | `/admin/turnos` | Manicurista | Agenda por día (grilla 09:00–18:30), bloqueos de horario, detalle (confirmar/completar/cancelar) |
 | `/admin/calculadora` | Manicurista | Presupuesto: clienta + servicio + extras + notas → copiar / WhatsApp / guardar borrador |
 | `/admin/clientas` | Manicurista | Lista de clientas |
-| `/admin/services` | Manicurista | Catálogo con precio/duración (nota: el sidebar aún linkea `/admin/servicios` — deuda) |
+| `/admin/servicios` | Manicurista | Catálogo con precio/duración |
 
 ## Dominio pricing (`src/lib/domain/pricing`)
 
