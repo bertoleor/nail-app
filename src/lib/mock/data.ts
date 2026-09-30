@@ -1,6 +1,10 @@
+import type { Booking } from "@/lib/domain/booking/types";
 import type { Addon, Service, ServiceType } from "@/lib/domain/pricing";
 import { ADDONS, SERVICES } from "@/lib/domain/pricing";
 export type { Addon, Service, ServiceType } from "@/lib/domain/pricing";
+
+// NAIL-M1: Booking/BookingStatus now live in lib/domain/booking (single source of truth).
+export type { Booking, BookingStatus } from "@/lib/domain/booking/types";
 
 export interface BlockedSlot {
   readonly date: string;
@@ -9,23 +13,6 @@ export interface BlockedSlot {
   readonly reason: string;
   readonly startTime: string;
 }
-
-export interface Booking {
-  readonly addonIds: readonly string[];
-  readonly clientId: string;
-  readonly createdAt: string;
-  readonly date: string;
-  readonly duration: number;
-  readonly id: string;
-  readonly notes?: string;
-  readonly serviceId: string;
-  readonly startTime: string;
-  readonly status: BookingStatus;
-  readonly totalPrice: number;
-  readonly type: ServiceType;
-}
-
-export type BookingStatus = "cancelled" | "completed" | "confirmed" | "pending";
 
 export interface Client {
   readonly createdAt: string;

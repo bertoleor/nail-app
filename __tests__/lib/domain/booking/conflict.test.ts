@@ -11,11 +11,16 @@ describe("Conflict Detection", () => {
     date = "2025-01-15"
   ): Booking => ({
     id,
-    clientName: `Client ${id}`,
+    clientId: `client-${id}`,
     serviceId: "manicura",
+    type: "new",
     date,
     startTime,
     duration,
+    totalPrice: 5000,
+    status: "confirmed",
+    createdAt: "2025-01-10T10:00:00.000Z",
+    addonIds: [],
   });
 
   describe("hasConflict", () => {
