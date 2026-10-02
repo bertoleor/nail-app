@@ -50,7 +50,7 @@ Detectados por auditor-general, no instalados (instalar cambia entorno global; s
 
 ## 5. Ciclo no-técnico (09/10/19/21/18/15/23)
 
-- [ ] **09-product:** sin roadmap ni definición de MVP vs futuro (Supabase "futuro" sin fecha). Acción: `docs/ROADMAP.md` mínimo (mockup → backend → deploy).
+- [x] **09-product — RESUELTO (2026-10-02, task `t_f437ee4f`):** `docs/ROADMAP.md` creado — 3 fases (F1 demo/mockup actual → F2 backend Supabase → F3 deploy público), cada una con objetivo, entregables, criterios de salida verificables (comandos/artefactos) y qué NO entra (MVP vs futuro). ADR-003 (demo-vs-SaaS) queda marcado como **gate abierto** de F2 (venc. 2026-10-03), no resuelto. Sin fechas inventadas.
 - [x] **19-writer:** README era template de create-next-app → **reescrito en esta pasada**. CHANGELOG.md creado. ADR-001 (mockup sin backend) y ADR-002 (es-AR-only pendiente de decisión) creados.
 - [ ] **21-content:** textos de UI en español rioplatense OK de tono, pero sin fuente única (hay strings duplicados entre admin/cliente, ej. títulos de agenda). Acción: centralizar copies al instalar i18n.
 - [ ] **18-i18n:** ver I-1 arriba.

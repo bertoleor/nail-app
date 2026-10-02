@@ -68,3 +68,4 @@ Dos roles:
 - Funciones en profundidad: `docs/FEATURES.md`
 - Catálogo + calculadora de pricing: `src/lib/domain/pricing/` (fuente única)
 - Deuda técnica y roadmap deuda: `docs/plans/deuda-tecnica-plan.md`
+- Roadmap de fases (mockup → backend → deploy): `docs/ROADMAP.md`
