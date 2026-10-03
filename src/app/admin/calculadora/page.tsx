@@ -14,6 +14,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+  COMMON_ACTIONS,
+  SERVICE_TYPE_LABELS,
+} from "@/lib/content";
+import {
   calculateDuration,
   calculatePrice,
   formatPrice,
@@ -85,7 +89,7 @@ export default function AdminCalculatorPage() {
 ━━━━━━━━━━━━━━━━━━
 
 💅 Servicio: ${selectedService?.name}
-   Tipo: ${serviceType === "new" ? "Nuevo" : "Mantenimiento"}
+   Tipo: ${SERVICE_TYPE_LABELS[serviceType]}
    Precio: ${formatPrice(basePrice)}
 
 ${selectedAddons.length > 0 ? `✨ Extras:\n${selectedAddons.map((a) => `   • ${a.name}: ${formatPrice(a.price)}`).join("\n")}\n` : ""}━━━━━━━━━━━━━━━━━━
@@ -245,7 +249,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                     }`}
                     onClick={() => { setServiceType("new"); }}
                   >
-                    <p className="font-medium">Nuevo</p>
+                    <p className="font-medium">{SERVICE_TYPE_LABELS.new}</p>
                     <p className="text-xl font-light text-pink-600">
                       {formatPrice(selectedService?.basePriceNew ?? 0)}
                     </p>
@@ -262,7 +266,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                     }`}
                     onClick={() => { setServiceType("maintenance"); }}
                   >
-                    <p className="font-medium">Mantenimiento</p>
+                    <p className="font-medium">{SERVICE_TYPE_LABELS.maintenance}</p>
                     <p className="text-xl font-light text-pink-600">
                       {formatPrice(selectedService?.basePriceMaintenance ?? 0)}
                     </p>
@@ -334,7 +338,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                     <span>{formatPrice(basePrice)}</span>
                   </div>
                   <p className="text-sm text-[rgba(15,15,20,0.5)]">
-                    {serviceType === "new" ? "Nuevo" : "Mantenimiento"} · {duration} min
+                    {SERVICE_TYPE_LABELS[serviceType]} · {duration} min
                   </p>
                 </div>
               )}
@@ -371,7 +375,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                   disabled={!serviceId || !clientName}
                   onClick={handleWhatsApp}
                 >
-                  📱 Enviar por WhatsApp
+                  {COMMON_ACTIONS.sendWhatsApp}
                 </Button>
                 <Button
                   className="w-full"

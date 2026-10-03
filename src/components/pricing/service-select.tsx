@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { SERVICE_TYPE_LABELS } from "@/lib/content";
 import { SERVICES, type ServiceType, formatPrice } from "@/lib/domain/pricing";
 import { usePricingStore } from "@/stores/pricing-store";
 
@@ -61,7 +62,7 @@ export function ServiceSelect() {
             onClick={() => { selectServiceType("new"); }}
             type="button"
           >
-            <p className="text-sm font-medium">Nuevo</p>
+            <p className="text-sm font-medium">{SERVICE_TYPE_LABELS.new}</p>
             {basePrice !== null && (
               <p className="text-xs text-[rgba(15,15,20,0.5)]">
                 {formatPrice(basePrice)} · {duration} min
@@ -78,7 +79,7 @@ export function ServiceSelect() {
             onClick={() => { selectServiceType("maintenance" as ServiceType); }}
             type="button"
           >
-            <p className="text-sm font-medium">Mantenimiento</p>
+            <p className="text-sm font-medium">{SERVICE_TYPE_LABELS.maintenance}</p>
             {selectedService && (
               <p className="text-xs text-[rgba(15,15,20,0.5)]">
                 {formatPrice(selectedService.basePriceMaintenance)} · {selectedService.durationMaintenance} min

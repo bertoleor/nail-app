@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SERVICE_TYPE_LABELS } from "@/lib/content";
 import { formatPrice, SERVICES } from "@/lib/domain/pricing";
 
 export default function AdminServicesPage() {
@@ -32,7 +33,7 @@ export default function AdminServicesPage() {
               )}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <p className="text-xs text-[rgba(15,15,20,0.5)]">Nuevo</p>
+                  <p className="text-xs text-[rgba(15,15,20,0.5)]">{SERVICE_TYPE_LABELS.new}</p>
                   <Badge variant="default">
                     {formatPrice(service.basePriceNew)}
                   </Badge>
@@ -41,7 +42,7 @@ export default function AdminServicesPage() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-[rgba(15,15,20,0.5)]">Mantenimiento</p>
+                  <p className="text-xs text-[rgba(15,15,20,0.5)]">{SERVICE_TYPE_LABELS.maintenance}</p>
                   <Badge variant="default">
                     {formatPrice(service.basePriceMaintenance)}
                   </Badge>

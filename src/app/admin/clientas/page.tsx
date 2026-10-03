@@ -15,6 +15,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { BOOKING_STATUS_LABELS, COMMON_ACTIONS } from "@/lib/content";
 import { MOCK_SERVICES } from "@/lib/mock/data";
 import { formatPrice } from "@/lib/domain/pricing";
 import { MOCK_CLIENTS, useAppStore, useClientHistory } from "@/stores/app-store";
@@ -190,7 +191,7 @@ export default function AdminClientsPage() {
             </div>
             <div className="flex gap-3 pt-2">
               <Button onClick={() => { setShowNewClientDialog(false); }} variant="outline">
-                Cancelar
+                {COMMON_ACTIONS.cancel}
               </Button>
               <Button
                 disabled={!newClient.name || !newClient.phone}
@@ -286,11 +287,7 @@ function ClientDetail({ client }: { readonly client: Client }) {
                           : "secondary")
                       }
                     >
-                      {booking.status === "completed"
-                        ? "Completado"
-                        : (booking.status === "cancelled"
-                        ? "Cancelado"
-                        : booking.status)}
+                      {BOOKING_STATUS_LABELS[booking.status]}
                     </Badge>
                   </div>
                 </div>

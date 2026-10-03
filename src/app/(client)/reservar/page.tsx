@@ -16,6 +16,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { getWhatsAppNumber } from "@/lib/config/whatsapp";
 import {
+  COMMON_ACTIONS,
+  HOURS,
+  SERVICE_TYPE_LABELS,
+} from "@/lib/content";
+import {
   calculateDuration as domainCalculateDuration,
   calculatePrice,
   formatPrice,
@@ -27,13 +32,6 @@ import {
 } from "@/lib/mock/data";
 
 type Step = "client" | "confirm" | "schedule" | "service";
-
-const HOURS = [
-  "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-  "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
-  "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
-  "18:00", "18:30",
-];
 
 export default function ClientBookingPage() {
   const [step, setStep] = useState<Step>("client");
@@ -89,7 +87,7 @@ export default function ClientBookingPage() {
       `¡Hola! Quiero reservar un turno:\n\n` +
       `👤 ${clientData.name}\n` +
       `📱 ${clientData.phone}\n` +
-      `💅 ${selectedService?.name} (${serviceData.type === "new" ? "Nuevo" : "Mantenimiento"})\n` +
+      `💅 ${selectedService?.name} (${serviceData.type ? SERVICE_TYPE_LABELS[serviceData.type] : ""})\n` +
       (selectedAddons.length > 0 ? `✨ Add-ons: ${selectedAddons.map(a => a.name).join(", ")}\n` : "") +
       `📅 ${scheduleData.date} a las ${scheduleData.startTime}\n` +
       `💰 Total: ${formatPrice(calculateTotal())}\n\n` +
@@ -236,7 +234,7 @@ export default function ClientBookingPage() {
                         onClick={() => { setServiceData({ ...serviceData, type: "new" }); }}
                         type="button"
                       >
-                        <p className="font-medium">Nuevo</p>
+                        <p className="font-medium">{SERVICE_TYPE_LABELS.new}</p>
                         <p className="text-2xl font-light text-pink-600">
                           {formatPrice(selectedService?.basePriceNew ?? 0)}
                         </p>
@@ -254,7 +252,7 @@ export default function ClientBookingPage() {
                         onClick={() => { setServiceData({ ...serviceData, type: "maintenance" }); }}
                         type="button"
                       >
-                        <p className="font-medium">Mantenimiento</p>
+                        <p className="font-medium">{SERVICE_TYPE_LABELS.maintenance}</p>
                         <p className="text-2xl font-light text-pink-600">
                           {formatPrice(selectedService?.basePriceMaintenance ?? 0)}
                         </p>
@@ -372,7 +370,7 @@ export default function ClientBookingPage() {
                 {scheduleData.startTime && (
                   <div className="p-4 bg-pink-50 rounded-xl space-y-2">
                     <p className="font-medium">Resumen de tu reserva:</p>
-                    <p className="text-sm">{selectedService?.name} ({serviceData.type === "new" ? "Nuevo" : "Mantenimiento"})</p>
+                    <p className="text-sm">{selectedService?.name} ({serviceData.type ? SERVICE_TYPE_LABELS[serviceData.type] : ""})</p>
                     {selectedAddons.length > 0 && (
                       <p className="text-sm text-[rgba(15,15,20,0.6)]">
                         + {selectedAddons.map((a) => a.name).join(", ")}
@@ -420,7 +418,7 @@ export default function ClientBookingPage() {
               </p>
               <div className="pt-4 space-y-3">
                 <Button className="w-full" onClick={handleSendWhatsApp}>
-                  📱 Enviar por WhatsApp
+                  {COMMON_ACTIONS.sendWhatsApp}
                 </Button>
                 <Button className="w-full" onClick={() => { setShowSuccess(false); }} variant="outline">
                   Cerrar

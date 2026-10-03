@@ -12,6 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { BOOKING_STATUS_LABELS } from "@/lib/content";
 import { formatPrice } from "@/lib/domain/pricing";
 import { MOCK_SERVICES } from "@/lib/mock/data";
 import { MOCK_CLIENTS, useRecentBookings, useTodayStats } from "@/stores/app-store";
@@ -120,11 +121,7 @@ export default function AdminDashboard() {
                             : "outline")
                         }
                       >
-                        {booking.status === "confirmed"
-                          ? "Confirmado"
-                          : (booking.status === "pending"
-                          ? "Pendiente"
-                          : booking.status)}
+                        {BOOKING_STATUS_LABELS[booking.status]}
                       </Badge>
                       <p className="text-sm font-medium mt-1">
                         {formatPrice(booking.totalPrice)}

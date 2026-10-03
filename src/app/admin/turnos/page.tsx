@@ -13,6 +13,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  BOOKING_FIELD_LABELS,
+  BOOKING_STATUS_LABELS,
+  COMMON_ACTIONS,
+  HOURS,
+  SERVICE_TYPE_LABELS,
+  SERVICE_TYPE_LABELS_SHORT,
+} from "@/lib/content";
 import { formatPrice } from "@/lib/domain/pricing";
 import { type BookingStatus, MOCK_SERVICES } from "@/lib/mock/data";
 import {
@@ -21,20 +29,6 @@ import {
   useBlockedSlotsByDate,
   useBookingsByDate,
 } from "@/stores/app-store";
-
-const HOURS = [
-  "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-  "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
-  "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
-  "18:00", "18:30",
-];
-
-const STATUS_LABELS: Record<BookingStatus, string> = {
-  cancelled: "Cancelado",
-  completed: "Completado",
-  confirmed: "Confirmado",
-  pending: "Pendiente",
-};
 
 const STATUS_COLORS: Record<BookingStatus, string> = {
   cancelled: "bg-red-100 text-red-700",
@@ -216,11 +210,11 @@ export default function AdminBookingsPage() {
                       <div>
                         <p className="font-medium">{client?.name}</p>
                         <p className="text-sm text-[rgba(15,15,20,0.5)]">
-                          {service?.name} · {booking.type === "new" ? "Nuevo" : "Mant."}
+                          {service?.name} · {SERVICE_TYPE_LABELS_SHORT[booking.type]}
                         </p>
                       </div>
                       <Badge className={STATUS_COLORS[booking.status]}>
-                        {STATUS_LABELS[booking.status]}
+                        {BOOKING_STATUS_LABELS[booking.status]}
                       </Badge>
                     </div>
                   )}
@@ -240,38 +234,38 @@ export default function AdminBookingsPage() {
           {selectedBookingData && (
             <div className="space-y-4">
               <div className="space-y-2">
-                <p className="text-sm text-[rgba(15,15,20,0.5)]">Cliente</p>
+                <p className="text-sm text-[rgba(15,15,20,0.5)]">{BOOKING_FIELD_LABELS.client}</p>
                 <p className="font-medium">
                   {MOCK_CLIENTS.find((c) => c.id === selectedBookingData.clientId)?.name}
                 </p>
               </div>
               <div className="space-y-2">
-                <p className="text-sm text-[rgba(15,15,20,0.5)]">Servicio</p>
+                <p className="text-sm text-[rgba(15,15,20,0.5)]">{BOOKING_FIELD_LABELS.service}</p>
                 <p className="font-medium">
                   {MOCK_SERVICES.find((s) => s.id === selectedBookingData.serviceId)?.name}
                   <span className="text-sm text-[rgba(15,15,20,0.5)] ml-2">
-                    ({selectedBookingData.type === "new" ? "Nuevo" : "Mantenimiento"})
+                    ({SERVICE_TYPE_LABELS[selectedBookingData.type]})
                   </span>
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-[rgba(15,15,20,0.5)]">Fecha</p>
+                  <p className="text-sm text-[rgba(15,15,20,0.5)]">{BOOKING_FIELD_LABELS.date}</p>
                   <p className="font-medium">{selectedBookingData.date}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-[rgba(15,15,20,0.5)]">Horario</p>
+                  <p className="text-sm text-[rgba(15,15,20,0.5)]">{BOOKING_FIELD_LABELS.hour}</p>
                   <p className="font-medium">{selectedBookingData.startTime}</p>
                 </div>
               </div>
               <div>
-                <p className="text-sm text-[rgba(15,15,20,0.5)]">Total</p>
+                <p className="text-sm text-[rgba(15,15,20,0.5)]">{BOOKING_FIELD_LABELS.total}</p>
                 <p className="text-xl font-medium">
                   {formatPrice(selectedBookingData.totalPrice)}
                 </p>
               </div>
               <Badge className={STATUS_COLORS[selectedBookingData.status]}>
-                {STATUS_LABELS[selectedBookingData.status]}
+                {BOOKING_STATUS_LABELS[selectedBookingData.status]}
               </Badge>
               <div className="flex gap-2 pt-4">
                 {selectedBookingData.status === "pending" && (
@@ -322,7 +316,7 @@ export default function AdminBookingsPage() {
             </div>
             <div className="flex gap-3">
               <Button onClick={() => { setShowBlockDialog(false); }} variant="outline">
-                Cancelar
+                {COMMON_ACTIONS.cancel}
               </Button>
               <Button disabled={!blockReason} onClick={handleBlockSlot}>
                 Bloquear
