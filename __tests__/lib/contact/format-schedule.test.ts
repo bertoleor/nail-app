@@ -1,9 +1,13 @@
+import { readFileSync } from "node:fs";
+
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { formatSchedule, getScheduleWhatsAppUrl } from "@/lib/contact/format-schedule";
 
 const FALLBACK_NUMBER = "5491112345678";
 const ENV_KEY = "NEXT_PUBLIC_WHATSAPP_NUMBER";
+
+const MODULE_SOURCE = readFileSync(`${process.cwd()}/src/lib/contact/format-schedule.ts`, "utf-8");
 
 describe("formatSchedule", () => {
   it("returns the exact es-AR schedule label", () => {
@@ -47,5 +51,13 @@ describe("getScheduleWhatsAppUrl", () => {
     expect(getScheduleWhatsAppUrl("Hola, quiero un turno")).toBe(
       "https://wa.me/5491100000000?text=Hola%2C%20quiero%20un%20turno",
     );
+  });
+
+  // NAIL-M3: WhatsApp fallback must be single-sourced. If this guard fires,
+  // someone reintroduced a hardcoded number (or any digit literal) into this
+  // module — delegate to @/lib/config/whatsapp instead.
+  it("does not hardcode a WhatsApp fallback (NAIL-M3 guard)", () => {
+    expect(MODULE_SOURCE).not.toMatch(/5491112345678/);
+    expect(MODULE_SOURCE).not.toMatch(/WHATSAPP_FALLBACK_NUMBER\s*=/);
   });
 });

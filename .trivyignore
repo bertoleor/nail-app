@@ -1,0 +1,9 @@
+# Trivy ignores — nail-app
+# Last reviewed: 2026-10-08 (G0 turno noche, t_g0ci2909 / Avanza: F2.ci-verde)
+# Full rationale: docs/reports/legal-audit-2026-09-28.md §trivy + reports/cron-runs/g0-nail-app-2026-09-28.md
+
+# package-lock.json was a stale npm lockfile (project uses pnpm exclusively,
+# pnpm-lock.yaml = 0 findings). Deleted from the tree on 2026-10-08 (NAIL-L4);
+# it only remains in git history. Owner approval for history purge is pending
+# (escalated 2026-09-28), so these CVEs are noise for fs scans until then.
+package-lock.json

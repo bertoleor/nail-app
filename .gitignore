@@ -45,3 +45,9 @@ next-env.d.ts
 
 # rdd receipts (local)
 .rdd/
+
+# package manager — pnpm is the single source of truth (NAIL-L4, 2026-09-30)
+# npm lockfiles are ignored to prevent a second package manager from sneaking back in
+package-lock.json
+.npm/
+
