@@ -36,7 +36,8 @@ test.describe("Mobile Responsive - Calculator", () => {
     await page.getByRole("combobox").click();
     await page.getByRole("option", { name: /Manicura clásica/i }).click();
 
-    await expect(page.getByText("$3.500")).toBeVisible();
+    // NAIL-M2: same duplicate as calculator.spec.ts — scope to the summary.
+    await expect(page.getByText("$3.500").last()).toBeVisible();
   });
 
   test("addon badges wrap properly on mobile", async ({ page }) => {

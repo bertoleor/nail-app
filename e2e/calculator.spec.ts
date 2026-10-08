@@ -13,7 +13,10 @@ test.describe("Price Calculator", () => {
     await page.getByRole("combobox").click();
     await page.getByRole("option", { name: /Manicura clásica/i }).click();
 
-    await expect(page.getByText(/\$3\.500/)).toBeVisible();
+    // NAIL-M2: formatPrice emits "$3.500" in BOTH the select option list and
+    // the price summary. Scope to the summary (last match in DOM order) so
+    // strict mode does not see the dropdown option duplicate.
+    await expect(page.getByText(/\$3\.500/).last()).toBeVisible();
   });
 
   test("shows total with addons", async ({ page }) => {
@@ -24,7 +27,7 @@ test.describe("Price Calculator", () => {
 
     await page.getByRole("button", { name: /Diseño artístico/i }).click();
 
-    await expect(page.getByText(/\$4\.300/)).toBeVisible();
+    await expect(page.getByText(/\$4\.300/).last()).toBeVisible();
   });
 
   test("shows duration", async ({ page }) => {
