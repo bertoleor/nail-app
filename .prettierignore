@@ -9,3 +9,8 @@ build
 *.tsbuildinfo
 .DS_Store
 Thumbs.db
+
+# non-parseable-as-JS JSON body (prettier SyntaxError in CI run 37752843706)
+commitlint.config.js
+# generated/lockfiles
+pnpm-lock.yaml
