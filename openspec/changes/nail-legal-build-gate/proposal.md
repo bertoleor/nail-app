@@ -42,18 +42,18 @@ Fase 1 tocó disco después.
 
 ## Affected Areas
 
-| Area | Impact | Description |
-|------|--------|-------------|
-| `docs/TERMS-OF-SERVICE.md` | Modified? | Solo si hay redlines aplicables sin datos titular; si no, intacto |
-| `docs/PRIVACY-POLICY.md` | Modified? | Idem |
-| `openspec/changes/nail-legal-build-gate/` | New | Artefactos SDD del cambio |
+| Area                                      | Impact    | Description                                                       |
+| ----------------------------------------- | --------- | ----------------------------------------------------------------- |
+| `docs/TERMS-OF-SERVICE.md`                | Modified? | Solo si hay redlines aplicables sin datos titular; si no, intacto |
+| `docs/PRIVACY-POLICY.md`                  | Modified? | Idem                                                              |
+| `openspec/changes/nail-legal-build-gate/` | New       | Artefactos SDD del cambio                                         |
 
 ## Risks
 
-| Risk | Likelihood | Mitigation |
-|------|------------|------------|
-| Inventar datos titular para "cerrar" legal | Low | Prohibido explícito; placeholders quedan |
-| Build rojo por deriva post-Fase-1 | Med | Reportar, fix solo con TDD + tarjeta propia |
+| Risk                                       | Likelihood | Mitigation                                  |
+| ------------------------------------------ | ---------- | ------------------------------------------- |
+| Inventar datos titular para "cerrar" legal | Low        | Prohibido explícito; placeholders quedan    |
+| Build rojo por deriva post-Fase-1          | Med        | Reportar, fix solo con TDD + tarjeta propia |
 
 ## Rollback Plan
 

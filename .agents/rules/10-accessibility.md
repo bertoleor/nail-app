@@ -42,7 +42,7 @@ export function SkipLink() {
   return (
     <a
       href="#main-content"
-      className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:px-4 focus:py-2 focus:text-white focus:bg-pink-700"
+      className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:bg-pink-700 focus:px-4 focus:py-2 focus:text-white"
     >
       Saltar al contenido principal
     </a>
@@ -104,7 +104,10 @@ function Modal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   }, [isOpen, onClose]);
 
   return (
-    <div role="dialog" aria-modal="true">
+    <div
+      role="dialog"
+      aria-modal="true"
+    >
       {/* Modal content */}
     </div>
   );
@@ -120,7 +123,11 @@ function Modal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
 ```tsx
 function FormStatus({ isSubmitting, isSuccess, isError }: FormStatusProps) {
   return (
-    <div role="status" aria-live="polite" className="sr-only">
+    <div
+      role="status"
+      aria-live="polite"
+      className="sr-only"
+    >
       {isSubmitting && "Enviando formulario..."}
       {isSuccess && "Formulario enviado exitosamente"}
       {isError && "Error al enviar. Intenta nuevamente."}

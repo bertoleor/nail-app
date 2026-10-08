@@ -19,31 +19,37 @@ export function ServiceSelect() {
 
   const selectedService = SERVICES.find((s) => s.id === selectedServiceId);
   const basePrice = selectedService
-    ? (selectedServiceType === "new"
+    ? selectedServiceType === "new"
       ? selectedService.basePriceNew
-      : selectedService.basePriceMaintenance)
+      : selectedService.basePriceMaintenance
     : null;
   const duration = selectedService
-    ? (selectedServiceType === "new"
+    ? selectedServiceType === "new"
       ? selectedService.durationNew
-      : selectedService.durationMaintenance)
+      : selectedService.durationMaintenance
     : null;
 
   return (
     <div className="space-y-2">
       <label
-        className="text-xs font-medium uppercase tracking-wider text-[rgba(15,15,20,0.5)]"
+        className="text-xs font-medium tracking-wider text-[rgba(15,15,20,0.5)] uppercase"
         htmlFor="service-select"
       >
         Servicio
       </label>
-      <Select onValueChange={selectService} value={selectedServiceId ?? ""}>
+      <Select
+        onValueChange={selectService}
+        value={selectedServiceId ?? ""}
+      >
         <SelectTrigger id="service-select">
           <SelectValue placeholder="Seleccioná un servicio" />
         </SelectTrigger>
         <SelectContent>
           {SERVICES.map((service) => (
-            <SelectItem key={service.id} value={service.id}>
+            <SelectItem
+              key={service.id}
+              value={service.id}
+            >
               {service.name}
             </SelectItem>
           ))}
@@ -54,12 +60,14 @@ export function ServiceSelect() {
         <div className="grid grid-cols-2 gap-2 pt-2">
           <button
             aria-pressed={selectedServiceType === "new"}
-            className={`p-3 rounded-xl text-center transition-all border-2 ${
+            className={`rounded-xl border-2 p-3 text-center transition-all ${
               selectedServiceType === "new"
                 ? "border-primary bg-primary/10"
-                : "border-gray-200 hover:border-primary/30"
+                : "hover:border-primary/30 border-gray-200"
             }`}
-            onClick={() => { selectServiceType("new"); }}
+            onClick={() => {
+              selectServiceType("new");
+            }}
             type="button"
           >
             <p className="text-sm font-medium">{SERVICE_TYPE_LABELS.new}</p>
@@ -71,18 +79,21 @@ export function ServiceSelect() {
           </button>
           <button
             aria-pressed={selectedServiceType === "maintenance"}
-            className={`p-3 rounded-xl text-center transition-all border-2 ${
+            className={`rounded-xl border-2 p-3 text-center transition-all ${
               selectedServiceType === "maintenance"
                 ? "border-primary bg-primary/10"
-                : "border-gray-200 hover:border-primary/30"
+                : "hover:border-primary/30 border-gray-200"
             }`}
-            onClick={() => { selectServiceType("maintenance" as ServiceType); }}
+            onClick={() => {
+              selectServiceType("maintenance" as ServiceType);
+            }}
             type="button"
           >
             <p className="text-sm font-medium">{SERVICE_TYPE_LABELS.maintenance}</p>
             {selectedService && (
               <p className="text-xs text-[rgba(15,15,20,0.5)]">
-                {formatPrice(selectedService.basePriceMaintenance)} · {selectedService.durationMaintenance} min
+                {formatPrice(selectedService.basePriceMaintenance)} ·{" "}
+                {selectedService.durationMaintenance} min
               </p>
             )}
           </button>

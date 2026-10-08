@@ -9,7 +9,7 @@ describe("Availability check (NAIL-H3, unified Booking model NAIL-M1)", () => {
     id: string,
     startTime: string,
     duration: number,
-    date = "2026-10-15"
+    date = "2026-10-15",
   ): Booking => ({
     id,
     clientId: `client-${id}`,
@@ -28,7 +28,7 @@ describe("Availability check (NAIL-H3, unified Booking model NAIL-M1)", () => {
     id: string,
     startTime: string,
     endTime: string,
-    date = "2026-10-15"
+    date = "2026-10-15",
   ): BlockedSlot => ({
     id,
     date,

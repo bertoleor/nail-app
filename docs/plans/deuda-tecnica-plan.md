@@ -1,4 +1,5 @@
 # Plan de deuda técnica global — NailApp
+
 > Parte de: [[README]] · Relacionados: [[PRD-nail-app-minimo]] · [[plan-accion-2026-09-12]]
 
 > Estado: **BASELINE VERDE (2026-09-28, G0 noche)** — `tsc --noEmit` 0 errores, `vitest run` 239/239 (156 forks + 83 threads-retry), `next build` OK (11 rutas), e2e Playwright 20/20 chromium (browsers instalados + specs realineados a la UI). Queda `eslint src` (135→~105 err tras fixes mecánicos) como único gate rojo, ver §V-1-ESLINT.
@@ -9,11 +10,11 @@
 
 ## Priorización
 
-| Prioridad | Criterio | Ítems |
-|-----------|----------|-------|
-| P0 | Riesgo de deploy o pérdida de trabajo | G-1 (51 archivos sin commitear), V-1 (baseline sin verde) |
-| P1 | Deuda que crece con cada feature | I-1 (sin i18n), T-2 (env sin validar), D-1 (README template) |
-| P2 | Higiene y completitud | Dead dirs, CHANGELOG/ADRs (creados en esta pasada), a11y labels, legal |
+| Prioridad | Criterio                              | Ítems                                                                  |
+| --------- | ------------------------------------- | ---------------------------------------------------------------------- |
+| P0        | Riesgo de deploy o pérdida de trabajo | G-1 (51 archivos sin commitear), V-1 (baseline sin verde)              |
+| P1        | Deuda que crece con cada feature      | I-1 (sin i18n), T-2 (env sin validar), D-1 (README template)           |
+| P2        | Higiene y completitud                 | Dead dirs, CHANGELOG/ADRs (creados en esta pasada), a11y labels, legal |
 
 ## 1. Errores de código (confirmados por scan estático, UNVERIFIED por compilador)
 
@@ -34,6 +35,7 @@
 ## 3. Actualización de stack (diferida, con motivo)
 
 Stack actual: Next 16.2.2 · React 19.2.4 · zod 4.3.6 · Tailwind 4 · framer-motion 12 · RHF 7.72 · zustand 5 — moderno, sin upgrades mayores pendientes.
+
 - **Diferido a propósito:** no se corrió `npm update` (ni siquiera minor) porque no había baseline en verde que atrape regresiones. **Desbloqueado 2026-09-12 (V-1 resuelto por G0).** Pendiente: correr `npm update` minor con `next build` + `vitest run` como red de seguridad.
 - [ ] Chequear `lucide-react ^1.7.0` (versión inusual, verificar que exista en registry) cuando haya red/tiempo.
 
@@ -41,12 +43,12 @@ Stack actual: Next 16.2.2 · React 19.2.4 · zod 4.3.6 · Tailwind 4 · framer-m
 
 Detectados por auditor-general, no instalados (instalar cambia entorno global; se listan para instalar con intervención):
 
-| Skill | Para qué falta |
-|-------|----------------|
-| `cuihua-i18n-helper` | Extracción de strings + traducción AI (I-1) |
+| Skill                                          | Para qué falta                                                                     |
+| ---------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `cuihua-i18n-helper`                           | Extracción de strings + traducción AI (I-1)                                        |
 | `oliver-accessibility` o `accessibility-audit` | Labels ARIA en interactivos, checklist WCAG (solo hay 2 `aria-hidden` decorativos) |
-| `legal-reviewer` | Revisar términos/privacidad cuando se redacten (23-legal) |
-| `snyk-fix` o `codeql` | SCA/SAST — nunca corridos en este repo |
+| `legal-reviewer`                               | Revisar términos/privacidad cuando se redacten (23-legal)                          |
+| `snyk-fix` o `codeql`                          | SCA/SAST — nunca corridos en este repo                                             |
 
 ## 5. Ciclo no-técnico (09/10/19/21/18/15/23)
 
@@ -75,12 +77,12 @@ Tarjetas que `audit_to_kanban.py` generaría (no se escribieron, dry-run):
 
 ## 7. Auto-recovery log (errores recuperados en esta pasada)
 
-| # | Error | Retry/fallback | Resultado |
-|---|-------|----------------|-----------|
-| R-1 | `tsc --noEmit` timeout 180s | Sin retry pesado (costo); fallback a scans estáticos `search_files` | Baseline parcial estático OK; V-1 queda P0 |
-| R-2 | Regex con grupos `(a\|b)` rompe `search_files` (wrapping interno) | Retry x2 con patrones simples sin paréntesis | Todos los scans OK |
-| R-3 | Un `search_files` sin params barrió todo el workspace (ruido VirtualBox) | Re-scope a `E:/sitios web E/nail-app/src` | Scans limpios y acotados |
-| R-4 | `npm update` / installs evaluados como riesgosos sin baseline verde | Workaround: diferir con motivo documentado (§3, §4) | Nada roto, nada a medio instalar |
+| #   | Error                                                                    | Retry/fallback                                                      | Resultado                                  |
+| --- | ------------------------------------------------------------------------ | ------------------------------------------------------------------- | ------------------------------------------ |
+| R-1 | `tsc --noEmit` timeout 180s                                              | Sin retry pesado (costo); fallback a scans estáticos `search_files` | Baseline parcial estático OK; V-1 queda P0 |
+| R-2 | Regex con grupos `(a\|b)` rompe `search_files` (wrapping interno)        | Retry x2 con patrones simples sin paréntesis                        | Todos los scans OK                         |
+| R-3 | Un `search_files` sin params barrió todo el workspace (ruido VirtualBox) | Re-scope a `E:/sitios web E/nail-app/src`                           | Scans limpios y acotados                   |
+| R-4 | `npm update` / installs evaluados como riesgosos sin baseline verde      | Workaround: diferir con motivo documentado (§3, §4)                 | Nada roto, nada a medio instalar           |
 
 ## 8. Qué NO se hizo (requiere intervención o rompería "no dejar roto")
 

@@ -5,6 +5,7 @@
 ## Project Identity
 
 Aplicación para manicuristas argentinas. Dos features principales:
+
 1. **Calculadora de precios**: Calcula el costo del servicio según tipo de servicio, addons y duración.
 2. **Agenda**: Gestión de turnos para la manicura y sus clientas.
 
@@ -18,19 +19,19 @@ Aplicación para manicuristas argentinas. Dos features principales:
 
 ### Lista de Protocolos Obligatorios
 
-| Cuándo | Protocolo | Referencia |
-| ------------------------------- | ----------------------- | -------------- |
-| **ANTES de cualquier acción** | Sequential Thinking MCP | Líneas 40-52 |
-| **ANTES de cualquier acción** | Pre-Action Gate | Líneas 55-70 |
-| **ANTES de escribir código** | Pre-Generation Gate | Líneas 73-112 |
-| **ANTES de implementar** | TDD Protocol | Líneas 115-128 |
-| **DESPUÉS de escribir** | Post-Write Protocol | Líneas 131-157 |
-| **DESPUÉS de cada tarea** | Engram Persistence | Líneas 175-202 |
-| **SI 2+ iteraciones fallan** | Judgment Day | Líneas 205-219 |
+| Cuándo                          | Protocolo                     | Referencia     |
+| ------------------------------- | ----------------------------- | -------------- |
+| **ANTES de cualquier acción**   | Sequential Thinking MCP       | Líneas 40-52   |
+| **ANTES de cualquier acción**   | Pre-Action Gate               | Líneas 55-70   |
+| **ANTES de escribir código**    | Pre-Generation Gate           | Líneas 73-112  |
+| **ANTES de implementar**        | TDD Protocol                  | Líneas 115-128 |
+| **DESPUÉS de escribir**         | Post-Write Protocol           | Líneas 131-157 |
+| **DESPUÉS de cada tarea**       | Engram Persistence            | Líneas 175-202 |
+| **SI 2+ iteraciones fallan**    | Judgment Day                  | Líneas 205-219 |
 | **ANTES/DESPUES de compaction** | Context Recovery (AUTOMÁTICO) | Líneas 224-258 |
-| **SIEMPRE en arquitectura** | Scope Rule | Lineas 240-261 |
-| **SIEMPRE (todas las tareas)** | Universal Delegation | Lineas 296-380 |
-| **AL llegar a 80% contexto** | Auto-Compactation | Lineas 355-380 |
+| **SIEMPRE en arquitectura**     | Scope Rule                    | Lineas 240-261 |
+| **SIEMPRE (todas las tareas)**  | Universal Delegation          | Lineas 296-380 |
+| **AL llegar a 80% contexto**    | Auto-Compactation             | Lineas 355-380 |
 
 ---
 
@@ -251,6 +252,7 @@ Ver Rule 23-architecture-scope.md para detalles.
 USAR **Rule 33a** (`33a-delegation-template.md`) para generar prompts.
 
 El template obligatorio incluye:
+
 1. Task ID unico
 2. Objective claro
 3. Mandatory Protocols
@@ -265,6 +267,7 @@ El template obligatorio incluye:
 **PRINCIPIO FUNDAMENTAL: ORQUESTADOR + WORKERS**
 
 El chat principal (padre) es SOLO para:
+
 - Comunicacion con el usuario
 - Delegar tareas a sub-agentes
 - LEER resultados de sub-agentes
@@ -273,6 +276,7 @@ El chat principal (padre) es SOLO para:
 - Gestionar auto-compactacion al 80%
 
 **TODO SE DELEGA**, incluyendo:
+
 - Analisis de codigo → Sub-agente `explore`
 - Exploracion de codebase → Sub-agente `explore`
 - Planificacion → Sub-agentes `sdd-*`
@@ -280,6 +284,7 @@ El chat principal (padre) es SOLO para:
 - Auditorias → Sub-agentes especializados
 
 **El orquestador NUNCA:**
+
 - Lee archivos completos
 - Escribe codigo directamente
 - Ejecuta analisis o exploracion
@@ -305,6 +310,7 @@ const [r1, r2, r3] = await Promise.all([
 **DELEGACION RECURSIVA:**
 
 Los sub-agentes PUEDEN delegar subtareas:
+
 - Maximo 2 niveles de profundidad
 - DEBEN consolidar resultados antes de retornar
 - DEBEN pasar PROTOCOLS MANDATORY
@@ -313,12 +319,12 @@ Los sub-agentes PUEDEN delegar subtareas:
 
 **AUTO-COMPACTACION AL 80%:**
 
-| Contexto | Accion |
-| -------- | ---------------------------------- |
-| 60% | Evaluar tareas pendientes |
-| 70% | Delegar todo lo paralelizable |
-| 75% | Guardar progreso en Engram |
-| 80% | **EJECUTAR AUTO-COMPACTACION** |
+| Contexto | Accion                         |
+| -------- | ------------------------------ |
+| 60%      | Evaluar tareas pendientes      |
+| 70%      | Delegar todo lo paralelizable  |
+| 75%      | Guardar progreso en Engram     |
+| 80%      | **EJECUTAR AUTO-COMPACTACION** |
 
 ---
 
@@ -563,13 +569,13 @@ Skills se cargan automáticamente según el contexto. Lista de skills disponible
 
 ### Testing & Calidad
 
-| Skill                      | Cuándo usar                                    |
-| -------------------------- | ---------------------------------------------- |
-| `vitest`                   | Escribir tests unitarios o de integración      |
-| `playwright`               | Escribir tests E2E                             |
-| `test-driven-development`  | Antes de implementar cualquier feature         |
-| `systematic-debugging`     | Encontrar bugs, tests que fallan               |
-| `judgment-day`             | Después de audit o tests, revisión adversarial |
+| Skill                     | Cuándo usar                                    |
+| ------------------------- | ---------------------------------------------- |
+| `vitest`                  | Escribir tests unitarios o de integración      |
+| `playwright`              | Escribir tests E2E                             |
+| `test-driven-development` | Antes de implementar cualquier feature         |
+| `systematic-debugging`    | Encontrar bugs, tests que fallan               |
+| `judgment-day`            | Después de audit o tests, revisión adversarial |
 
 ### Frontend & UI
 
@@ -591,13 +597,13 @@ Skills se cargan automáticamente según el contexto. Lista de skills disponible
 
 ### DevOps & Git
 
-| Skill                 | Cuándo usar                             |
-| --------------------- | --------------------------------------- |
-| `git-commit`          | Ejecutar /commit, crear commit validado |
-| `github-pr`           | Crear Pull Requests                     |
-| `gh-cli`              | Operaciones con GitHub CLI              |
-| `branch-pr`           | Workflow de creación de PR              |
-| `issue-creation`      | Crear issues en GitHub                  |
+| Skill            | Cuándo usar                             |
+| ---------------- | --------------------------------------- |
+| `git-commit`     | Ejecutar /commit, crear commit validado |
+| `github-pr`      | Crear Pull Requests                     |
+| `gh-cli`         | Operaciones con GitHub CLI              |
+| `branch-pr`      | Workflow de creación de PR              |
+| `issue-creation` | Crear issues en GitHub                  |
 
 ### SDD Workflow Skills
 

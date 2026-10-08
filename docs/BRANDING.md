@@ -1,32 +1,33 @@
 # NailApp — Branding e identidad visual
+
 > Parte de: [[README]] · Relacionados: [[MARKETING]]
 
 Dirección: **"Premium-Beauty"** — minimalismo cálido y femenino, basada en la estética **Portadora de Eros**. Fuente de verdad de tokens: `src/app/globals.css`. Detalle histórico: `docs/PROJECT.md` + `docs/reports/producto-marketing-estilo.md` §4.
 
 ## Paleta
 
-| Token | Valor | Uso |
-|-------|-------|-----|
-| `--background` | `#ffffff` | fondo base |
+| Token                        | Valor     | Uso                            |
+| ---------------------------- | --------- | ------------------------------ |
+| `--background`               | `#ffffff` | fondo base                     |
 | `--foreground` / `--primary` | `#1d1d1f` | texto / botones shadcn (negro) |
-| `--muted-foreground` | `#86868b` | texto secundario |
-| `--border` / `--input` | `#e5e5ea` | bordes |
-| `--destructive` | `#ff3b30` | errores |
-| `--secondary` / `--accent` | `#f2f2f7` | superficies suaves |
-| `--radius` | `1rem` | radio base |
-| Body sobre mesh | `#f8f9fb` | fondo del body |
+| `--muted-foreground`         | `#86868b` | texto secundario               |
+| `--border` / `--input`       | `#e5e5ea` | bordes                         |
+| `--destructive`              | `#ff3b30` | errores                        |
+| `--secondary` / `--accent`   | `#f2f2f7` | superficies suaves             |
+| `--radius`                   | `1rem`    | radio base                     |
+| Body sobre mesh              | `#f8f9fb` | fondo del body                 |
 
 **Acento de marca de facto: rosa** (`pink`/`rose` en dosis suaves: `bg-pink-50`, `border-pink-500`, `text-pink-500/600`).
 
 ## Glassmorphism
 
-| Clase | Fondo | Blur | Borde |
-|-------|-------|------|-------|
-| `.glass` | `rgba(255,255,255,0.25)` | 20px | `rgba(255,255,255,0.4)` |
-| `.glass-opaque` | `rgba(255,255,255,0.45)` | 24px | `rgba(255,255,255,0.5)` |
+| Clase           | Fondo                    | Blur | Borde                    |
+| --------------- | ------------------------ | ---- | ------------------------ |
+| `.glass`        | `rgba(255,255,255,0.25)` | 20px | `rgba(255,255,255,0.4)`  |
+| `.glass-opaque` | `rgba(255,255,255,0.45)` | 24px | `rgba(255,255,255,0.5)`  |
 | `.glass-subtle` | `rgba(255,255,255,0.15)` | 20px | `rgba(255,255,255,0.25)` |
-| `.glass-dark` | `rgba(10,10,20,0.45)` | 20px | `rgba(255,255,255,0.12)` |
-| `.glass-pill` | `rgba(255,255,255,0.35)` | 12px | `rgba(255,255,255,0.55)` |
+| `.glass-dark`   | `rgba(10,10,20,0.45)`    | 20px | `rgba(255,255,255,0.12)` |
+| `.glass-pill`   | `rgba(255,255,255,0.35)` | 12px | `rgba(255,255,255,0.55)` |
 
 Fallback sin `backdrop-filter` a fondos opacos; texto sobre glass con `glass-text-*` (nunca blanco puro sobre glass claro).
 

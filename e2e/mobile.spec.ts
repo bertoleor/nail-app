@@ -56,9 +56,7 @@ test.describe("Mobile Responsive - Turnos (admin)", () => {
   test("turnos page is reachable and renders heading on mobile", async ({ page }) => {
     await page.goto("/admin/turnos");
 
-    await expect(
-      page.getByRole("heading", { name: /Gestión de Turnos/i })
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Gestión de Turnos/i })).toBeVisible();
   });
 
   test("new booking button is accessible on mobile", async ({ page }) => {

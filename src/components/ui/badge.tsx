@@ -12,27 +12,19 @@ const badgeVariants = cva(
     },
     variants: {
       variant: {
-        default:
-          "bg-white/35 border-white/55 text-[rgba(15,15,20,0.82)]",
-        destructive:
-          "bg-red-100/60 border-red-200/60 text-red-800",
-        error:
-          "bg-red-100/60 border-red-200/60 text-red-800",
-        outline:
-          "bg-transparent border-gray-300 text-gray-600",
-        secondary:
-          "bg-gray-100/60 border-gray-200/60 text-gray-800",
-        success:
-          "bg-emerald-100/60 border-emerald-200/60 text-emerald-800",
-        warning:
-          "bg-amber-100/60 border-amber-200/60 text-amber-800",
+        default: "bg-white/35 border-white/55 text-[rgba(15,15,20,0.82)]",
+        destructive: "bg-red-100/60 border-red-200/60 text-red-800",
+        error: "bg-red-100/60 border-red-200/60 text-red-800",
+        outline: "bg-transparent border-gray-300 text-gray-600",
+        secondary: "bg-gray-100/60 border-gray-200/60 text-gray-800",
+        success: "bg-emerald-100/60 border-emerald-200/60 text-emerald-800",
+        warning: "bg-amber-100/60 border-amber-200/60 text-amber-800",
       },
     },
-  }
+  },
 );
 
-export interface BadgeProps
-  extends VariantProps<typeof badgeVariants> {
+export interface BadgeProps extends VariantProps<typeof badgeVariants> {
   readonly children: ReactNode;
   readonly className?: string;
   readonly "data-testid"?: string;
@@ -40,7 +32,10 @@ export interface BadgeProps
 
 export function Badge({ children, className, variant, ...props }: Readonly<BadgeProps>) {
   return (
-    <span className={cn(badgeVariants({ variant }), className)} {...props}>
+    <span
+      className={cn(badgeVariants({ variant }), className)}
+      {...props}
+    >
       {children}
     </span>
   );

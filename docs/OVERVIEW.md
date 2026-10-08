@@ -1,4 +1,5 @@
 # NailApp — Qué es (Overview)
+
 > Parte de: [[README]] · Relacionados: [[PRODUCTO]]
 
 > Resumen ejecutivo. Documento de producto canónico: `docs/PRODUCTO.md`. Índice completo: `docs/README.md`.

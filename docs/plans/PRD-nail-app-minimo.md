@@ -1,4 +1,5 @@
 # Plantilla — Portada de PRD
+
 > Parte de: [[README]] · Relacionados: [[deuda-tecnica-plan]] · [[plan-accion-2026-09-12]]
 
 > Fuente: `E:/Hermes/docs/audits/2026-09-19-templates-y-contratos.md` §3.3

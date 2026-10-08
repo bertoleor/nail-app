@@ -4,9 +4,7 @@ test.describe("Home Page", () => {
   test("displays hero section", async ({ page }) => {
     await page.goto("/");
 
-    await expect(
-      page.getByRole("heading", { name: /^NailApp$/ })
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: /^NailApp$/ })).toBeVisible();
   });
 
   test("has navigation to calculator (Soy Clienta)", async ({ page }) => {

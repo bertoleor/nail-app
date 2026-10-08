@@ -13,10 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  COMMON_ACTIONS,
-  SERVICE_TYPE_LABELS,
-} from "@/lib/content";
+import { COMMON_ACTIONS, SERVICE_TYPE_LABELS } from "@/lib/content";
 import {
   calculateDuration,
   calculatePrice,
@@ -43,26 +40,20 @@ export default function AdminCalculatorPage() {
   const selectedService = MOCK_SERVICES.find((s) => s.id === serviceId);
   const selectedAddons = MOCK_ADDONS.filter((a) => addonIds.includes(a.id));
 
-  const basePrice = selectedService
-    ? getBasePrice(selectedService, serviceType)
-    : 0;
+  const basePrice = selectedService ? getBasePrice(selectedService, serviceType) : 0;
 
   const totalPrice = selectedService
     ? calculatePrice(selectedService, selectedAddons, serviceType)
     : 0;
 
-  const duration = selectedService
-    ? getBaseDuration(selectedService, serviceType)
-    : 0;
+  const duration = selectedService ? getBaseDuration(selectedService, serviceType) : 0;
 
   const totalDuration = selectedService
     ? calculateDuration(selectedService, selectedAddons, serviceType)
     : 0;
 
   const toggleAddon = (id: string) => {
-    setAddonIds((prev) =>
-      prev.includes(id) ? prev.filter((a) => a !== id) : [...prev, id]
-    );
+    setAddonIds((prev) => (prev.includes(id) ? prev.filter((a) => a !== id) : [...prev, id]));
   };
 
   const handleSelectClient = (id: string) => {
@@ -106,7 +97,9 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
     try {
       await navigator.clipboard.writeText(generateQuoteText());
       setCopied(true);
-      setTimeout(() => { setCopied(false); }, 2000);
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
     } catch {
       // Fallback for older browsers
       const textArea = document.createElement("textarea");
@@ -116,7 +109,9 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
       document.execCommand("copy");
       textArea.remove();
       setCopied(true);
-      setTimeout(() => { setCopied(false); }, 2000);
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
     }
   };
 
@@ -142,7 +137,9 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
       type: serviceType,
     });
     setSaved(true);
-    setTimeout(() => { setSaved(false); }, 2000);
+    setTimeout(() => {
+      setSaved(false);
+    }, 2000);
   };
 
   const handleSaveToClient = () => {
@@ -160,21 +157,21 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
       });
       saveQuoteToClient(quote.id, selectedClientId);
       setSaved(true);
-      setTimeout(() => { setSaved(false); }, 2000);
+      setTimeout(() => {
+        setSaved(false);
+      }, 2000);
     }
   };
 
   return (
-    <div className="space-y-6 max-w-4xl mx-auto">
+    <div className="mx-auto max-w-4xl space-y-6">
       {/* Header */}
       <div>
-        <h1 className="font-serif text-3xl mb-1">Calculadora de Precios</h1>
-        <p className="text-[rgba(15,15,20,0.5)]">
-          Armá presupuestos y envialos por WhatsApp
-        </p>
+        <h1 className="mb-1 font-serif text-3xl">Calculadora de Precios</h1>
+        <p className="text-[rgba(15,15,20,0.5)]">Armá presupuestos y envialos por WhatsApp</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Left: Form */}
         <div className="space-y-6">
           {/* Client */}
@@ -183,13 +180,19 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
               <CardTitle className="text-lg">Cliente</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Select onValueChange={handleSelectClient} value={selectedClientId}>
+              <Select
+                onValueChange={handleSelectClient}
+                value={selectedClientId}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Seleccionar clienta existente..." />
                 </SelectTrigger>
                 <SelectContent>
                   {MOCK_CLIENTS.map((client) => (
-                    <SelectItem key={client.id} value={client.id}>
+                    <SelectItem
+                      key={client.id}
+                      value={client.id}
+                    >
                       {client.name}
                     </SelectItem>
                   ))}
@@ -198,19 +201,33 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
               </Select>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium" htmlFor="calc-client-name">Nombre</label>
+                  <label
+                    className="text-sm font-medium"
+                    htmlFor="calc-client-name"
+                  >
+                    Nombre
+                  </label>
                   <Input
                     id="calc-client-name"
-                    onChange={(e) => { setClientName(e.target.value); }}
+                    onChange={(e) => {
+                      setClientName(e.target.value);
+                    }}
                     placeholder="Nombre"
                     value={clientName}
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium" htmlFor="calc-client-phone">WhatsApp</label>
+                  <label
+                    className="text-sm font-medium"
+                    htmlFor="calc-client-phone"
+                  >
+                    WhatsApp
+                  </label>
                   <Input
                     id="calc-client-phone"
-                    onChange={(e) => { setClientPhone(e.target.value); }}
+                    onChange={(e) => {
+                      setClientPhone(e.target.value);
+                    }}
                     placeholder="+54 9 11..."
                     value={clientPhone}
                   />
@@ -225,13 +242,19 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
               <CardTitle className="text-lg">Servicio</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Select onValueChange={setServiceId} value={serviceId}>
+              <Select
+                onValueChange={setServiceId}
+                value={serviceId}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Seleccionar servicio..." />
                 </SelectTrigger>
                 <SelectContent>
                   {MOCK_SERVICES.map((service) => (
-                    <SelectItem key={service.id} value={service.id}>
+                    <SelectItem
+                      key={service.id}
+                      value={service.id}
+                    >
                       {service.name}
                     </SelectItem>
                   ))}
@@ -242,12 +265,14 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                 <div className="grid grid-cols-2 gap-4">
                   <button
                     aria-pressed={serviceType === "new"}
-                    className={`p-4 rounded-xl text-center transition-all border-2 ${
+                    className={`rounded-xl border-2 p-4 text-center transition-all ${
                       serviceType === "new"
                         ? "border-pink-500 bg-pink-50"
                         : "border-gray-200 hover:border-pink-200"
                     }`}
-                    onClick={() => { setServiceType("new"); }}
+                    onClick={() => {
+                      setServiceType("new");
+                    }}
                   >
                     <p className="font-medium">{SERVICE_TYPE_LABELS.new}</p>
                     <p className="text-xl font-light text-pink-600">
@@ -259,12 +284,14 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                   </button>
                   <button
                     aria-pressed={serviceType === "maintenance"}
-                    className={`p-4 rounded-xl text-center transition-all border-2 ${
+                    className={`rounded-xl border-2 p-4 text-center transition-all ${
                       serviceType === "maintenance"
                         ? "border-pink-500 bg-pink-50"
                         : "border-gray-200 hover:border-pink-200"
                     }`}
-                    onClick={() => { setServiceType("maintenance"); }}
+                    onClick={() => {
+                      setServiceType("maintenance");
+                    }}
                   >
                     <p className="font-medium">{SERVICE_TYPE_LABELS.maintenance}</p>
                     <p className="text-xl font-light text-pink-600">
@@ -289,18 +316,18 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                 {MOCK_ADDONS.map((addon) => (
                   <button
                     aria-pressed={addonIds.includes(addon.id)}
-                    className={`p-3 rounded-xl flex justify-between items-center transition-all border-2 ${
+                    className={`flex items-center justify-between rounded-xl border-2 p-3 transition-all ${
                       addonIds.includes(addon.id)
                         ? "border-pink-500 bg-pink-50"
                         : "border-gray-200 hover:border-pink-200"
                     }`}
                     key={addon.id}
-                    onClick={() => { toggleAddon(addon.id); }}
+                    onClick={() => {
+                      toggleAddon(addon.id);
+                    }}
                   >
                     <span className="text-sm">{addon.name}</span>
-                    <Badge variant="secondary">
-                      {formatPrice(addon.price)}
-                    </Badge>
+                    <Badge variant="secondary">{formatPrice(addon.price)}</Badge>
                   </button>
                 ))}
               </div>
@@ -315,7 +342,9 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
             <CardContent>
               <Input
                 id="notes-input"
-                onChange={(e) => { setNotes(e.target.value); }}
+                onChange={(e) => {
+                  setNotes(e.target.value);
+                }}
                 placeholder="Notas adicionales para el presupuesto..."
                 value={notes}
               />
@@ -345,9 +374,12 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
 
               {/* Addons */}
               {selectedAddons.length > 0 && (
-                <div className="space-y-1 pt-2 border-t">
+                <div className="space-y-1 border-t pt-2">
                   {selectedAddons.map((addon) => (
-                    <div className="flex justify-between text-sm" key={addon.id}>
+                    <div
+                      className="flex justify-between text-sm"
+                      key={addon.id}
+                    >
                       <span className="text-[rgba(15,15,20,0.6)]">{addon.name}</span>
                       <span>{formatPrice(addon.price)}</span>
                     </div>
@@ -356,14 +388,12 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
               )}
 
               {/* Total */}
-              <div className="pt-4 border-t">
-                <div className="flex justify-between items-center">
+              <div className="border-t pt-4">
+                <div className="flex items-center justify-between">
                   <span className="font-medium">Total</span>
-                  <span className="text-3xl font-light">
-                    {formatPrice(totalPrice)}
-                  </span>
+                  <span className="text-3xl font-light">{formatPrice(totalPrice)}</span>
                 </div>
-                <p className="text-sm text-[rgba(15,15,20,0.5)] mt-1">
+                <p className="mt-1 text-sm text-[rgba(15,15,20,0.5)]">
                   Duración total: {totalDuration} minutos
                 </p>
               </div>

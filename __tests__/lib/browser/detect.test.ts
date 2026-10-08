@@ -1,10 +1,10 @@
-import { describe, expect, it } from "vitest";
 import {
   detectBrowser,
   getOptimalAnimationDuration,
   getOptimalGlassOpacity,
   shouldReduceMotion,
 } from "@/lib/browser/detect";
+import { describe, expect, it } from "vitest";
 import { createMockBrowser } from "../utils/test-helpers";
 
 describe("Browser Detection", () => {

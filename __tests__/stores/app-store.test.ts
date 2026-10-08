@@ -3,12 +3,11 @@ import { beforeEach, describe, expect, it } from "vitest";
 
 import {
   useAppStore,
-  useClient,
-  useBookingsByDate,
   useBookingsByClient,
-  useBlockedSlotsByDate,
-  useTodayStats,
+  useBookingsByDate,
+  useClient,
   useClientHistory,
+  useTodayStats,
 } from "@/stores/app-store";
 
 describe("App Store", () => {
@@ -297,9 +296,7 @@ describe("Store Hooks", () => {
         });
       });
 
-      const { result: bookingsResult } = renderHook(() =>
-        useBookingsByDate("2025-01-15")
-      );
+      const { result: bookingsResult } = renderHook(() => useBookingsByDate("2025-01-15"));
       expect(bookingsResult.current).toHaveLength(1);
     });
 
@@ -320,9 +317,7 @@ describe("Store Hooks", () => {
         });
       });
 
-      const { result: bookingsResult } = renderHook(() =>
-        useBookingsByDate("2025-01-15")
-      );
+      const { result: bookingsResult } = renderHook(() => useBookingsByDate("2025-01-15"));
       expect(bookingsResult.current).toHaveLength(0);
     });
   });
@@ -356,9 +351,7 @@ describe("Store Hooks", () => {
         });
       });
 
-      const { result: bookingsResult } = renderHook(() =>
-        useBookingsByClient("client-1")
-      );
+      const { result: bookingsResult } = renderHook(() => useBookingsByClient("client-1"));
       expect(bookingsResult.current).toHaveLength(2);
     });
   });
@@ -440,9 +433,7 @@ describe("Store Hooks", () => {
         });
       });
 
-      const { result: historyResult } = renderHook(() =>
-        useClientHistory("client-1")
-      );
+      const { result: historyResult } = renderHook(() => useClientHistory("client-1"));
       expect(historyResult.current.totalVisits).toBe(2);
       expect(historyResult.current.totalSpent).toBe(6700);
       expect(historyResult.current.bookings).toHaveLength(3);

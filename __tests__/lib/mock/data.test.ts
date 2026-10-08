@@ -2,20 +2,20 @@ import { describe, expect, it } from "vitest";
 
 import { formatPrice as domainFormatPrice } from "@/lib/domain/pricing/calculator";
 import {
-  MOCK_CLIENTS,
-  MOCK_SERVICES,
   MOCK_ADDONS,
-  MOCK_BOOKINGS,
   MOCK_BLOCKED_SLOTS,
+  MOCK_BOOKINGS,
+  MOCK_CLIENTS,
   MOCK_QUOTES,
+  MOCK_SERVICES,
+  formatPhone,
+  formatPrice,
+  getAddonById,
+  getBlockedSlotsByDate,
+  getBookingsByClient,
+  getBookingsByDate,
   getClientById,
   getServiceById,
-  getAddonById,
-  getBookingsByDate,
-  getBookingsByClient,
-  getBlockedSlotsByDate,
-  formatPrice,
-  formatPhone,
 } from "@/lib/mock/data";
 
 describe("Mock Data", () => {

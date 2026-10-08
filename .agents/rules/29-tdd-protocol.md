@@ -26,8 +26,8 @@ Test primero, código después. Sin excepciones para lógica de negocio.
 
 ```typescript
 // 1. RED: Test que falla
-test('calculatePrice returns base price for manicure', () => {
-  expect(calculatePrice('manicure')).toBe(3000);
+test("calculatePrice returns base price for manicure", () => {
+  expect(calculatePrice("manicure")).toBe(3000);
 });
 
 // 2. GREEN: Hardcode para pasar
@@ -36,10 +36,10 @@ function calculatePrice(service: string): number {
 }
 
 // 3. RED: Segundo test que fuerza implementación real
-test('calculatePrice returns different prices per service', () => {
-  expect(calculatePrice('manicure')).toBe(3000);
-  expect(calculatePrice('semipermanent')).toBe(5000);
-  expect(calculatePrice('gel')).toBe(4500);
+test("calculatePrice returns different prices per service", () => {
+  expect(calculatePrice("manicure")).toBe(3000);
+  expect(calculatePrice("semipermanent")).toBe(5000);
+  expect(calculatePrice("gel")).toBe(4500);
 });
 
 // 4. GREEN: Implementación real

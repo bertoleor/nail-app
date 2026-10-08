@@ -37,13 +37,16 @@ import { addMinutes, isWithinInterval } from "date-fns";
 const bookingEnd = addMinutes(bookingStart, serviceDurationMinutes);
 
 // ✅ CORRECTO: Verificar solapamiento
-const hasOverlap = isWithinInterval({
-  start: newBookingStart,
-  end: newBookingEnd,
-}, {
-  start: existingBookingStart,
-  end: existingBookingEnd,
-});
+const hasOverlap = isWithinInterval(
+  {
+    start: newBookingStart,
+    end: newBookingEnd,
+  },
+  {
+    start: existingBookingStart,
+    end: existingBookingEnd,
+  },
+);
 ```
 
 ## 3. Checklist de Fechas

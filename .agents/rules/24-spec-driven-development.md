@@ -17,16 +17,16 @@ proposal -> specs --> tasks -> apply -> verify -> archive
 
 ### Fases
 
-| Fase       | Descripción                                  | Artifacto             |
-| ---------- | -------------------------------------------- | --------------------- |
-| `explore`  | Investigar ideas, leer codebase              | Exploración           |
-| `propose`  | Crear propuesta de cambio                    | Proposal              |
-| `spec`     | Especificar requisitos y escenarios          | Spec                  |
-| `design`   | Diseño técnico con decisiones de arquitectura| Design                |
-| `tasks`    | Desglosar en tareas implementables           | Tasks                 |
-| `apply`    | Implementar código                           | Apply Progress        |
-| `verify`   | Validar contra specs                         | Verify Report         |
-| `archive`  | Cerrar cambio y persistir estado             | Archive Report        |
+| Fase      | Descripción                                   | Artifacto      |
+| --------- | --------------------------------------------- | -------------- |
+| `explore` | Investigar ideas, leer codebase               | Exploración    |
+| `propose` | Crear propuesta de cambio                     | Proposal       |
+| `spec`    | Especificar requisitos y escenarios           | Spec           |
+| `design`  | Diseño técnico con decisiones de arquitectura | Design         |
+| `tasks`   | Desglosar en tareas implementables            | Tasks          |
+| `apply`   | Implementar código                            | Apply Progress |
+| `verify`  | Validar contra specs                          | Verify Report  |
+| `archive` | Cerrar cambio y persistir estado              | Archive Report |
 
 ## 2. Cuándo Usar SDD
 
@@ -43,14 +43,14 @@ proposal -> specs --> tasks -> apply -> verify -> archive
 
 ## 3. Comandos
 
-| Comando              | Descripción                              |
-| -------------------- | ---------------------------------------- |
-| `/sdd-new <change>`  | Iniciar nuevo cambio (explora + propone) |
-| `/sdd-continue`      | Continuar siguiente fase del DAG         |
-| `/sdd-ff <name>`     | Fast-forward: proposal → specs → design → tasks |
-| `/sdd-apply [change]`| Implementar tareas                       |
-| `/sdd-verify [change]`| Validar implementación                  |
-| `/sdd-archive [change]`| Cerrar cambio                         |
+| Comando                 | Descripción                                     |
+| ----------------------- | ----------------------------------------------- |
+| `/sdd-new <change>`     | Iniciar nuevo cambio (explora + propone)        |
+| `/sdd-continue`         | Continuar siguiente fase del DAG                |
+| `/sdd-ff <name>`        | Fast-forward: proposal → specs → design → tasks |
+| `/sdd-apply [change]`   | Implementar tareas                              |
+| `/sdd-verify [change]`  | Validar implementación                          |
+| `/sdd-archive [change]` | Cerrar cambio                                   |
 
 ---
 

@@ -72,25 +72,27 @@ El chat principal es el ORQUESTADOR. Su única responsabilidad es:
 
 **QUE SE DELEGA (TODO):**
 
-| Solicitud del Usuario | Accion del Orquestador |
-| ---------------------- | ----------------------- |
-| "Analiza este archivo" | Delegar a `explore` |
-| "Explora el codebase" | Delegar a `explore` |
-| "Planifica esta feature" | Delegar a `sdd-*` |
-| "Crea este componente" | Delegar a `general` |
-| "Corrige este bug" | Delegar a `general` |
-| "Audita el codigo" | Delegar a `quality-auditor` |
-| "Revisa seguridad" | Delegar a `security-ops` |
-| "Haz tests" | Delegar a `general` |
+| Solicitud del Usuario    | Accion del Orquestador      |
+| ------------------------ | --------------------------- |
+| "Analiza este archivo"   | Delegar a `explore`         |
+| "Explora el codebase"    | Delegar a `explore`         |
+| "Planifica esta feature" | Delegar a `sdd-*`           |
+| "Crea este componente"   | Delegar a `general`         |
+| "Corrige este bug"       | Delegar a `general`         |
+| "Audita el codigo"       | Delegar a `quality-auditor` |
+| "Revisa seguridad"       | Delegar a `security-ops`    |
+| "Haz tests"              | Delegar a `general`         |
 
 ---
 
 **NUNCA:**
+
 - "Lo hago yo mismo"
 - "Es mas rapido si lo hago directamente"
 - "Leo el archivo y analizo"
 
 **SIEMPRE:**
+
 - Delegar tarea al agente apropiado
 - Esperar resultado
 - LEER resultado
@@ -121,6 +123,7 @@ const [r1, r2, r3] = await Promise.all([
 **DELEGACION RECURSIVA:**
 
 Los sub-agentes PUEDEN delegar subtareas:
+
 - Un sub-agente recibe tarea compleja
 - Puede dividirla y delegar a otros
 - DEBE consolidar resultados antes de retornar
@@ -133,12 +136,12 @@ Los sub-agentes PUEDEN delegar subtareas:
 
 El orquestador DEBE monitorear su contexto:
 
-| Contexto | Accion |
-| -------- | ----------------------------- |
-| 60% | Evaluar que falta |
-| 70% | Delegar todo lo paralelizable |
-| 75% | Guardar estado en Engram |
-| 80% | **EJECUTAR AUTO-COMPACTACION** |
+| Contexto | Accion                         |
+| -------- | ------------------------------ |
+| 60%      | Evaluar que falta              |
+| 70%      | Delegar todo lo paralelizable  |
+| 75%      | Guardar estado en Engram       |
+| 80%      | **EJECUTAR AUTO-COMPACTACION** |
 
 **NUNCA esperar a compactación forzada del sistema.**
 

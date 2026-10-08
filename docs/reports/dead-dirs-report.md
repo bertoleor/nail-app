@@ -1,4 +1,5 @@
 # Reporte: destino de directorios vacíos actions/agenda
+
 > Parte de: [[README]] · Relacionados: [[producto-marketing-estilo]]
 
 Task: `t_1fa98962` (Decide disposition of empty actions/agenda directories)
@@ -8,11 +9,11 @@ No se borró nada. Este reporte solo investiga y recomienda.
 
 ## Directorios investigados
 
-| Ruta | Contenido | Tracked en git |
-|------|-----------|----------------|
-| `src/app/actions/` | `.gitkeep` (0 B) | Sí |
-| `src/app/agenda/` | `.gitkeep` (0 B) | Sí |
-| `src/app/(client)/agenda/` | `.gitkeep` (0 B) | Sí |
+| Ruta                       | Contenido        | Tracked en git |
+| -------------------------- | ---------------- | -------------- |
+| `src/app/actions/`         | `.gitkeep` (0 B) | Sí             |
+| `src/app/agenda/`          | `.gitkeep` (0 B) | Sí             |
+| `src/app/(client)/agenda/` | `.gitkeep` (0 B) | Sí             |
 
 Los tres estaban vacíos; el orquestador (24-orquestador) les agregó `.gitkeep`
 para que sobrevivan al clone, respetando la regla "no borrar" del plan.
@@ -34,11 +35,11 @@ para que sobrevivan al clone, respetando la regla "no borrar" del plan.
 
 ## Recomendación por directorio
 
-| Ruta | Disposición | Razón |
-|------|-------------|-------|
-| `src/app/(client)/agenda/` | **KEEP** (placeholder) | Ruta destino del link `/agenda` del nav cliente (layout.tsx:30). Es donde debe implementarse la agenda del cliente. |
-| `src/app/agenda/` | **KEEP** (placeholder, peroconflicto a resolver) | Documentado en AGENTS.md como "Booking feature". Compite con `(client)/agenda` por la URL `/agenda`. |
-| `src/app/actions/` | **KEEP** (placeholder) | Documentado en AGENTS.md como home de Server Actions (mutaciones hoy van por mock/zustand, sin backend). |
+| Ruta                       | Disposición                                      | Razón                                                                                                               |
+| -------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `src/app/(client)/agenda/` | **KEEP** (placeholder)                           | Ruta destino del link `/agenda` del nav cliente (layout.tsx:30). Es donde debe implementarse la agenda del cliente. |
+| `src/app/agenda/`          | **KEEP** (placeholder, peroconflicto a resolver) | Documentado en AGENTS.md como "Booking feature". Compite con `(client)/agenda` por la URL `/agenda`.                |
+| `src/app/actions/`         | **KEEP** (placeholder)                           | Documentado en AGENTS.md como home de Server Actions (mutaciones hoy van por mock/zustand, sin backend).            |
 
 Todos: **intencionales** (placeholders de rutas futuras documentados), **no** son
 restos legacy. Mantener con `.gitkeep`; no requiere borrado.

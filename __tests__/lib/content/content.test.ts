@@ -39,7 +39,8 @@ describe("lib/content — fuente única de copies es-AR", () => {
     expect(HOURS[0]).toBe("09:00");
     expect(HOURS[HOURS.length - 1]).toBe("18:30");
     // paso a paso de 30 min sin huecos
-    const toMin = (h: string) => Number.parseInt(h.split(":")[0]) * 60 + Number.parseInt(h.split(":")[1]);
+    const toMin = (h: string) =>
+      Number.parseInt(h.split(":")[0]) * 60 + Number.parseInt(h.split(":")[1]);
     for (let i = 1; i < HOURS.length; i += 1) {
       expect(toMin(HOURS[i]) - toMin(HOURS[i - 1])).toBe(30);
     }

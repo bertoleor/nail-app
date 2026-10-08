@@ -19,7 +19,7 @@ export function AddonList() {
 
   return (
     <div className="space-y-3">
-      <label className="text-xs font-medium uppercase tracking-wider text-[rgba(15,15,20,0.5)]">
+      <label className="text-xs font-medium tracking-wider text-[rgba(15,15,20,0.5)] uppercase">
         Extras
       </label>
       <div className="flex flex-wrap gap-2 sm:gap-3">
@@ -28,12 +28,17 @@ export function AddonList() {
           return (
             <button
               aria-pressed={isSelected}
-              className={`touch-manipulation ${isSelected ? "outline outline-2 outline-offset-2 outline-primary rounded-full" : ""}`}
+              className={`touch-manipulation ${isSelected ? "outline-primary rounded-full outline outline-2 outline-offset-2" : ""}`}
               key={addon.id}
-              onClick={() => { toggleAddon(addon.id); }}
+              onClick={() => {
+                toggleAddon(addon.id);
+              }}
               type="button"
             >
-              <Badge className="text-xs sm:text-sm whitespace-nowrap" variant={isSelected ? "success" : "default"}>
+              <Badge
+                className="text-xs whitespace-nowrap sm:text-sm"
+                variant={isSelected ? "success" : "default"}
+              >
                 {addon.name} — {formatPrice(addon.price)}
               </Badge>
             </button>

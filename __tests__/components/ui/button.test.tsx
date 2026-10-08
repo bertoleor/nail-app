@@ -13,7 +13,7 @@ describe("Button", () => {
     expect(button).toHaveAttribute("data-slot", "button");
   });
 
-  it('applies glass background for default variant', () => {
+  it("applies glass background for default variant", () => {
     render(<Button variant="default">Default</Button>);
 
     const button = screen.getByRole("button");
@@ -63,7 +63,7 @@ describe("Button", () => {
     render(
       <Button asChild>
         <a href="/test">Link Button</a>
-      </Button>
+      </Button>,
     );
 
     const link = screen.getByRole("link", { name: /link button/i });

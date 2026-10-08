@@ -26,16 +26,14 @@ if (typeof window !== "undefined") {
 }
 
 if (typeof window !== "undefined") {
-  window.CSS!.supports = (
-    (propertyOrCondition: string, value?: string) => {
-      if (value !== undefined) {
-        if (propertyOrCondition === "backdrop-filter" && value === "blur(1px)") return true;
-        if (propertyOrCondition === "display" && value === "grid") return true;
-        return false;
-      }
+  window.CSS!.supports = ((propertyOrCondition: string, value?: string) => {
+    if (value !== undefined) {
+      if (propertyOrCondition === "backdrop-filter" && value === "blur(1px)") return true;
+      if (propertyOrCondition === "display" && value === "grid") return true;
       return false;
     }
-  ) as typeof CSS.supports;
+    return false;
+  }) as typeof CSS.supports;
 
   window.matchMedia = (query: string) => ({
     matches: false,

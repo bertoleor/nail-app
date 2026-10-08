@@ -47,17 +47,25 @@ export function detectBrowser(): BrowserInfo {
 }
 
 export function getOptimalAnimationDuration(browser: BrowserInfo): number {
-  if (browser.isMobile) {return 150;}
+  if (browser.isMobile) {
+    return 150;
+  }
   return 300;
 }
 
 export function getOptimalGlassOpacity(browser: BrowserInfo): number {
-  if (!browser.supportsBackdropFilter) {return 0.85;}
-  if (browser.isSafari) {return 0.4;}
+  if (!browser.supportsBackdropFilter) {
+    return 0.85;
+  }
+  if (browser.isSafari) {
+    return 0.4;
+  }
   return 0.38;
 }
 
 export function shouldReduceMotion(): boolean {
-  if (globalThis.window === undefined) {return false;}
+  if (globalThis.window === undefined) {
+    return false;
+  }
   return globalThis.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }

@@ -20,21 +20,36 @@ describe("Skeleton", () => {
   });
 
   it("renders circular variant", () => {
-    render(<Skeleton variant="circular" data-testid="skeleton" />);
+    render(
+      <Skeleton
+        variant="circular"
+        data-testid="skeleton"
+      />,
+    );
 
     const skeleton = screen.getByTestId("skeleton");
     expect(skeleton.className).toMatch(/rounded-full/);
   });
 
   it("renders text variant", () => {
-    render(<Skeleton variant="text" data-testid="skeleton" />);
+    render(
+      <Skeleton
+        variant="text"
+        data-testid="skeleton"
+      />,
+    );
 
     const skeleton = screen.getByTestId("skeleton");
     expect(skeleton.className).toMatch(/rounded|h-4/);
   });
 
   it("accepts custom className", () => {
-    render(<Skeleton className="w-full h-12" data-testid="skeleton" />);
+    render(
+      <Skeleton
+        className="h-12 w-full"
+        data-testid="skeleton"
+      />,
+    );
 
     const skeleton = screen.getByTestId("skeleton");
     expect(skeleton).toHaveClass("w-full");
@@ -42,7 +57,12 @@ describe("Skeleton", () => {
   });
 
   it("can disable glass variant", () => {
-    render(<Skeleton glass={false} data-testid="skeleton" />);
+    render(
+      <Skeleton
+        glass={false}
+        data-testid="skeleton"
+      />,
+    );
 
     const skeleton = screen.getByTestId("skeleton");
     expect(skeleton.className).not.toMatch(/skeleton-glass/);

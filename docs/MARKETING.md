@@ -1,4 +1,5 @@
 # NailApp — Marketing
+
 > Parte de: [[README]] · Relacionados: [[BRANDING]] · [[PRODUCTO]]
 
 Consolidación canónica de `docs/reports/producto-marketing-estilo.md` §3 (reporte UNVERIFIED por lectura estática).
@@ -27,12 +28,12 @@ Cercano, femenino, con emojis decorativos en UI y mensajes. Regla 09 prohíbe em
 
 ## Gaps (sin presencia externa)
 
-| Gap | Acción sugerida |
-|-----|-----------------|
-| Posicionamiento | Argumentar diferenciación vs. apps de turnos existentes |
-| Proof | Landing/"acerca de" que explique el valor (ahorra tiempo, evita doble agenda, profesionaliza presupuesto) |
-| Onboarding | El home elige rol pero no "vende" el producto |
-| Métricas | Sin medición de conversión (esperable: mockup sin backend) |
+| Gap             | Acción sugerida                                                                                           |
+| --------------- | --------------------------------------------------------------------------------------------------------- |
+| Posicionamiento | Argumentar diferenciación vs. apps de turnos existentes                                                   |
+| Proof           | Landing/"acerca de" que explique el valor (ahorra tiempo, evita doble agenda, profesionaliza presupuesto) |
+| Onboarding      | El home elige rol pero no "vende" el producto                                                             |
+| Métricas        | Sin medición de conversión (esperable: mockup sin backend)                                                |
 
 ## Restricción
 

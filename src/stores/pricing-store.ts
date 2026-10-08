@@ -14,35 +14,39 @@ interface PricingState {
 }
 
 export const usePricingStore = create<PricingState>((set) => ({
-  reset: () =>
-    { set({
+  reset: () => {
+    set({
       selectedAddonIds: [],
       selectedServiceId: null,
       selectedServiceType: "new",
-    }); },
+    });
+  },
   selectedAddonIds: [],
 
   selectedServiceId: null,
   selectedServiceType: "new",
 
-  selectService: (id: string) =>
-    { set({
+  selectService: (id: string) => {
+    set({
       selectedAddonIds: [],
       selectedServiceId: id,
-    }); },
+    });
+  },
 
-  selectServiceType: (type: ServiceType) =>
-    { set({ selectedServiceType: type }); },
+  selectServiceType: (type: ServiceType) => {
+    set({ selectedServiceType: type });
+  },
 
-  toggleAddon: (id: string) =>
-    { set((state) => {
+  toggleAddon: (id: string) => {
+    set((state) => {
       const isSelected = state.selectedAddonIds.includes(id);
       return {
         selectedAddonIds: isSelected
           ? state.selectedAddonIds.filter((a) => a !== id)
           : [...state.selectedAddonIds, id],
       };
-    }); },
+    });
+  },
 }));
 
 export function getSelectedAddons(state: PricingState) {

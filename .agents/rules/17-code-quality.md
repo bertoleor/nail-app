@@ -174,14 +174,24 @@ function createBooking(input: CreateBookingInput) {}
 
 ```tsx
 // ❌ PROHIBIDO: index como key
-{bookings.map((booking, index) => (
-  <BookingCard key={index} booking={booking} />
-))}
+{
+  bookings.map((booking, index) => (
+    <BookingCard
+      key={index}
+      booking={booking}
+    />
+  ));
+}
 
 // ✅ CORRECTO: ID estable
-{bookings.map((booking) => (
-  <BookingCard key={booking.id} booking={booking} />
-))}
+{
+  bookings.map((booking) => (
+    <BookingCard
+      key={booking.id}
+      booking={booking}
+    />
+  ));
+}
 ```
 
 ### Inline Styles
@@ -201,15 +211,15 @@ function createBooking(input: CreateBookingInput) {}
 
 ## Métricas de Salud del Código
 
-| Métrica                          | Target  | Alerta    |
-| -------------------------------- | ------- | --------- |
-| Cognitive Complexity por función | ≤ 10    | > 15      |
-| Líneas por función               | ≤ 40    | > 60      |
-| Parámetros por función           | ≤ 3     | > 4       |
-| Líneas por archivo               | ≤ 150   | > 400     |
-| Duplicación de código            | < 3%    | > 5%      |
-| Test coverage (lógica crítica)   | > 80%   | < 60%     |
-| TypeScript strict errors         | 0       | > 0       |
+| Métrica                          | Target | Alerta |
+| -------------------------------- | ------ | ------ |
+| Cognitive Complexity por función | ≤ 10   | > 15   |
+| Líneas por función               | ≤ 40   | > 60   |
+| Parámetros por función           | ≤ 3    | > 4    |
+| Líneas por archivo               | ≤ 150  | > 400  |
+| Duplicación de código            | < 3%   | > 5%   |
+| Test coverage (lógica crítica)   | > 80%  | < 60%  |
+| TypeScript strict errors         | 0      | > 0    |
 
 ---
 

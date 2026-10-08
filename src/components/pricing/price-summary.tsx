@@ -21,7 +21,9 @@ export function PriceSummary() {
   }
 
   const service = SERVICES.find((s) => s.id === selectedServiceId);
-  if (!service) {return null;}
+  if (!service) {
+    return null;
+  }
 
   const selectedAddons = ADDONS.filter((a) => selectedAddonIds.includes(a.id));
   const totalPrice = calculatePrice(service, selectedAddons, selectedServiceType);
@@ -29,18 +31,16 @@ export function PriceSummary() {
 
   return (
     <Card className="mt-6">
-      <CardContent className="p-6 space-y-4">
-        <div className="flex justify-between items-center">
+      <CardContent className="space-y-4 p-6">
+        <div className="flex items-center justify-between">
           <span className="text-sm text-[rgba(15,15,20,0.6)]">Total</span>
           <span className="text-2xl font-light text-[rgba(15,15,20,0.9)]">
             {formatPrice(totalPrice)}
           </span>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <span className="text-sm text-[rgba(15,15,20,0.6)]">Duración</span>
-          <span className="text-sm text-[rgba(15,15,20,0.8)]">
-            {formatDuration(totalDuration)}
-          </span>
+          <span className="text-sm text-[rgba(15,15,20,0.8)]">{formatDuration(totalDuration)}</span>
         </div>
       </CardContent>
     </Card>

@@ -14,6 +14,7 @@
 **Estado:** en curso — baseline verde verificado 2026-09-28 (`tsc --noEmit` 0 errores, `vitest run` 239/239, `next build` OK 11 rutas, e2e Playwright 20/20; queda `eslint src` ~105 err como deuda de estilo, ver `deuda-tecnica-plan.md` §V-1-ESLINT).
 
 **Entregables ya logrados:**
+
 - App completa navegable: wizard de reserva, agenda admin, calculadora pública + presupuesto, clientas, catálogo (`docs/FEATURES.md`).
 - Catálogo y pricing en fuente única de dominio (`src/lib/domain/pricing/`).
 - WhatsApp configurable por env con validación Zod (`src/lib/env.ts`).
@@ -21,11 +22,13 @@
 - Legales borrador (términos + privacidad) con marcadores `[POR COMPLETAR]` y licencia MIT decidida.
 
 **Pendientes dentro de la fase (higiene, no features):**
+
 - [ ] Auditoría a11y WCAG 2.2 AA en agenda y calculadora (deuda 15-a11y, en curso).
 - [ ] Centralizar copies duplicados entre superficies (deuda 21-content, en curso).
 - [ ] Completar `eslint` — no bloquea demo (§V-1-ESLINT).
 
 **Criterios de salida (verificables):**
+
 - [ ] `npm run typecheck` → 0 errores.
 - [ ] `npm run test:unit` → 239/239 (o el count vigente del repo).
 - [ ] `npm run test:e2e` → 20/20 specs en chromium.
@@ -41,6 +44,7 @@
 **Objetivo del negocio:** convertir la demo validada en producto con datos reales — persistencia y auth — sin perder lo que ya convirtió en ventas.
 
 **Entregables:**
+
 - Supabase: proyecto + schemas + RLS por manicurista (multi-tenant) + migración de `src/lib/mock/data.ts` a DB real.
 - Auth (clientas y manicuristas, con decisiones UX a definir en su momento).
 - Legales completos y aprobados: términos + privacidad sin `[POR COMPLETAR]`, datos del titular (razón social, CUIT, domicilio, email) — bloqueante para cualquier dato real de clientas (ver `deuda-tecnica-plan.md` §5 legal).
@@ -48,6 +52,7 @@
 - Testing de integración: turnos y presupuestos persistidos de punta a punta.
 
 **Criterios de salida (verificables):**
+
 - [ ] `npm run test:unit` verde + suite de integración nueva en verde.
 - [ ] Reserva creada en la app persiste tras recargar (e2e con DB real).
 - [ ] RLS verificado: la manicurista A no ve datos de la B (test automatizado).
@@ -62,12 +67,14 @@
 **Objetivo del negocio:** una manicurista real puede usar la app con sus clientas reales, de punta a punta.
 
 **Entregables:**
+
 - Hosting/CI (Next.js standalone o equivalente) + dominio propio.
 - Datos de producción y backups.
 - Protección legal activada: privacidad registrada, términos vigentes, `PRIVACY-POLICY.md` sin placeholders.
 - Monitoreo básico de errores + uptime.
 
 **Criterios de salida (verificables):**
+
 - [ ] URL pública accesible con el wizard completo → reserva persistida → confirmación por WhatsApp con el número real de la manicurista.
 - [ ] `npm run build` verde en CI antes de cada deploy.
 - [ ] Legales vivos en la URL pública y aprobados.

@@ -34,25 +34,19 @@ describe("getEnv", () => {
   it("returns the fallback when the variable is unset", () => {
     delete process.env[WHATSAPP_KEY];
 
-    expect(getEnv(WHATSAPP_KEY, FALLBACK_WHATSAPP_NUMBER)).toBe(
-      FALLBACK_WHATSAPP_NUMBER,
-    );
+    expect(getEnv(WHATSAPP_KEY, FALLBACK_WHATSAPP_NUMBER)).toBe(FALLBACK_WHATSAPP_NUMBER);
   });
 
   it("returns the fallback when the variable is an empty string", () => {
     process.env[WHATSAPP_KEY] = "";
 
-    expect(getEnv(WHATSAPP_KEY, FALLBACK_WHATSAPP_NUMBER)).toBe(
-      FALLBACK_WHATSAPP_NUMBER,
-    );
+    expect(getEnv(WHATSAPP_KEY, FALLBACK_WHATSAPP_NUMBER)).toBe(FALLBACK_WHATSAPP_NUMBER);
   });
 
   it("returns the fallback when the variable is only whitespace", () => {
     process.env[WHATSAPP_KEY] = "   ";
 
-    expect(getEnv(WHATSAPP_KEY, FALLBACK_WHATSAPP_NUMBER)).toBe(
-      FALLBACK_WHATSAPP_NUMBER,
-    );
+    expect(getEnv(WHATSAPP_KEY, FALLBACK_WHATSAPP_NUMBER)).toBe(FALLBACK_WHATSAPP_NUMBER);
   });
 
   it("trims surrounding whitespace from the configured value", () => {

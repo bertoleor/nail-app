@@ -1,4 +1,5 @@
 # Términos y Condiciones de Uso — NailApp
+
 > Parte de: [[README]] · Relacionados: [[PRIVACY-POLICY]]
 
 - **Última actualización:** 14 de septiembre de 2026
@@ -99,5 +100,6 @@ Ante cualquier consulta sobre estos Términos y Condiciones:
 > [POR COMPLETAR — nombre y datos del responsable o canal de contacto]
 
 ---
-*NailApp — Calculadora de precios y agenda de turnos para manicuristas argentinas.*
-*Documento sujeto a revisión legal antes de su publicación pública con datos reales. Reemplazar todos los marcadores `[POR COMPLETAR]` antes de su entrada en vigencia.*
+
+_NailApp — Calculadora de precios y agenda de turnos para manicuristas argentinas._
+_Documento sujeto a revisión legal antes de su publicación pública con datos reales. Reemplazar todos los marcadores `[POR COMPLETAR]` antes de su entrada en vigencia._

@@ -7,12 +7,7 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
   BOOKING_FIELD_LABELS,
   BOOKING_STATUS_LABELS,
@@ -48,9 +43,15 @@ export default function AdminBookingsPage() {
   const blockedSlots = useBlockedSlotsByDate(dateStr);
   const { addBlockedSlot, cancelBooking, removeBlockedSlot, updateBookingStatus } = useAppStore();
 
-  const prevDay = () => { setCurrentDate(subDays(currentDate, 1)); };
-  const nextDay = () => { setCurrentDate(addDays(currentDate, 1)); };
-  const goToToday = () => { setCurrentDate(new Date()); };
+  const prevDay = () => {
+    setCurrentDate(subDays(currentDate, 1));
+  };
+  const nextDay = () => {
+    setCurrentDate(addDays(currentDate, 1));
+  };
+  const goToToday = () => {
+    setCurrentDate(new Date());
+  };
 
   const isSlotBlocked = (hour: string) => {
     return blockedSlots.some((slot) => {
@@ -66,7 +67,8 @@ export default function AdminBookingsPage() {
       const startMin = Number.parseInt(b.startTime.split(":")[1]);
       const duration = b.duration;
       const endMinutes = startHour * 60 + startMin + duration;
-      const currentMinutes = Number.parseInt(hour.split(":")[0]) * 60 + Number.parseInt(hour.split(":")[1]);
+      const currentMinutes =
+        Number.parseInt(hour.split(":")[0]) * 60 + Number.parseInt(hour.split(":")[1]);
       return currentMinutes >= startHour * 60 + startMin && currentMinutes < endMinutes;
     });
   };
@@ -104,15 +106,18 @@ export default function AdminBookingsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="font-serif text-3xl mb-1">Gestión de Turnos</h1>
-          <p className="text-[rgba(15,15,20,0.5)]">
-            Administrá todos los turnos y bloqueos
-          </p>
+          <h1 className="mb-1 font-serif text-3xl">Gestión de Turnos</h1>
+          <p className="text-[rgba(15,15,20,0.5)]">Administrá todos los turnos y bloqueos</p>
         </div>
         <div className="flex gap-3">
-          <Button onClick={() => { setShowBlockDialog(true); }} variant="outline">
+          <Button
+            onClick={() => {
+              setShowBlockDialog(true);
+            }}
+            variant="outline"
+          >
             Bloquear horario
           </Button>
           <Button>Nuevo turno</Button>
@@ -123,7 +128,11 @@ export default function AdminBookingsPage() {
       <Card>
         <CardContent className="p-4">
           <div className="flex items-center justify-between">
-            <Button onClick={prevDay} size="sm" variant="outline">
+            <Button
+              onClick={prevDay}
+              size="sm"
+              variant="outline"
+            >
               ← Anterior
             </Button>
             <div className="text-center">
@@ -139,7 +148,11 @@ export default function AdminBookingsPage() {
                 </button>
               )}
             </div>
-            <Button onClick={nextDay} size="sm" variant="outline">
+            <Button
+              onClick={nextDay}
+              size="sm"
+              variant="outline"
+            >
               Siguiente →
             </Button>
           </div>
@@ -157,17 +170,21 @@ export default function AdminBookingsPage() {
               const blocked = isSlotBlocked(hour);
               const booking = getBookingForHour(hour);
               const client = booking ? MOCK_CLIENTS.find((c) => c.id === booking.clientId) : null;
-              const service = booking ? MOCK_SERVICES.find((s) => s.id === booking.serviceId) : null;
+              const service = booking
+                ? MOCK_SERVICES.find((s) => s.id === booking.serviceId)
+                : null;
 
               return (
                 <div
-                  aria-label={booking ? `${client?.name}, ${service?.name}, ${hour}` : `${hour}, disponible`}
-                  className={`flex items-center gap-4 p-2 rounded-lg ${
+                  aria-label={
+                    booking ? `${client?.name}, ${service?.name}, ${hour}` : `${hour}, disponible`
+                  }
+                  className={`flex items-center gap-4 rounded-lg p-2 ${
                     blocked
                       ? "bg-gray-100"
-                      : (booking
-                      ? "bg-pink-50 cursor-pointer hover:bg-pink-100"
-                      : "hover:bg-gray-50")
+                      : booking
+                        ? "cursor-pointer bg-pink-50 hover:bg-pink-100"
+                        : "hover:bg-gray-50"
                   }`}
                   key={hour}
                   onClick={() => booking && setSelectedBooking(booking.id)}
@@ -180,11 +197,9 @@ export default function AdminBookingsPage() {
                   role={booking ? "button" : undefined}
                   tabIndex={booking ? 0 : undefined}
                 >
-                  <span className="w-16 text-sm font-medium text-[rgba(15,15,20,0.5)]">
-                    {hour}
-                  </span>
+                  <span className="w-16 text-sm font-medium text-[rgba(15,15,20,0.5)]">{hour}</span>
                   {blocked && (
-                    <div className="flex-1 flex items-center justify-between">
+                    <div className="flex flex-1 items-center justify-between">
                       <span className="text-sm text-gray-500">
                         {blockedSlots.find((s) => hour >= s.startTime && hour < s.endTime)?.reason}
                       </span>
@@ -192,8 +207,12 @@ export default function AdminBookingsPage() {
                         className="text-xs text-red-500 hover:underline"
                         onClick={(e) => {
                           e.stopPropagation();
-                          const slot = blockedSlots.find((s) => hour >= s.startTime && hour < s.endTime);
-                          if (slot) {removeBlockedSlot(slot.id);}
+                          const slot = blockedSlots.find(
+                            (s) => hour >= s.startTime && hour < s.endTime,
+                          );
+                          if (slot) {
+                            removeBlockedSlot(slot.id);
+                          }
                         }}
                       >
                         Desbloquear
@@ -201,12 +220,10 @@ export default function AdminBookingsPage() {
                     </div>
                   )}
                   {!blocked && !booking && (
-                    <span className="flex-1 text-sm text-[rgba(15,15,20,0.3)]">
-                      Disponible
-                    </span>
+                    <span className="flex-1 text-sm text-[rgba(15,15,20,0.3)]">Disponible</span>
                   )}
                   {booking && (
-                    <div className="flex-1 flex items-center justify-between">
+                    <div className="flex flex-1 items-center justify-between">
                       <div>
                         <p className="font-medium">{client?.name}</p>
                         <p className="text-sm text-[rgba(15,15,20,0.5)]">
@@ -226,7 +243,12 @@ export default function AdminBookingsPage() {
       </Card>
 
       {/* Booking Detail Dialog */}
-      <Dialog onOpenChange={() => { setSelectedBooking(null); }} open={!!selectedBooking}>
+      <Dialog
+        onOpenChange={() => {
+          setSelectedBooking(null);
+        }}
+        open={!!selectedBooking}
+      >
         <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle>Detalle del turno</DialogTitle>
@@ -243,7 +265,7 @@ export default function AdminBookingsPage() {
                 <p className="text-sm text-[rgba(15,15,20,0.5)]">{BOOKING_FIELD_LABELS.service}</p>
                 <p className="font-medium">
                   {MOCK_SERVICES.find((s) => s.id === selectedBookingData.serviceId)?.name}
-                  <span className="text-sm text-[rgba(15,15,20,0.5)] ml-2">
+                  <span className="ml-2 text-sm text-[rgba(15,15,20,0.5)]">
                     ({SERVICE_TYPE_LABELS[selectedBookingData.type]})
                   </span>
                 </p>
@@ -260,28 +282,37 @@ export default function AdminBookingsPage() {
               </div>
               <div>
                 <p className="text-sm text-[rgba(15,15,20,0.5)]">{BOOKING_FIELD_LABELS.total}</p>
-                <p className="text-xl font-medium">
-                  {formatPrice(selectedBookingData.totalPrice)}
-                </p>
+                <p className="text-xl font-medium">{formatPrice(selectedBookingData.totalPrice)}</p>
               </div>
               <Badge className={STATUS_COLORS[selectedBookingData.status]}>
                 {BOOKING_STATUS_LABELS[selectedBookingData.status]}
               </Badge>
               <div className="flex gap-2 pt-4">
                 {selectedBookingData.status === "pending" && (
-                  <Button onClick={() => { handleConfirm(selectedBookingData.id); }}>
+                  <Button
+                    onClick={() => {
+                      handleConfirm(selectedBookingData.id);
+                    }}
+                  >
                     Confirmar
                   </Button>
                 )}
                 {selectedBookingData.status === "confirmed" && (
-                  <Button onClick={() => { handleComplete(selectedBookingData.id); }}>
+                  <Button
+                    onClick={() => {
+                      handleComplete(selectedBookingData.id);
+                    }}
+                  >
                     Marcar completado
                   </Button>
                 )}
-                {(selectedBookingData.status === "pending" || selectedBookingData.status === "confirmed") && (
+                {(selectedBookingData.status === "pending" ||
+                  selectedBookingData.status === "confirmed") && (
                   <Button
                     className="text-red-500"
-                    onClick={() => { handleCancel(selectedBookingData.id); }}
+                    onClick={() => {
+                      handleCancel(selectedBookingData.id);
+                    }}
                     variant="outline"
                   >
                     Cancelar
@@ -294,7 +325,10 @@ export default function AdminBookingsPage() {
       </Dialog>
 
       {/* Block Slot Dialog */}
-      <Dialog onOpenChange={setShowBlockDialog} open={showBlockDialog}>
+      <Dialog
+        onOpenChange={setShowBlockDialog}
+        open={showBlockDialog}
+      >
         <DialogContent className="max-w-sm">
           <DialogHeader>
             <DialogTitle>Bloquear horario</DialogTitle>
@@ -304,21 +338,36 @@ export default function AdminBookingsPage() {
               Bloquear todo el día del {format(currentDate, "d 'de' MMMM", { locale: es })}
             </p>
             <div className="space-y-2">
-              <label className="text-sm font-medium" htmlFor="motivo-bloqueo">Motivo</label>
+              <label
+                className="text-sm font-medium"
+                htmlFor="motivo-bloqueo"
+              >
+                Motivo
+              </label>
               <input
-                className="w-full px-3 py-2 border rounded-lg"
+                className="w-full rounded-lg border px-3 py-2"
                 id="motivo-bloqueo"
-                onChange={(e) => { setBlockReason(e.target.value); }}
+                onChange={(e) => {
+                  setBlockReason(e.target.value);
+                }}
                 placeholder="Ej: Día libre, curso, feriado..."
                 type="text"
                 value={blockReason}
               />
             </div>
             <div className="flex gap-3">
-              <Button onClick={() => { setShowBlockDialog(false); }} variant="outline">
+              <Button
+                onClick={() => {
+                  setShowBlockDialog(false);
+                }}
+                variant="outline"
+              >
                 {COMMON_ACTIONS.cancel}
               </Button>
-              <Button disabled={!blockReason} onClick={handleBlockSlot}>
+              <Button
+                disabled={!blockReason}
+                onClick={handleBlockSlot}
+              >
                 Bloquear
               </Button>
             </div>

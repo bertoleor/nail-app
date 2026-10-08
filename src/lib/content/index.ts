@@ -50,10 +50,26 @@ export const BOOKING_FIELD_LABELS = Object.freeze({
  * compartido — availability.ts ya tiene sus constantes de apertura/cierre propias.
  */
 export const HOURS: readonly string[] = Object.freeze([
-  "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-  "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
-  "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
-  "18:00", "18:30",
+  "09:00",
+  "09:30",
+  "10:00",
+  "10:30",
+  "11:00",
+  "11:30",
+  "12:00",
+  "12:30",
+  "13:00",
+  "13:30",
+  "14:00",
+  "14:30",
+  "15:00",
+  "15:30",
+  "16:00",
+  "16:30",
+  "17:00",
+  "17:30",
+  "18:00",
+  "18:30",
 ]);
 
 /** Actions compartidas entre superficies — "Volver"/"Continuar" quedan in situ (duplicación interna de /reservar, no cross-surface). */

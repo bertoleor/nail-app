@@ -1,4 +1,5 @@
 # NailApp — Cómo se arma (Arquitectura)
+
 > Parte de: [[README]] · Relacionados: [[STACK]] · [[ADR-001-mockup-sin-backend]]
 
 ## Modelo
@@ -7,16 +8,16 @@ Mockup sin backend (ver `docs/ADR-001-mockup-sin-backend.md`): UI Next.js App Ro
 
 ## Capas
 
-| Capa | Ubicación | Contenido |
-|------|-----------|-----------|
-| Rutas | `src/app/` | `(client)`: `reservar/`, `calculator/` · `(admin)`: `page` (dashboard), `turnos/`, `calculadora/`, `clientas/`, `services/` · raíz: `page` (home), `layout`, `globals.css`, `error`/`global-error` |
-| Componentes | `src/components/` | `ui/` (shadcn+CVA: button, card, badge, select, dialog, input, skeleton) · `pricing/` (calculator-form, service-select, addon-list, price-summary) · `booking/` (booking-card, booking-form, booking-list, calendar) · `client/BackgroundMesh.tsx` (canvas partículas) · `providers.tsx`, `error-boundary.tsx` |
-| Dominio | `src/lib/domain/` | `pricing/` (SERVICES, ADDONS, `calculatePrice`/`calculateDuration`/`formatPrice`/`formatDuration`, fuente única del catálogo) · `booking/` (`types`, `conflict`, `time-utils`) |
-| Mock | `src/lib/mock/data.ts` | Re-exporta catálogo de `domain/pricing` + 6 clientas, ~10 turnos (`confirmed`/`pending`/`completed`/`cancelled`), bloqueos de horario, presupuestos |
-| Estado | `src/stores/` | `app-store`, `booking-store`, `pricing-store` (Zustand) |
-| Config | `src/lib/config/whatsapp.ts` | Número WhatsApp (`NEXT_PUBLIC_WHATSAPP_NUMBER`, fallback `5491112345678`) |
-| Utilidades | `src/lib/` | `utils.ts` (`cn`), `types.ts` (`ActionResult`), `result.ts` (helpers), `browser/detect.ts` |
-| Hooks | `src/hooks/` | `use-browser-optimization.ts` |
+| Capa        | Ubicación                    | Contenido                                                                                                                                                                                                                                                                                                      |
+| ----------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Rutas       | `src/app/`                   | `(client)`: `reservar/`, `calculator/` · `(admin)`: `page` (dashboard), `turnos/`, `calculadora/`, `clientas/`, `services/` · raíz: `page` (home), `layout`, `globals.css`, `error`/`global-error`                                                                                                             |
+| Componentes | `src/components/`            | `ui/` (shadcn+CVA: button, card, badge, select, dialog, input, skeleton) · `pricing/` (calculator-form, service-select, addon-list, price-summary) · `booking/` (booking-card, booking-form, booking-list, calendar) · `client/BackgroundMesh.tsx` (canvas partículas) · `providers.tsx`, `error-boundary.tsx` |
+| Dominio     | `src/lib/domain/`            | `pricing/` (SERVICES, ADDONS, `calculatePrice`/`calculateDuration`/`formatPrice`/`formatDuration`, fuente única del catálogo) · `booking/` (`types`, `conflict`, `time-utils`)                                                                                                                                 |
+| Mock        | `src/lib/mock/data.ts`       | Re-exporta catálogo de `domain/pricing` + 6 clientas, ~10 turnos (`confirmed`/`pending`/`completed`/`cancelled`), bloqueos de horario, presupuestos                                                                                                                                                            |
+| Estado      | `src/stores/`                | `app-store`, `booking-store`, `pricing-store` (Zustand)                                                                                                                                                                                                                                                        |
+| Config      | `src/lib/config/whatsapp.ts` | Número WhatsApp (`NEXT_PUBLIC_WHATSAPP_NUMBER`, fallback `5491112345678`)                                                                                                                                                                                                                                      |
+| Utilidades  | `src/lib/`                   | `utils.ts` (`cn`), `types.ts` (`ActionResult`), `result.ts` (helpers), `browser/detect.ts`                                                                                                                                                                                                                     |
+| Hooks       | `src/hooks/`                 | `use-browser-optimization.ts`                                                                                                                                                                                                                                                                                  |
 
 ## Flujos
 

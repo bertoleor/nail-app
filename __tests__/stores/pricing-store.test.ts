@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { usePricingStore } from "@/stores/pricing-store";
 import { ADDONS, SERVICES } from "@/lib/domain/pricing";
+import { usePricingStore } from "@/stores/pricing-store";
 
 describe("Pricing Store", () => {
   beforeEach(() => {
@@ -105,9 +105,7 @@ describe("Pricing Store", () => {
       toggleAddon("decoracion");
 
       const state = usePricingStore.getState();
-      const addons = ADDONS.filter((a) =>
-        state.selectedAddonIds.includes(a.id)
-      );
+      const addons = ADDONS.filter((a) => state.selectedAddonIds.includes(a.id));
 
       expect(addons).toHaveLength(2);
     });

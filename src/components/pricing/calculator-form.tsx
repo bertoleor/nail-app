@@ -8,7 +8,7 @@ import { ServiceSelect } from "./service-select";
 
 export function CalculatorForm() {
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="mx-auto w-full max-w-md">
       <CardHeader>
         <CardTitle className="text-xl sm:text-2xl">Calculadora de Precios</CardTitle>
       </CardHeader>

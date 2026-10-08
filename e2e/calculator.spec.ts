@@ -4,9 +4,7 @@ test.describe("Price Calculator", () => {
   test("displays calculator form", async ({ page }) => {
     await page.goto("/calculator");
 
-    await expect(
-      page.getByRole("heading", { name: /Calculadora de Precios/i })
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Calculadora de Precios/i })).toBeVisible();
   });
 
   test("allows service selection", async ({ page }) => {

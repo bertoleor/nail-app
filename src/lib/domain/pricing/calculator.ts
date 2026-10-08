@@ -11,19 +11,16 @@ export function getBaseDuration(service: Service, type: ServiceType): number {
 export function calculateDuration(
   service: Service,
   addons: readonly Addon[],
-  type: ServiceType
+  type: ServiceType,
 ): number {
-  const addonsDuration = addons.reduce(
-    (sum, addon) => sum + addon.duration,
-    0
-  );
+  const addonsDuration = addons.reduce((sum, addon) => sum + addon.duration, 0);
   return getBaseDuration(service, type) + addonsDuration;
 }
 
 export function calculatePrice(
   service: Service,
   addons: readonly Addon[],
-  type: ServiceType
+  type: ServiceType,
 ): number {
   const addonsTotal = addons.reduce((sum, addon) => sum + addon.price, 0);
   return getBasePrice(service, type) + addonsTotal;

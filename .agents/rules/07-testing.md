@@ -59,11 +59,11 @@ class CalculatorPage {
 
 ## 4. Cobertura Diferenciada
 
-| Tipo                  | Target     | Crítico                  |
-| --------------------- | ---------- | ------------------------ |
-| Utilities/Hooks       | 90%+       | < 80%                    |
-| Components            | 85%+       | < 70%                    |
-| E2E (flujos críticos) | 5-10 tests | Calculadora, Reserva     |
+| Tipo                  | Target     | Crítico              |
+| --------------------- | ---------- | -------------------- |
+| Utilities/Hooks       | 90%+       | < 80%                |
+| Components            | 85%+       | < 70%                |
+| E2E (flujos críticos) | 5-10 tests | Calculadora, Reserva |
 
 ## 5. Checklist de Testing
 

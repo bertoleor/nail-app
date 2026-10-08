@@ -17,9 +17,7 @@ function existingAdminRoutes(): Set<string> {
   const adminDir = path.join(APP_DIR, "admin");
   for (const entry of readdirSync(adminDir, { withFileTypes: true })) {
     if (entry.isDirectory()) {
-      const hasPage = readdirSync(path.join(adminDir, entry.name)).includes(
-        "page.tsx",
-      );
+      const hasPage = readdirSync(path.join(adminDir, entry.name)).includes("page.tsx");
       if (hasPage) routes.add(`/admin/${entry.name}`);
     }
   }
@@ -64,10 +62,7 @@ function extractAdminHrefs(source: string): string[] {
 }
 
 describe("Admin navigation routes contract (NAIL-H1)", () => {
-  const NAV_SOURCES = [
-    "components/admin/admin-sidebar.tsx",
-    "app/admin/page.tsx",
-  ];
+  const NAV_SOURCES = ["components/admin/admin-sidebar.tsx", "app/admin/page.tsx"];
 
   it("every admin nav href resolves to an existing App Router page", () => {
     const routes = existingAdminRoutes();
@@ -78,10 +73,7 @@ describe("Admin navigation routes contract (NAIL-H1)", () => {
       expect(hrefs.length).toBeGreaterThan(0);
 
       const missing = hrefs.filter((href) => !routes.has(href));
-      expect(
-        missing,
-        `${source} links to non-existent routes: ${missing.join(", ")}`,
-      ).toEqual([]);
+      expect(missing, `${source} links to non-existent routes: ${missing.join(", ")}`).toEqual([]);
     }
   });
 

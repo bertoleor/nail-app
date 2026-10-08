@@ -20,31 +20,31 @@ Commits estructurados facilitan el historial, changelog y debugging. Cada commit
 
 ## Tipos
 
-| Tipo       | Descripción                | Ejemplo                                                    |
-| ---------- | -------------------------- | ---------------------------------------------------------- |
-| `feat`     | Nueva feature              | `feat(calculator): agregar validación de servicios`        |
-| `fix`      | Bug fix                    | `fix(agenda): corregir conflicto de horarios`              |
-| `docs`     | Documentación              | `docs(readme): actualizar instrucciones de instalación`    |
-| `style`    | Formato (no afecta lógica) | `style(ui): formatear ServiceCard`                         |
-| `refactor` | Refactoring                | `refactor(pricing): extraer cálculo de descuentos`         |
-| `perf`     | Performance                | `perf(agenda): memoizar renderizado de turnos`             |
-| `test`     | Tests                      | `test(calculator): agregar tests de validación`            |
-| `chore`    | Mantenimiento              | `chore(deps): actualizar dependencias`                     |
-| `ci`       | CI/CD                      | `ci(github): agregar workflow de tests`                    |
+| Tipo       | Descripción                | Ejemplo                                                 |
+| ---------- | -------------------------- | ------------------------------------------------------- |
+| `feat`     | Nueva feature              | `feat(calculator): agregar validación de servicios`     |
+| `fix`      | Bug fix                    | `fix(agenda): corregir conflicto de horarios`           |
+| `docs`     | Documentación              | `docs(readme): actualizar instrucciones de instalación` |
+| `style`    | Formato (no afecta lógica) | `style(ui): formatear ServiceCard`                      |
+| `refactor` | Refactoring                | `refactor(pricing): extraer cálculo de descuentos`      |
+| `perf`     | Performance                | `perf(agenda): memoizar renderizado de turnos`          |
+| `test`     | Tests                      | `test(calculator): agregar tests de validación`         |
+| `chore`    | Mantenimiento              | `chore(deps): actualizar dependencias`                  |
+| `ci`       | CI/CD                      | `ci(github): agregar workflow de tests`                 |
 
 ---
 
 ## Scopes NAIL-APP
 
-| Scope          | Área                          |
-| -------------- | ----------------------------- |
-| `calculator`   | Calculadora de precios        |
-| `agenda`       | Agenda de turnos              |
-| `auth`         | Autenticación                 |
-| `ui`           | Componentes UI                |
-| `api`          | API routes                    |
-| `deps`         | Dependencias                  |
-| `config`       | Configuración                 |
+| Scope        | Área                   |
+| ------------ | ---------------------- |
+| `calculator` | Calculadora de precios |
+| `agenda`     | Agenda de turnos       |
+| `auth`       | Autenticación          |
+| `ui`         | Componentes UI         |
+| `api`        | API routes             |
+| `deps`       | Dependencias           |
+| `config`     | Configuración          |
 
 ---
 
@@ -133,11 +133,7 @@ export default {
       "always",
       ["feat", "fix", "docs", "style", "refactor", "perf", "test", "chore", "ci"],
     ],
-    "scope-enum": [
-      2,
-      "always",
-      ["calculator", "agenda", "auth", "ui", "api", "deps", "config"],
-    ],
+    "scope-enum": [2, "always", ["calculator", "agenda", "auth", "ui", "api", "deps", "config"]],
     "subject-max-length": [2, "always", 72],
     "body-max-line-length": [2, "always", 100],
   },

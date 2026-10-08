@@ -11,8 +11,6 @@ const DEFAULT_BROWSER: BrowserInfo = {
   supportsCssGrid: true,
 };
 
-export function createMockBrowser(
-  overrides: Partial<BrowserInfo> = {}
-): BrowserInfo {
+export function createMockBrowser(overrides: Partial<BrowserInfo> = {}): BrowserInfo {
   return { ...DEFAULT_BROWSER, ...overrides };
 }

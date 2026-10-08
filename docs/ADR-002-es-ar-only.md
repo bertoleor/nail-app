@@ -1,4 +1,5 @@
 # ADR-002 — Español rioplatense como único idioma
+
 > Parte de: [[README]] · Relacionados: [[ADR-001-mockup-sin-backend]] · [[ADR-003-demo-vs-saas]]
 
 - Estado: **aceptado** (2026-09-27, resuelto por task `t_1dd00b74`)

@@ -2,17 +2,15 @@ import type { Metadata, Viewport } from "next";
 
 import { Geist } from "next/font/google";
 
-import "./globals.css";
 import BackgroundMesh from "@/components/client/BackgroundMesh";
 import { Providers } from "@/components/providers";
 import { cn } from "@/lib/utils";
+import "./globals.css";
 
 const geist = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
 });
-
-
 
 export const viewport: Viewport = {
   initialScale: 1,
@@ -40,12 +38,12 @@ export default function RootLayout({
       className={cn("font-sans", geist.variable)}
       lang="es"
     >
-      <body className="font-sans antialiased text-[#1d1d1f] flex flex-col min-h-screen selection:bg-[#1d1d1f] selection:text-white">
-      <Providers>
-        <BackgroundMesh />
-        {children}
-      </Providers>
-    </body>
+      <body className="flex min-h-screen flex-col font-sans text-[#1d1d1f] antialiased selection:bg-[#1d1d1f] selection:text-white">
+        <Providers>
+          <BackgroundMesh />
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 }

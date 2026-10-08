@@ -23,7 +23,12 @@ const SERVICE_TYPE = {
 const bookingSchema = z.object({
   clientName: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
   clientPhone: z.string().regex(/^\+?[0-9\s-]{8,}$/, "Teléfono inválido"),
-  service: z.enum([SERVICE_TYPE.MANICURE, SERVICE_TYPE.SEMIPERMANENT, SERVICE_TYPE.GEL, SERVICE_TYPE.NAIL_ART]),
+  service: z.enum([
+    SERVICE_TYPE.MANICURE,
+    SERVICE_TYPE.SEMIPERMANENT,
+    SERVICE_TYPE.GEL,
+    SERVICE_TYPE.NAIL_ART,
+  ]),
   date: z.string().datetime(),
   notes: z.string().max(500).optional(),
 });
@@ -76,7 +81,7 @@ export async function createBooking(formData: FormData): Promise<ActionResult<Bo
 ### Pattern Correcto
 
 ```typescript
-import { create } from 'zustand';
+import { create } from "zustand";
 
 type CalculatorStore = {
   readonly selectedService: string | null;
@@ -90,11 +95,12 @@ export const useCalculator = create<CalculatorStore>((set) => ({
   selectedService: null,
   addons: [],
   selectService: (service) => set({ selectedService: service }),
-  toggleAddon: (addon) => set((state) => ({
-    addons: state.addons.includes(addon)
-      ? state.addons.filter(a => a !== addon)
-      : [...state.addons, addon],
-  })),
+  toggleAddon: (addon) =>
+    set((state) => ({
+      addons: state.addons.includes(addon)
+        ? state.addons.filter((a) => a !== addon)
+        : [...state.addons, addon],
+    })),
   reset: () => set({ selectedService: null, addons: [] }),
 }));
 ```

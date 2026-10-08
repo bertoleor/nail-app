@@ -1,4 +1,5 @@
 # Decisión de licencia — Nail-App
+
 > Parte de: [[README]] · Relacionados: [[PROJECT]]
 
 - Estado: **decidido (2026-09-14)** — MIT

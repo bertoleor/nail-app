@@ -20,8 +20,8 @@ Todo componente que fetch data debe manejar:
 ### Error Boundary
 
 ```tsx
-'use client';
-import { Component, type ReactNode } from 'react';
+"use client";
+import { Component, type ReactNode } from "react";
 
 interface ErrorBoundaryProps {
   readonly children: ReactNode;
@@ -41,13 +41,16 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   render() {
     if (this.state.hasError) {
-      return this.props.fallback ?? (
-        <div role="alert" className="p-4 text-center">
-          <p>Algo salió mal. Intentá de nuevo.</p>
-          <button onClick={() => this.setState({ hasError: false })}>
-            Reintentar
-          </button>
-        </div>
+      return (
+        this.props.fallback ?? (
+          <div
+            role="alert"
+            className="p-4 text-center"
+          >
+            <p>Algo salió mal. Intentá de nuevo.</p>
+            <button onClick={() => this.setState({ hasError: false })}>Reintentar</button>
+          </div>
+        )
       );
     }
 
@@ -61,7 +64,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 ```tsx
 function EmptyBookings() {
   return (
-    <div className="text-center py-12">
+    <div className="py-12 text-center">
       <p className="text-muted">No tenés turnos agendados</p>
       <button>Agendar primer turno</button>
     </div>
@@ -75,8 +78,8 @@ function EmptyBookings() {
 function ServiceCardSkeleton() {
   return (
     <div className="animate-pulse rounded-2xl bg-white/80 p-4">
-      <div className="h-4 w-3/4 bg-muted rounded" />
-      <div className="mt-2 h-3 w-1/2 bg-muted rounded" />
+      <div className="bg-muted h-4 w-3/4 rounded" />
+      <div className="bg-muted mt-2 h-3 w-1/2 rounded" />
     </div>
   );
 }

@@ -12,28 +12,28 @@ describe("Badge", () => {
     expect(badge.className).toMatch(/backdrop-blur|rounded-full/);
   });
 
-  it('applies default variant', () => {
+  it("applies default variant", () => {
     render(<Badge variant="default">Default</Badge>);
 
     const badge = screen.getByText("Default");
     expect(badge.className).toMatch(/glass-pill|rgba/);
   });
 
-  it('applies success variant', () => {
+  it("applies success variant", () => {
     render(<Badge variant="success">Success</Badge>);
 
     const badge = screen.getByText("Success");
     expect(badge.className).toMatch(/green|emerald|success/);
   });
 
-  it('applies warning variant', () => {
+  it("applies warning variant", () => {
     render(<Badge variant="warning">Warning</Badge>);
 
     const badge = screen.getByText("Warning");
     expect(badge.className).toMatch(/yellow|amber|warning/);
   });
 
-  it('applies error variant', () => {
+  it("applies error variant", () => {
     render(<Badge variant="error">Error</Badge>);
 
     const badge = screen.getByText("Error");

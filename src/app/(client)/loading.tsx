@@ -1,7 +1,7 @@
 export default function ClientLoading() {
   return (
-    <div className="flex items-center justify-center min-h-[400px]">
-      <div className="animate-pulse text-muted">Cargando...</div>
+    <div className="flex min-h-[400px] items-center justify-center">
+      <div className="text-muted animate-pulse">Cargando...</div>
     </div>
   );
 }

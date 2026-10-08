@@ -8,7 +8,7 @@ describe("Conflict Detection", () => {
     id: string,
     startTime: string,
     duration: number,
-    date = "2025-01-15"
+    date = "2025-01-15",
   ): Booking => ({
     id,
     clientId: `client-${id}`,

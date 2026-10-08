@@ -15,8 +15,8 @@ El código debe nacer y vivir lo más cerca posible de su uso. La abstracción p
 ## 2. Estructura de Directorios
 
 - **Feature-First**: Organizar por funcionalidad, no por tipo de archivo.
-- **_components**: Carpeta privada para componentes locales de una ruta o feature.
-- **_hooks / _services**: Lógica privada local.
+- **\_components**: Carpeta privada para componentes locales de una ruta o feature.
+- **\_hooks / \_services**: Lógica privada local.
 
 ## 3. Autoridad del Agente
 

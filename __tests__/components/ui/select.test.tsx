@@ -2,7 +2,13 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 describe("Select", () => {
   const options = [
@@ -19,12 +25,15 @@ describe("Select", () => {
         </SelectTrigger>
         <SelectContent>
           {options.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>
+            <SelectItem
+              key={opt.value}
+              value={opt.value}
+            >
               {opt.label}
             </SelectItem>
           ))}
         </SelectContent>
-      </Select>
+      </Select>,
     );
 
     expect(screen.getByText("Select an option")).toBeInTheDocument();
@@ -40,12 +49,15 @@ describe("Select", () => {
         </SelectTrigger>
         <SelectContent>
           {options.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>
+            <SelectItem
+              key={opt.value}
+              value={opt.value}
+            >
               {opt.label}
             </SelectItem>
           ))}
         </SelectContent>
-      </Select>
+      </Select>,
     );
 
     await user.click(screen.getByTestId("trigger"));
@@ -59,18 +71,25 @@ describe("Select", () => {
     let selectedValue = "";
 
     render(
-      <Select onValueChange={(v) => { selectedValue = v; }}>
+      <Select
+        onValueChange={(v) => {
+          selectedValue = v;
+        }}
+      >
         <SelectTrigger>
           <SelectValue placeholder="Select" />
         </SelectTrigger>
         <SelectContent>
           {options.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>
+            <SelectItem
+              key={opt.value}
+              value={opt.value}
+            >
               {opt.label}
             </SelectItem>
           ))}
         </SelectContent>
-      </Select>
+      </Select>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -89,12 +108,15 @@ describe("Select", () => {
         </SelectTrigger>
         <SelectContent data-testid="content">
           {options.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>
+            <SelectItem
+              key={opt.value}
+              value={opt.value}
+            >
               {opt.label}
             </SelectItem>
           ))}
         </SelectContent>
-      </Select>
+      </Select>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -113,12 +135,15 @@ describe("Select", () => {
         </SelectTrigger>
         <SelectContent>
           {options.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>
+            <SelectItem
+              key={opt.value}
+              value={opt.value}
+            >
               {opt.label}
             </SelectItem>
           ))}
         </SelectContent>
-      </Select>
+      </Select>,
     );
 
     const trigger = screen.getByRole("combobox");

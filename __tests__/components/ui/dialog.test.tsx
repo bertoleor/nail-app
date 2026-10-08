@@ -21,7 +21,7 @@ describe("Dialog", () => {
           <DialogTitle>Dialog Title</DialogTitle>
           <DialogDescription>Dialog content</DialogDescription>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     );
 
     expect(screen.getByText("Open Dialog")).toBeInTheDocument();
@@ -37,7 +37,7 @@ describe("Dialog", () => {
           <DialogTitle>Title</DialogTitle>
           <DialogDescription>Description</DialogDescription>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     );
 
     await user.click(screen.getByText("Open"));
@@ -56,7 +56,7 @@ describe("Dialog", () => {
           <DialogTitle>Title</DialogTitle>
           <DialogDescription>Desc</DialogDescription>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     );
 
     await user.click(screen.getByText("Open"));
@@ -76,7 +76,7 @@ describe("Dialog", () => {
           <DialogTitle>T</DialogTitle>
           <DialogDescription>D</DialogDescription>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     );
 
     await user.click(screen.getByText("Open"));
@@ -99,7 +99,7 @@ describe("Dialog", () => {
             <button type="button">Confirm</button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     );
 
     await user.click(screen.getByText("Open"));
@@ -123,7 +123,7 @@ describe("Dialog", () => {
             <button type="button">Action</button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialog>,
     );
 
     await user.click(screen.getByText("Open"));

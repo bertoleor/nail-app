@@ -35,16 +35,16 @@ Write the test file first (RED run), implement only on failure.
 
 ## Affected Areas
 
-| Area | Impact | Description |
-|------|--------|-------------|
-| `__tests__/lib/config/whatsapp.test.ts` | New | Env/fallback resolution cases |
-| `src/lib/config/whatsapp.ts` | Modified only if gap | Minimal fix, if RED exposes one |
+| Area                                    | Impact               | Description                     |
+| --------------------------------------- | -------------------- | ------------------------------- |
+| `__tests__/lib/config/whatsapp.test.ts` | New                  | Env/fallback resolution cases   |
+| `src/lib/config/whatsapp.ts`            | Modified only if gap | Minimal fix, if RED exposes one |
 
 ## Risks
 
-| Risk | Likelihood | Mitigation |
-|------|------------|------------|
-| Env leakage between tests | Low | Save/restore `process.env` in hooks; `vi.resetModules` |
+| Risk                      | Likelihood | Mitigation                                             |
+| ------------------------- | ---------- | ------------------------------------------------------ |
+| Env leakage between tests | Low        | Save/restore `process.env` in hooks; `vi.resetModules` |
 
 ## Rollback Plan
 

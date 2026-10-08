@@ -53,9 +53,7 @@ export function getEnv(key?: string, fallback?: string): unknown {
     const whatsapp = whatsappNumberSchema.parse(
       readRaw("NEXT_PUBLIC_WHATSAPP_NUMBER") ?? FALLBACK_WHATSAPP_NUMBER,
     );
-    const siteUrl = siteUrlSchema.parse(
-      readRaw("NEXT_PUBLIC_SITE_URL") ?? FALLBACK_SITE_URL,
-    );
+    const siteUrl = siteUrlSchema.parse(readRaw("NEXT_PUBLIC_SITE_URL") ?? FALLBACK_SITE_URL);
     return { whatsappNumber: whatsapp, siteUrl } satisfies PublicEnv;
   }
   const value = readRaw(key);
@@ -63,4 +61,4 @@ export function getEnv(key?: string, fallback?: string): unknown {
   return value;
 }
 
-export { FALLBACK_WHATSAPP_NUMBER, FALLBACK_SITE_URL };
+export { FALLBACK_SITE_URL, FALLBACK_WHATSAPP_NUMBER };

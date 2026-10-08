@@ -46,9 +46,7 @@ export function checkAvailability(input: AvailabilityInput): Availability {
   }
 
   // 2. Overlap with existing bookings (cancelled ones are ignored).
-  const activeBookings = bookings.filter(
-    (b) => b.date === date && b.status !== "cancelled"
-  );
+  const activeBookings = bookings.filter((b) => b.date === date && b.status !== "cancelled");
   const proposed = {
     id: "proposed",
     date,
@@ -63,7 +61,9 @@ export function checkAvailability(input: AvailabilityInput): Availability {
   const proposedStart = startMinutes;
   const proposedEnd = endMinutes;
   for (const slot of blockedSlots) {
-    if (slot.date !== date) {continue;}
+    if (slot.date !== date) {
+      continue;
+    }
     const slotStart = timeToMinutes(slot.startTime);
     const slotEnd = timeToMinutes(slot.endTime);
     if (proposedStart < slotEnd && proposedEnd > slotStart) {

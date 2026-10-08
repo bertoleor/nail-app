@@ -1,4 +1,5 @@
 # Política de Privacidad — NailApp
+
 > Parte de: [[README]] · Relacionados: [[TERMS-OF-SERVICE]]
 
 - **Última actualización:** 14 de septiembre de 2026
@@ -45,6 +46,7 @@ Los datos se utilizan exclusivamente para:
 - Cumplir con obligaciones legales aplicables.
 
 Los datos no serán cedidos, vendidos ni compartidos con terceros, salvo:
+
 - Cuando fuera necesario para prestar el Servicio (p. ej., infraestructura de hosting o proveedor de base de datos). En ese caso se informará al usuario la identidad del proveedor encargado del tratamiento.
 - Cuando lo exija la ley o una autoridad competente.
 - Con el consentimiento expreso del titular.
@@ -105,5 +107,6 @@ Ante cualquier consulta sobre el tratamiento de datos personales:
 > [POR COMPLETAR — nombre y datos del Responsable de Datos o canal de contacto]
 
 ---
-*NailApp — Calculadora de precios y agenda de turnos para manicuristas argentinas.*
-*Documento sujeto a revisión legal antes de su publicación pública con datos reales. Reemplazar todos los marcadores `[POR COMPLETAR]` antes de su entrada en vigencia.*
+
+_NailApp — Calculadora de precios y agenda de turnos para manicuristas argentinas._
+_Documento sujeto a revisión legal antes de su publicación pública con datos reales. Reemplazar todos los marcadores `[POR COMPLETAR]` antes de su entrada en vigencia._

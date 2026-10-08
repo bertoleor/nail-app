@@ -66,12 +66,7 @@ describe("Booking Types (NAIL-M1 unified model)", () => {
   });
 
   it("BookingStatus keeps the four canonical statuses", () => {
-    const statuses: readonly BookingStatus[] = [
-      "pending",
-      "confirmed",
-      "completed",
-      "cancelled",
-    ];
+    const statuses: readonly BookingStatus[] = ["pending", "confirmed", "completed", "cancelled"];
     expect(statuses).toHaveLength(4);
   });
 });

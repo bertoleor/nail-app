@@ -11,10 +11,7 @@ interface ErrorBoundaryState {
   readonly hasError: boolean;
 }
 
-export class ErrorBoundary extends Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   readonly state: ErrorBoundaryState = { hasError: false };
 
   static getDerivedStateFromError(): ErrorBoundaryState {
@@ -27,12 +24,12 @@ export class ErrorBoundary extends Component<
         this.props.fallback ?? (
           <div className="flex items-center justify-center p-8">
             <div className="text-center">
-              <p className="text-muted mb-4">
-                Algo salió mal en este componente
-              </p>
+              <p className="text-muted mb-4">Algo salió mal en este componente</p>
               <button
-                className="px-4 py-2 text-sm bg-muted rounded-lg hover:bg-muted/80"
-                onClick={() => { this.setState({ hasError: false }); }}
+                className="bg-muted hover:bg-muted/80 rounded-lg px-4 py-2 text-sm"
+                onClick={() => {
+                  this.setState({ hasError: false });
+                }}
               >
                 Reintentar
               </button>

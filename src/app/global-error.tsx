@@ -9,17 +9,17 @@ export default function GlobalError({
 }) {
   return (
     <html lang="es">
-      <body className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center p-8">
-          <h2 className="text-2xl font-medium text-foreground mb-4">
-            Algo salió mal
-          </h2>
+      <body className="bg-background flex min-h-screen items-center justify-center">
+        <div className="p-8 text-center">
+          <h2 className="text-foreground mb-4 text-2xl font-medium">Algo salió mal</h2>
           <p className="text-muted mb-6">
             Ocurrió un error inesperado. Por favor, intentá de nuevo.
           </p>
           <button
-            className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90"
-            onClick={() => { reset(); }}
+            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-4 py-2"
+            onClick={() => {
+              reset();
+            }}
           >
             Reintentar
           </button>

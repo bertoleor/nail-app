@@ -26,7 +26,7 @@ describe("Card", () => {
         <CardHeader data-testid="header">
           <CardTitle>Title</CardTitle>
         </CardHeader>
-      </Card>
+      </Card>,
     );
 
     const header = screen.getByTestId("header");
@@ -39,7 +39,7 @@ describe("Card", () => {
         <CardHeader>
           <CardTitle>Test Title</CardTitle>
         </CardHeader>
-      </Card>
+      </Card>,
     );
 
     const title = screen.getByRole("heading", { name: /test title/i });
@@ -53,7 +53,7 @@ describe("Card", () => {
         <CardHeader>
           <CardDescription>Description text</CardDescription>
         </CardHeader>
-      </Card>
+      </Card>,
     );
 
     const description = screen.getByText(/description text/i);
@@ -65,7 +65,7 @@ describe("Card", () => {
     render(
       <Card>
         <CardContent data-testid="content">Inner content</CardContent>
-      </Card>
+      </Card>,
     );
 
     const content = screen.getByTestId("content");
@@ -76,7 +76,7 @@ describe("Card", () => {
     render(
       <Card>
         <CardFooter data-testid="footer">Footer</CardFooter>
-      </Card>
+      </Card>,
     );
 
     const footer = screen.getByTestId("footer");
@@ -93,7 +93,7 @@ describe("Card", () => {
         </CardHeader>
         <CardContent>Content area</CardContent>
         <CardFooter>Footer area</CardFooter>
-      </Card>
+      </Card>,
     );
 
     expect(screen.getByRole("heading", { name: /full card/i })).toBeInTheDocument();
@@ -110,7 +110,7 @@ describe("Card", () => {
         </CardHeader>
         <CardContent className="custom-content">C</CardContent>
         <CardFooter className="custom-footer">F</CardFooter>
-      </Card>
+      </Card>,
     );
 
     expect(screen.getByRole("heading")).toHaveClass("custom-title");

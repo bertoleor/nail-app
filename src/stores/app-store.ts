@@ -10,14 +10,7 @@ import type {
   Quote,
   QuoteStatus,
 } from "@/lib/mock/data";
-import {
-  MOCK_BLOCKED_SLOTS,
-  MOCK_BOOKINGS,
-  MOCK_CLIENTS,
-  MOCK_QUOTES,
-} from "@/lib/mock/data";
-
-
+import { MOCK_BLOCKED_SLOTS, MOCK_BOOKINGS, MOCK_CLIENTS, MOCK_QUOTES } from "@/lib/mock/data";
 
 interface AppState {
   readonly addBlockedSlot: (slot: Omit<BlockedSlot, "id">) => BlockedSlot;
@@ -95,9 +88,7 @@ export const useAppStore = create<AppState>()(
       cancelBooking: (id, notes) => {
         set((state) => ({
           bookings: state.bookings.map((b) =>
-            b.id === id
-              ? { ...b, notes, status: "cancelled" as BookingStatus }
-              : b
+            b.id === id ? { ...b, notes, status: "cancelled" as BookingStatus } : b,
           ),
         }));
       },
@@ -115,32 +106,26 @@ export const useAppStore = create<AppState>()(
       saveQuoteToClient: (quoteId, clientId) => {
         set((state) => ({
           quotes: state.quotes.map((q) =>
-            q.id === quoteId ? { ...q, clientId, status: "saved" as QuoteStatus } : q
+            q.id === quoteId ? { ...q, clientId, status: "saved" as QuoteStatus } : q,
           ),
         }));
       },
 
       updateBookingStatus: (id, status) => {
         set((state) => ({
-          bookings: state.bookings.map((b) =>
-            b.id === id ? { ...b, status } : b
-          ),
+          bookings: state.bookings.map((b) => (b.id === id ? { ...b, status } : b)),
         }));
       },
 
       updateClient: (id, data) => {
         set((state) => ({
-          clients: state.clients.map((c) =>
-            c.id === id ? { ...c, ...data } : c
-          ),
+          clients: state.clients.map((c) => (c.id === id ? { ...c, ...data } : c)),
         }));
       },
 
       updateQuoteStatus: (id, status) => {
         set((state) => ({
-          quotes: state.quotes.map((q) =>
-            q.id === id ? { ...q, status } : q
-          ),
+          quotes: state.quotes.map((q) => (q.id === id ? { ...q, status } : q)),
         }));
       },
     }),
@@ -152,31 +137,23 @@ export const useAppStore = create<AppState>()(
         clients: state.clients,
         quotes: state.quotes,
       }),
-    }
-  )
+    },
+  ),
 );
 
 export function useBlockedSlotsByDate(date: string): readonly BlockedSlot[] {
-  return useAppStore(
-    useShallow((state) =>
-      state.blockedSlots.filter((s) => s.date === date)
-    )
-  );
+  return useAppStore(useShallow((state) => state.blockedSlots.filter((s) => s.date === date)));
 }
 
 export function useBookingsByClient(clientId: string): readonly Booking[] {
-  return useAppStore(
-    useShallow((state) =>
-      state.bookings.filter((b) => b.clientId === clientId)
-    )
-  );
+  return useAppStore(useShallow((state) => state.bookings.filter((b) => b.clientId === clientId)));
 }
 
 export function useBookingsByDate(date: string): readonly Booking[] {
   return useAppStore(
     useShallow((state) =>
-      state.bookings.filter((b) => b.date === date && b.status !== "cancelled")
-    )
+      state.bookings.filter((b) => b.date === date && b.status !== "cancelled"),
+    ),
   );
 }
 
@@ -189,8 +166,8 @@ export function useClientHistory(clientId: string) {
     useShallow((state) =>
       state.bookings
         .filter((b) => b.clientId === clientId)
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    )
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
+    ),
   );
 
   const completed = bookings.filter((b) => b.status === "completed");
@@ -206,11 +183,7 @@ export function useClientHistory(clientId: string) {
 }
 
 export function useQuotesByStatus(status: QuoteStatus): readonly Quote[] {
-  return useAppStore(
-    useShallow((state) =>
-      state.quotes.filter((q) => q.status === status)
-    )
-  );
+  return useAppStore(useShallow((state) => state.quotes.filter((q) => q.status === status)));
 }
 
 export function useRecentBookings(limit = 10): readonly Booking[] {
@@ -219,8 +192,8 @@ export function useRecentBookings(limit = 10): readonly Booking[] {
       [...state.bookings]
         .filter((b) => b.status !== "cancelled")
         .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-        .slice(0, limit)
-    )
+        .slice(0, limit),
+    ),
   );
 }
 
@@ -229,14 +202,16 @@ export function useTodayStats() {
   return useAppStore(
     useShallow((state) => {
       const todayBookings = state.bookings.filter(
-        (b) => b.date === today && b.status !== "cancelled"
+        (b) => b.date === today && b.status !== "cancelled",
       );
       return {
         pendingCount: state.bookings.filter((b) => b.status === "pending").length,
         todayCount: todayBookings.length,
         todayRevenue: todayBookings.reduce((sum, b) => sum + b.totalPrice, 0),
         weekCount: state.bookings.filter((b) => {
-          if (b.status === "cancelled") {return false;}
+          if (b.status === "cancelled") {
+            return false;
+          }
           const bookingDate = new Date(b.date);
           const weekStart = new Date(today);
           const weekEnd = new Date(today);
@@ -244,8 +219,8 @@ export function useTodayStats() {
           return bookingDate >= weekStart && bookingDate <= weekEnd;
         }).length,
       };
-    })
+    }),
   );
 }
 
-export {MOCK_BLOCKED_SLOTS, MOCK_BOOKINGS, MOCK_CLIENTS, MOCK_QUOTES} from "@/lib/mock/data";
+export { MOCK_BLOCKED_SLOTS, MOCK_BOOKINGS, MOCK_CLIENTS, MOCK_QUOTES } from "@/lib/mock/data";

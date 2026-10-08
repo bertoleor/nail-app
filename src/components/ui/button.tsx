@@ -10,7 +10,8 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "./button-variants";
 
 export interface ButtonProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className">,
+  extends
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className">,
     VariantProps<typeof buttonVariants> {
   readonly asChild?: boolean;
   readonly children: ReactNode;
@@ -38,6 +39,4 @@ export function Button({
   );
 }
 
-
-
-export {buttonVariants} from "./button-variants";
+export { buttonVariants } from "./button-variants";
