@@ -1,6 +1,7 @@
 "use client";
 
 import { Mail } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import type { Client } from "@/lib/mock/data";
@@ -248,6 +249,17 @@ export default function AdminClientsPage() {
 
 function ClientDetail({ client }: { readonly client: Client }) {
   const history = useClientHistory(client.id);
+  const router = useRouter();
+
+  // NAIL-L3: the detail CTAs must act — they route to a live surface with the
+  // client preselected, instead of being dead placeholder buttons.
+  const handleBook = () => {
+    router.push(`/admin/turnos?action=new&client=${client.id}`);
+  };
+
+  const handleQuote = () => {
+    router.push(`/admin/calculadora?client=${client.id}`);
+  };
 
   return (
     <div className="space-y-6">
@@ -336,11 +348,17 @@ function ClientDetail({ client }: { readonly client: Client }) {
       <div className="flex gap-3">
         <Button
           className="flex-1"
+          onClick={handleBook}
           variant="outline"
         >
           Agendar turno
         </Button>
-        <Button className="flex-1">Nueva cotización</Button>
+        <Button
+          className="flex-1"
+          onClick={handleQuote}
+        >
+          Nueva cotización
+        </Button>
       </div>
     </div>
   );

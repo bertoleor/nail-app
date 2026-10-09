@@ -2,8 +2,9 @@
 
 import { addDays, format, isToday, subDays } from "date-fns";
 import { es } from "date-fns/locale";
-import { useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
+import { NewBookingDialog } from "@/components/admin/new-booking-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -24,6 +25,7 @@ import {
   useBlockedSlotsByDate,
   useBookingsByDate,
 } from "@/stores/app-store";
+import { useSearchParams } from "next/navigation";
 
 const STATUS_COLORS: Record<BookingStatus, string> = {
   cancelled: "bg-red-100 text-red-700",
@@ -33,10 +35,34 @@ const STATUS_COLORS: Record<BookingStatus, string> = {
 };
 
 export default function AdminBookingsPage() {
+  // useSearchParams requires a Suspense boundary for static prerender
+  // (missing-suspense-with-csr-bailout on next build) — the page body is
+  // wrapped and the fallback keeps the layout chrome.
+  return (
+    <Suspense fallback={null}>
+      <AdminBookingsPageBody />
+    </Suspense>
+  );
+}
+
+function AdminBookingsPageBody() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedBooking, setSelectedBooking] = useState<null | string>(null);
   const [showBlockDialog, setShowBlockDialog] = useState(false);
   const [blockReason, setBlockReason] = useState("");
+  const [showNewBookingDialog, setShowNewBookingDialog] = useState(false);
+
+  const searchParams = useSearchParams();
+  const actionParam = searchParams.get("action");
+  const clientParam = searchParams.get("client");
+
+  // NAIL-L3: the dashboard quick action links to /admin/turnos?action=new —
+  // it must actually open the dialog instead of being silently ignored.
+  useEffect(() => {
+    if (actionParam === "new") {
+      setShowNewBookingDialog(true);
+    }
+  }, [actionParam]);
 
   const dateStr = currentDate.toISOString().split("T")[0];
   const bookings = useBookingsByDate(dateStr);
@@ -120,7 +146,13 @@ export default function AdminBookingsPage() {
           >
             Bloquear horario
           </Button>
-          <Button>Nuevo turno</Button>
+          <Button
+            onClick={() => {
+              setShowNewBookingDialog(true);
+            }}
+          >
+            Nuevo turno
+          </Button>
         </div>
       </div>
 
@@ -374,6 +406,14 @@ export default function AdminBookingsPage() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* New Booking Dialog (NAIL-L3) */}
+      <NewBookingDialog
+        defaultClientId={clientParam ?? undefined}
+        defaultDate={dateStr}
+        onOpenChange={setShowNewBookingDialog}
+        open={showNewBookingDialog}
+      />
     </div>
   );
 }

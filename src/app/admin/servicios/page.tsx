@@ -12,7 +12,18 @@ export default function AdminServicesPage() {
           <h1 className="mb-2 font-serif text-2xl">Servicios</h1>
           <p className="text-[rgba(15,15,20,0.6)]">Configurá precios y duración</p>
         </div>
-        <Button>Nuevo servicio</Button>
+        {/* NAIL-L3: the catalog is a read-only domain constant — there is no
+            `addService` mutation path anywhere in the stores. Instead of a dead
+            CTA, the button is disabled and explicitly marked as future. */}
+        <div className="flex gap-2">
+          <Badge variant="secondary">Próximamente</Badge>
+          <Button
+            disabled
+            title="Disponible cuando el catálogo sea editable (hoy vive en el dominio, read-only)"
+          >
+            Nuevo servicio
+          </Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

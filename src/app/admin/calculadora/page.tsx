@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,16 @@ import { MOCK_ADDONS, MOCK_CLIENTS, MOCK_SERVICES, type ServiceType } from "@/li
 import { useAppStore } from "@/stores/app-store";
 
 export default function AdminCalculatorPage() {
+  // useSearchParams requires a Suspense boundary for static prerender
+  // (missing-suspense-with-csr-bailout on next build).
+  return (
+    <Suspense fallback={null}>
+      <AdminCalculatorPageBody />
+    </Suspense>
+  );
+}
+
+function AdminCalculatorPageBody() {
   const [clientName, setClientName] = useState("");
   const [clientPhone, setClientPhone] = useState("");
   const [selectedClientId, setSelectedClientId] = useState("");
@@ -36,6 +47,23 @@ export default function AdminCalculatorPage() {
   const [saved, setSaved] = useState(false);
 
   const { addQuote, saveQuoteToClient } = useAppStore();
+
+  // NAIL-L3: the clientas "Nueva cotización" lands here with ?client=<id> —
+  // the client is preloaded instead of arriving to an empty form.
+  const searchParams = useSearchParams();
+  const clientParam = searchParams.get("client");
+
+  useEffect(() => {
+    if (!clientParam) {
+      return;
+    }
+    const client = MOCK_CLIENTS.find((c) => c.id === clientParam);
+    if (client) {
+      setSelectedClientId(client.id);
+      setClientName(client.name);
+      setClientPhone(client.phone);
+    }
+  }, [clientParam]);
 
   const selectedService = MOCK_SERVICES.find((s) => s.id === serviceId);
   const selectedAddons = MOCK_ADDONS.filter((a) => addonIds.includes(a.id));
