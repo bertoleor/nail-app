@@ -25,12 +25,6 @@ export default defineConfig({
       },
     },
     globals: true,
-    // NAIL-H3/L3: jsdom 29 delegates localStorage to the Node runtime, which
-    // only exposes it with --localstorage-file. Without this, window.localStorage
-    // is undefined and every zustand persist store crashes on setState.
-    // NOTE: Vitest 4 REMOVED test.poolOptions — execArgv is a top-level test
-    // option now (the old poolOptions.forks.execArgv form is silently ignored).
-    execArgv: [`--localstorage-file=${path.join(__dirname, ".vitest-localstorage.json")}`],
     include: ["__tests__/**/*.{test,spec}.{ts,tsx}"],
     setupFiles: ["__tests__/setup.ts"],
   },

@@ -1,7 +1,7 @@
 import type { BlockedSlot } from "@/lib/mock/data";
 
-import { hasConflict } from "./conflict";
 import type { BookingOverlapInput } from "./conflict";
+import { hasConflict } from "./conflict";
 import { endAbsoluteMinutes, timeToMinutes } from "./time-utils";
 import type { Booking } from "./types";
 

@@ -1,5 +1,35 @@
 import "@testing-library/jest-dom/vitest";
 
+// NAIL-H3/L3: jsdom 29 no longer implements Web Storage at all — it used to
+// delegate to the Node runtime, which only exposes localStorage behind the
+// --localstorage-file flag (Node 22.4+, not available on the CI's Node 20).
+// Without storage, every zustand persist store crashes on setState. This
+// in-memory polyfill restores the standard contract for any Node version.
+if (typeof window !== "undefined" && window.localStorage === undefined) {
+  const storage = new Map<string, string>();
+  const localStoragePolyfill: Storage = {
+    get length(): number {
+      return storage.size;
+    },
+    clear: () => {
+      storage.clear();
+    },
+    getItem: (key: string) => storage.get(key) ?? null,
+    key: (index: number) => Array.from(storage.keys())[index] ?? null,
+    removeItem: (key: string) => {
+      storage.delete(key);
+    },
+    setItem: (key: string, value: string) => {
+      storage.set(key, String(value));
+    },
+  };
+  Object.defineProperty(window, "localStorage", {
+    configurable: true,
+    value: localStoragePolyfill,
+    writable: false,
+  });
+}
+
 class MockPointerEvent extends Event {
   public pointerId: number;
   public clientX: number;
