@@ -104,6 +104,46 @@ describe("Conflict Detection", () => {
       expect(result).toBe(false);
     });
 
+    it("detects conflict with a previous-day booking spilling past midnight (NAIL-L1)", () => {
+      // 23:00–01:00 booked on Jan 14; a Jan 15 slot at 00:30 overlaps its tail.
+      const existing = createBooking("1", "23:00", 120, "2025-01-14");
+      const newBooking = createBooking("2", "00:30", 60, "2025-01-15");
+
+      const result = hasConflict(newBooking, [existing]);
+
+      expect(result).toBe(true);
+    });
+
+    it("detects conflict when the new booking crosses midnight over a same-day booking (NAIL-L1)", () => {
+      // New 23:00–01:00; existing 23:30–00:30 sits inside it.
+      const existing = createBooking("1", "23:30", 60);
+      const newBooking = createBooking("2", "23:00", 120);
+
+      const result = hasConflict(newBooking, [existing]);
+
+      expect(result).toBe(true);
+    });
+
+    it("allows back-to-back bookings across the midnight boundary (NAIL-L1)", () => {
+      // 22:00–24:00 on Jan 14 ends exactly when 00:00 starts on Jan 15.
+      const existing = createBooking("1", "22:00", 120, "2025-01-14");
+      const newBooking = createBooking("2", "00:00", 60, "2025-01-15");
+
+      const result = hasConflict(newBooking, [existing]);
+
+      expect(result).toBe(false);
+    });
+
+    it("ignores a midnight-crossing booking that ends before the new slot starts (NAIL-L1)", () => {
+      // 23:00–01:00 on Jan 15 spills into Jan 16, but a 09:00 Jan 16 slot is clear.
+      const existing = createBooking("1", "23:00", 120, "2025-01-15");
+      const newBooking = createBooking("2", "09:00", 60, "2025-01-16");
+
+      const result = hasConflict(newBooking, [existing]);
+
+      expect(result).toBe(false);
+    });
+
     it("detects conflict with second booking", () => {
       const existing1 = createBooking("1", "10:00", 60);
       const existing2 = createBooking("2", "14:00", 60);

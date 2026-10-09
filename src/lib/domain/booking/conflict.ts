@@ -1,6 +1,6 @@
 import type { Booking } from "./types";
 
-import { calculateEndTime } from "./time-utils";
+import { dateToAbsoluteMinutes, endAbsoluteMinutes, timeToMinutes } from "./time-utils";
 
 /**
  * NAIL-M1: hasConflict only needs the scheduling fields of a booking.
@@ -9,32 +9,43 @@ import { calculateEndTime } from "./time-utils";
  */
 export type BookingOverlapInput = Pick<Booking, "date" | "startTime" | "duration">;
 
+/** Booking interval in absolute minutes since the UTC epoch. */
+interface AbsoluteInterval {
+  readonly end: number;
+  readonly start: number;
+}
+
+function toInterval(booking: BookingOverlapInput): AbsoluteInterval {
+  const dayStart = dateToAbsoluteMinutes(booking.date);
+  return {
+    start: dayStart + timeToMinutes(booking.startTime),
+    end: dayStart + endAbsoluteMinutes(booking.startTime, booking.duration),
+  };
+}
+
 export function getBookingsForDate(bookings: readonly Booking[], date: string): readonly Booking[] {
   return bookings.filter((b) => b.date === date);
 }
 
+/**
+ * NAIL-L1: overlap detection runs in absolute minutes since the epoch,
+ * so a booking crossing midnight is a real interval reaching into the
+ * next day — no same-date filter, no %24 wrap. A previous-day booking
+ * spilling past midnight therefore conflicts with early next-day slots.
+ */
 export function hasConflict(
   newBooking: BookingOverlapInput,
   existingBookings: readonly Booking[],
 ): boolean {
-  const sameDateBookings = existingBookings.filter((b) => b.date === newBooking.date);
+  const newInterval = toInterval(newBooking);
 
-  const newStart = timeToMinutes(newBooking.startTime);
-  const newEnd = timeToMinutes(calculateEndTime(newBooking.startTime, newBooking.duration));
+  for (const existing of existingBookings) {
+    const existingInterval = toInterval(existing);
 
-  for (const existing of sameDateBookings) {
-    const existingStart = timeToMinutes(existing.startTime);
-    const existingEnd = timeToMinutes(calculateEndTime(existing.startTime, existing.duration));
-
-    if (newStart < existingEnd && newEnd > existingStart) {
+    if (newInterval.start < existingInterval.end && newInterval.end > existingInterval.start) {
       return true;
     }
   }
 
   return false;
-}
-
-function timeToMinutes(time: string): number {
-  const [hours, minutes] = time.split(":").map(Number);
-  return hours * 60 + minutes;
 }

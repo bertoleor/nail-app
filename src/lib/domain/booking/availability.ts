@@ -1,7 +1,8 @@
 import type { BlockedSlot } from "@/lib/mock/data";
 
 import { hasConflict } from "./conflict";
-import { calculateEndTime } from "./time-utils";
+import type { BookingOverlapInput } from "./conflict";
+import { endAbsoluteMinutes, timeToMinutes } from "./time-utils";
 import type { Booking } from "./types";
 
 /**
@@ -14,6 +15,10 @@ import type { Booking } from "./types";
  *
  * `reason` is returned so the UI can explain WHY the slot is unavailable
  * (and tests can pin behaviour) without leaking internal data.
+ *
+ * NAIL-L1: end times are computed WITHOUT the %24 wrap, so a slot whose
+ * end crosses midnight is rejected as out-of-hours instead of sliding
+ * through the gate as a wrapped "01:00".
  */
 
 export type AvailabilityReason = "blocked" | "conflict" | "out-of-hours";
@@ -30,25 +35,22 @@ export interface AvailabilityInput {
 const OPENING_TIME = "09:00";
 const CLOSING_TIME = "19:00";
 
-function timeToMinutes(time: string): number {
-  const [hours, minutes] = time.split(":").map(Number);
-  return hours * 60 + minutes;
-}
-
 export function checkAvailability(input: AvailabilityInput): Availability {
   const { blockedSlots, bookings, date, duration, startTime } = input;
 
   // 1. Business hours: must start at/after opening and end at/before closing.
   const startMinutes = timeToMinutes(startTime);
-  const endMinutes = timeToMinutes(calculateEndTime(startTime, duration));
+  const endMinutes = endAbsoluteMinutes(startTime, duration);
   if (startMinutes < timeToMinutes(OPENING_TIME) || endMinutes > timeToMinutes(CLOSING_TIME)) {
     return { ok: false, reason: "out-of-hours" };
   }
 
   // 2. Overlap with existing bookings (cancelled ones are ignored).
-  const activeBookings = bookings.filter((b) => b.date === date && b.status !== "cancelled");
-  const proposed = {
-    id: "proposed",
+  // NAIL-L1: no date pre-filter — hasConflict works in absolute minutes
+  // since the epoch, so previous-day bookings spilling past midnight are
+  // compared too. Cancelling status is still respected.
+  const activeBookings = bookings.filter((b) => b.status !== "cancelled");
+  const proposed: BookingOverlapInput = {
     date,
     startTime,
     duration,

@@ -192,6 +192,42 @@ describe("Availability check (NAIL-H3, unified Booking model NAIL-M1)", () => {
       expect(result.ok).toBe(true);
     });
 
+    it("rejects a booking whose end crosses midnight instead of wrapping (NAIL-L1)", () => {
+      // 23:00 + 120min ends at 01:00 next day. The old code wrapped the end to
+      // "01:00" and read it as 60 minutes, letting the booking past the gate.
+      const result = checkAvailability({
+        date: "2026-10-15",
+        startTime: "23:00",
+        duration: 120,
+        bookings: [],
+        blockedSlots: [],
+      });
+
+      expect(result.ok).toBe(false);
+      if (!result.ok) {
+        expect(result.reason).toBe("out-of-hours");
+      }
+    });
+
+    it("detects a conflict with a previous-day booking spilling past midnight (NAIL-L1)", () => {
+      // 23:00 + 11h on Oct 14 ends at 10:00 on Oct 15: the 09:00 slot overlaps
+      // its tail. The old date pre-filter excluded the booking before
+      // hasConflict could ever see it.
+      const existing = createBooking("1", "23:00", 660, "2026-10-14");
+      const result = checkAvailability({
+        date: "2026-10-15",
+        startTime: "09:00",
+        duration: 60,
+        bookings: [existing],
+        blockedSlots: [],
+      });
+
+      expect(result.ok).toBe(false);
+      if (!result.ok) {
+        expect(result.reason).toBe("conflict");
+      }
+    });
+
     it("reports conflict over blocked when both apply", () => {
       const existing = createBooking("1", "14:00", 60);
       const blocked = createBlockedSlot("blocked-1", "15:00", "17:00");
