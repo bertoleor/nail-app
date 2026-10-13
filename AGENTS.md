@@ -279,7 +279,7 @@ El chat principal (padre) es SOLO para:
 
 - Analisis de codigo → Sub-agente `explore`
 - Exploracion de codebase → Sub-agente `explore`
-- Planificacion → Sub-agentes `sdd-*`
+- Planificación → sub-agentes ODD (explorer / writer / verifier)
 - Implementacion → Sub-agente `general`
 - Auditorias → Sub-agentes especializados
 
@@ -605,21 +605,6 @@ Skills se cargan automáticamente según el contexto. Lista de skills disponible
 | `branch-pr`      | Workflow de creación de PR              |
 | `issue-creation` | Crear issues en GitHub                  |
 
-### SDD Workflow Skills
-
-| Skill         | Cuándo usar                             |
-| ------------- | --------------------------------------- |
-| `sdd-init`    | Iniciar SDD en proyecto                 |
-| `sdd-explore` | Investigar ideas antes de proponer      |
-| `sdd-propose` | Crear o actualizar propuestas de cambio |
-| `sdd-spec`    | Escribir o actualizar especificaciones  |
-| `sdd-design`  | Crear o actualizar diseños técnicos     |
-| `sdd-tasks`   | Desglosar tareas de implementación      |
-| `sdd-apply`   | Implementar código desde specs/design   |
-| `sdd-verify`  | Validar implementación completada       |
-| `sdd-archive` | Cerrar cambio completado                |
-| `sdd-onboard` | Aprender workflow SDD                   |
-
 ### Utility Skills
 
 | Skill                   | Cuándo usar                                       |
@@ -639,7 +624,7 @@ Invoke experts for specific domain tasks using `@mention`:
 
 ### Tier 1 - Governance
 
-- **`@orchestrator`** - Executive Orchestrator. Global coordinator for SDD Lifecycle.
+- **`@orchestrator`** - Executive Orchestrator. Global coordinator for the ODD workflow.
 
 ### Tier 2 - Systems
 
