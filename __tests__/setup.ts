@@ -30,25 +30,14 @@ if (typeof window !== "undefined" && window.localStorage === undefined) {
   });
 }
 
-class MockPointerEvent extends Event {
-  public pointerId: number;
-  public clientX: number;
-  public clientY: number;
-  public pointerType: string;
-  public isPrimary: boolean;
-
-  constructor(type: string, eventInitDict?: PointerEventInit) {
-    super(type, eventInitDict);
-    this.pointerId = eventInitDict?.pointerId ?? 0;
-    this.clientX = eventInitDict?.clientX ?? 0;
-    this.clientY = eventInitDict?.clientY ?? 0;
-    this.pointerType = eventInitDict?.pointerType ?? "mouse";
-    this.isPrimary = eventInitDict?.isPrimary ?? false;
-  }
-}
-
+// NAIL-H3: jsdom 29 ships a native PointerEvent (a MouseEvent subclass) —
+// never override it with a plain-Event mock: jsdom's click activation (form
+// submission on <button type="submit">) only runs for MouseEvent clicks, so
+// the old MockPointerEvent silently broke every user-event click on submit
+// buttons (the wizard in /reservar never advanced past step 1 in tests).
+// Pointer capture and scrollIntoView are still unimplemented in jsdom 29 —
+// those mocks stay.
 if (typeof window !== "undefined") {
-  window.PointerEvent = MockPointerEvent as unknown as typeof PointerEvent;
   window.HTMLElement.prototype.hasPointerCapture = () => false;
   window.HTMLElement.prototype.setPointerCapture = () => {};
   window.HTMLElement.prototype.releasePointerCapture = () => {};
