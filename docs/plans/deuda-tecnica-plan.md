@@ -10,11 +10,11 @@
 
 ## Priorización
 
-| Prioridad | Criterio                              | Ítems                                                                  |
-| --------- | ------------------------------------- | ---------------------------------------------------------------------- |
-| P0        | Riesgo de deploy o pérdida de trabajo | G-1 (51 archivos → histórico, resuelto 2026-10-16, receipts: vitest 266/266, tsc 0, next build OK 11 rutas, git status clean), V-1 (baseline RESUELTO 2026-09-12)              |
-| P1        | Deuda que crece con cada feature      | I-1 (sin i18n), T-2 (env sin validar), D-1 (README template)           |
-| P2        | Higiene y completitud                 | Dead dirs, CHANGELOG/ADRs (creados en esta pasada), a11y labels, legal |
+| Prioridad | Criterio                              | Ítems                                                                                                                                                             |
+| --------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P0        | Riesgo de deploy o pérdida de trabajo | G-1 (51 archivos → histórico, resuelto 2026-10-16, receipts: vitest 266/266, tsc 0, next build OK 11 rutas, git status clean), V-1 (baseline RESUELTO 2026-09-12) |
+| P1        | Deuda que crece con cada feature      | I-1 (sin i18n), T-2 (env sin validar), D-1 (README template)                                                                                                      |
+| P2        | Higiene y completitud                 | Dead dirs, CHANGELOG/ADRs (creados en esta pasada), a11y labels, legal                                                                                            |
 
 ## 1. Errores de código (confirmados por scan estático, UNVERIFIED por compilador)
 
