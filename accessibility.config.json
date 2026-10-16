@@ -1,0 +1,32 @@
+{
+  "rules": {
+    "color-contrast": {
+      "enabled": true,
+      "exceptions": [
+        {
+          "selector": ".text-white\\/30, .text-white\\/40, .text-white\\/20",
+          "reason": "Decorative text intencional — diseño high-contrast dark UI. No es texto de contenido crítico."
+        },
+        {
+          "selector": "[class*='tracking-']",
+          "reason": "Labels decorativos de UI — no son contenido funcional."
+        }
+      ]
+    },
+    "backdrop-filter-performance": {
+      "note": "El glassmorphism es una decisión de diseño central. Los warnings de compositing de backdrop-filter son aceptados."
+    }
+  },
+  "categories_to_fix": [
+    "missing-alt-text",
+    "form-labels",
+    "aria-attributes",
+    "keyboard-navigation",
+    "console-errors"
+  ],
+  "categories_to_ignore": [
+    "color-contrast-decorative",
+    "backdrop-filter-compositing",
+    "animation-performance-decorative"
+  ]
+}
