@@ -41,6 +41,8 @@ const SECURITY_HEADERS = [
 const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion"],
+    // Low-RAM build host (4 vCPU): cap page-data/static-gen workers.
+    cpus: 2,
   },
 
   headers() {
