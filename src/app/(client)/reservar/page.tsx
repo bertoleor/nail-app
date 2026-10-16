@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import { getWhatsAppNumber } from "@/lib/config/whatsapp";
 import { COMMON_ACTIONS, HOURS, SERVICE_TYPE_LABELS } from "@/lib/content";
+import { checkAvailability, type AvailabilityReason } from "@/lib/domain/booking";
 import {
   calculatePrice,
   calculateDuration as domainCalculateDuration,
@@ -18,10 +19,19 @@ import {
   type ServiceType,
 } from "@/lib/domain/pricing";
 import { MOCK_ADDONS, MOCK_SERVICES } from "@/lib/mock/data";
+import { useAppStore } from "@/stores/app-store";
 
 type Step = "client" | "confirm" | "schedule" | "service";
 
-export default function ClientBookingPage() {
+// NAIL-H3: display copy per availability reason — the domain gate returns WHY
+// a slot is unavailable so the UI can explain it without leaking internals.
+const UNAVAILABLE_MESSAGES: Readonly<Record<AvailabilityReason, string>> = Object.freeze({
+  blocked: "Horario no disponible: hay un bloqueo de agenda en esa franja.",
+  conflict: "Horario no disponible: ya existe una reserva en esa franja.",
+  "out-of-hours": "Horario no disponible: el turno queda fuera del horario de atención.",
+});
+
+export function ClientBookingPage() {
   const [step, setStep] = useState<Step>("client");
   const [clientData, setClientData] = useState({
     email: "",
@@ -38,6 +48,10 @@ export default function ClientBookingPage() {
     startTime: "",
   });
   const [showSuccess, setShowSuccess] = useState(false);
+  const [availabilityError, setAvailabilityError] = useState<string | null>(null);
+
+  const addBooking = useAppStore((state) => state.addBooking);
+  const addClient = useAppStore((state) => state.addClient);
 
   const selectedService = MOCK_SERVICES.find((s) => s.id === serviceData.serviceId);
   const selectedAddons = MOCK_ADDONS.filter((a) => serviceData.addonIds.includes(a.id));
@@ -70,7 +84,42 @@ export default function ClientBookingPage() {
     }
   };
 
+  // NAIL-H3: validate availability BEFORE any confirmation, then persist the
+  // client + booking to the store — the wizard's success dialog was previously
+  // shown without saving anything.
   const handleSubmitBooking = () => {
+    if (!selectedService || !serviceData.type || !scheduleData.date || !scheduleData.startTime) {
+      return;
+    }
+    const duration = calculateDuration();
+    const availability = checkAvailability({
+      blockedSlots: useAppStore.getState().blockedSlots,
+      bookings: useAppStore.getState().bookings,
+      date: scheduleData.date,
+      duration,
+      startTime: scheduleData.startTime,
+    });
+    if (!availability.ok) {
+      setAvailabilityError(UNAVAILABLE_MESSAGES[availability.reason]);
+      return;
+    }
+    const client = addClient({
+      email: clientData.email || undefined,
+      name: clientData.name,
+      phone: clientData.phone,
+    });
+    addBooking({
+      addonIds: serviceData.addonIds,
+      clientId: client.id,
+      date: scheduleData.date,
+      duration,
+      serviceId: serviceData.serviceId,
+      startTime: scheduleData.startTime,
+      status: "pending",
+      totalPrice: calculateTotal(),
+      type: serviceData.type,
+    });
+    setAvailabilityError(null);
     setShowSuccess(true);
   };
 
@@ -262,6 +311,7 @@ export default function ClientBookingPage() {
                     <label className="text-sm font-medium">Tipo de sesión *</label>
                     <div className="grid grid-cols-2 gap-3">
                       <button
+                        aria-label={SERVICE_TYPE_LABELS.new}
                         aria-pressed={serviceData.type === "new"}
                         className={`rounded-xl border-2 p-4 text-center transition-all ${
                           serviceData.type === "new"
@@ -282,6 +332,7 @@ export default function ClientBookingPage() {
                         </p>
                       </button>
                       <button
+                        aria-label={SERVICE_TYPE_LABELS.maintenance}
                         aria-pressed={serviceData.type === "maintenance"}
                         className={`rounded-xl border-2 p-4 text-center transition-all ${
                           serviceData.type === "maintenance"
@@ -389,6 +440,7 @@ export default function ClientBookingPage() {
                     min={new Date().toISOString().split("T")[0]}
                     onChange={(e) => {
                       setScheduleData({ ...scheduleData, date: e.target.value });
+                      setAvailabilityError(null);
                     }}
                     required
                     type="date"
@@ -411,6 +463,7 @@ export default function ClientBookingPage() {
                           key={hour}
                           onClick={() => {
                             setScheduleData({ ...scheduleData, startTime: hour });
+                            setAvailabilityError(null);
                           }}
                           type="button"
                         >
@@ -447,6 +500,15 @@ export default function ClientBookingPage() {
                   </div>
                 )}
 
+                {availabilityError && (
+                  <p
+                    className="text-sm font-medium text-red-600"
+                    role="alert"
+                  >
+                    {availabilityError}
+                  </p>
+                )}
+
                 <div className="flex gap-3">
                   <Button
                     onClick={() => {
@@ -477,14 +539,15 @@ export default function ClientBookingPage() {
         >
           <DialogContent className="mx-auto max-w-sm">
             <DialogHeader>
-              <DialogTitle className="text-center text-2xl">¡Reserva enviada!</DialogTitle>
+              <DialogTitle className="text-center text-2xl">¡Reserva registrada!</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 py-4 text-center">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                 <span className="text-3xl">✓</span>
               </div>
               <p className="text-[rgba(15,15,20,0.6)]">
-                Tu solicitud de reserva fue enviada. Te contactaremos por WhatsApp para confirmar.
+                Tu turno quedó guardado como pendiente. Te contactaremos por WhatsApp para
+                confirmar.
               </p>
               <div className="space-y-3 pt-4">
                 <Button
@@ -510,3 +573,5 @@ export default function ClientBookingPage() {
     </main>
   );
 }
+
+export default ClientBookingPage;
