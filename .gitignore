@@ -59,3 +59,6 @@ package-lock.json
 
 # Strix pilot scan output (local tooling, ignore)
 strix_runs/
+
+# Trash leftover review worktree (to be removed)
+.review-wt-99bc0d82/
