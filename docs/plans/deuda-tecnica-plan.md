@@ -2,7 +2,7 @@
 
 > Parte de: [[README]] · Relacionados: [[PRD-nail-app-minimo]] · [[plan-accion-2026-09-12]]
 
-> Estado: **BASELINE VERDE (2026-09-28, G0 noche)** — `tsc --noEmit` 0 errores, `vitest run` 239/239 (156 forks + 83 threads-retry), `next build` OK (11 rutas), e2e Playwright 20/20 chromium (browsers instalados + specs realineados a la UI). Queda `eslint src` (135→~105 err tras fixes mecánicos) como único gate rojo, ver §V-1-ESLINT.
+> Estado: **BASELINE VERDE (2026-10-16, G0 noche)** — `tsc --noEmit` 0 errores, `vitest run` 266/266, `next build` OK (11 rutas), e2e Playwright 20/20 chromium (browsers instalados + specs realineados a la UI). Queda `eslint src` (~105 err tras fixes mecánicos) como único gate rojo, ver §V-1-ESLINT.
 > Alcance: técnico (código, config, stack, skills) + no-técnico (09-product, 10-uiux, 19-writer, 21-content, 18-i18n, 15-a11y, 23-legal).
 > Regla: no se borra ningún archivo sin autorización — directorios vacíos y custom existente se conservan.
 > Fecha: 2026-09-14 · Fuente: auditoría nocturna (baseline estático + auditor-general) + decisiones del task set legal/licencia/dirs.
@@ -12,7 +12,7 @@
 
 | Prioridad | Criterio                              | Ítems                                                                  |
 | --------- | ------------------------------------- | ---------------------------------------------------------------------- |
-| P0        | Riesgo de deploy o pérdida de trabajo | G-1 (51 archivos sin commitear), V-1 (baseline sin verde)              |
+| P0        | Riesgo de deploy o pérdida de trabajo | G-1 (51 archivos → histórico, resuelto 2026-10-16, receipts: vitest 266/266, tsc 0, next build OK 11 rutas, git status clean), V-1 (baseline RESUELTO 2026-09-12)              |
 | P1        | Deuda que crece con cada feature      | I-1 (sin i18n), T-2 (env sin validar), D-1 (README template)           |
 | P2        | Higiene y completitud                 | Dead dirs, CHANGELOG/ADRs (creados en esta pasada), a11y labels, legal |
 
@@ -24,7 +24,7 @@
 
 ## 2. Configuraciones (P0/P1)
 
-- [ ] **G-1 (P0): 51 archivos modificados sin commitear** (`git diff --stat`: 937+/903-). Riesgo de pérdida. Acción: commit por unidad de trabajo con commitlint (repo ya tiene husky + commitlint).
+- [x] **G-1 (P0): 51 archivos modificados sin commitear → histórico** (resuelto 2026-10-16, receipts: vitest 266/266, tsc 0, next build OK 11 rutas, git status clean). Acción: commit por unidad de trabajo con commitlint (repo ya tiene husky + commitlint).
 - [x] **V-1 (P0): baseline pesado RESUELTO (2026-09-12 G0).** `tsc --noEmit` = 0 errores, `vitest run` = 222/222, `next build` = OK (compila + 11 rutas estáticas). Desbloquea §3 (updates de stack) y §2 pending.
 - [ ] **V-1-ESLINT (P0, actualizado 2026-09-28):** `npx eslint src` = 135 errores / 185 warnings. **Decisión tomada (fix mecánico, no refactor):** (1) crash de lint full-repo FIXEADO — `**/*.mts` agregado a ignores (vitest.config.mts explotaba las reglas typed sin project); CI `pnpm lint` ya no crashea. (2) Dead-code removido con evidencia: Dialog* + showPdfPreview/setShowPdfPreview + selectedClient en calculadora, CardHeader/CardTitle en clientas, isSameDay en turnos y calendar, Select* en reservar, imports duplicados mergeados en booking-card/mock-data/app-store. Quedan ~105 err = deuda de estilo distribuida (19 restrict-template-expressions, 9+9 nested-ternary, 6 pseudo-random, 5 sort-modules, 5 a11y labels, deprecation etc.) — NO bloquean build/deploy; el refactor profundo del componente calculadora (378 líneas, complexity 19) queda para F2 visual (blocked, decisión dueña). Próximo paso: `--fix` mecánico de los 21 fixables restantes + relajar `no-magic-numbers` (68 warn) en un cambio propio con ADR si la dueña aprueba.
 - [x] **T-2 (P1): env sin validación Zod RESUELTO (2026-09-27, task `t_1dd00b74`).** `src/lib/env.ts` creado con schemas Zod 4 para `NEXT_PUBLIC_WHATSAPP_NUMBER` y `NEXT_PUBLIC_SITE_URL`. `getEnv()` sobrecargado: snapshot tipado + getter con fallback. `whatsapp.ts` usa validación centralizada. Tests: `__tests__/lib/config/env.test.ts` 8/8 verde. Supabase vars (`SUPABASE_*`) quedan fuera de scope — se agregan al integrar backend (ADR-003).
