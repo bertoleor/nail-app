@@ -37,6 +37,7 @@ export default [
       "**/*.mjs",
       "**/*.mts",
       "commitlint.config.js",
+      "scripts/design-qa/**",
     ],
   },
 

@@ -14,3 +14,5 @@ Thumbs.db
 commitlint.config.js
 # generated/lockfiles
 pnpm-lock.yaml
+# vendored design-qa kit (ORN-206) — re-vendor from skill, do not format
+scripts/design-qa
