@@ -2,7 +2,7 @@
 
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { useState } from "react";
+import React, { useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import { getWhatsAppNumber } from "@/lib/config/whatsapp";
 import { COMMON_ACTIONS, HOURS, SERVICE_TYPE_LABELS } from "@/lib/content";
-import { checkAvailability, type AvailabilityReason } from "@/lib/domain/booking";
+import { type AvailabilityReason, checkAvailability } from "@/lib/domain/booking";
 import {
   calculatePrice,
   calculateDuration as domainCalculateDuration,
@@ -48,7 +48,7 @@ export function ClientBookingPage() {
     startTime: "",
   });
   const [showSuccess, setShowSuccess] = useState(false);
-  const [availabilityError, setAvailabilityError] = useState<string | null>(null);
+  const [availabilityError, setAvailabilityError] = useState<null | string>(null);
 
   const addBooking = useAppStore((state) => state.addBooking);
   const addClient = useAppStore((state) => state.addClient);
@@ -70,14 +70,14 @@ export function ClientBookingPage() {
     return domainCalculateDuration(selectedService, selectedAddons, serviceData.type);
   };
 
-  const handleSubmitClient = (e: React.FormEvent) => {
+  const handleSubmitClient = (e: Event) => {
     e.preventDefault();
     if (clientData.name && clientData.phone) {
       setStep("service");
     }
   };
 
-  const handleSubmitService = (e: React.FormEvent) => {
+  const handleSubmitService = (e: Event) => {
     e.preventDefault();
     if (serviceData.serviceId && serviceData.type) {
       setStep("schedule");
@@ -128,7 +128,7 @@ export function ClientBookingPage() {
       `¡Hola! Quiero reservar un turno:\n\n` +
         `👤 ${clientData.name}\n` +
         `📱 ${clientData.phone}\n` +
-        `💅 ${selectedService?.name} (${serviceData.type ? SERVICE_TYPE_LABELS[serviceData.type] : ""})\n` +
+        `💅 ${selectedService?.name ?? ""} (${serviceData.type ? SERVICE_TYPE_LABELS[serviceData.type] : ""})\n` +
         (selectedAddons.length > 0
           ? `✨ Add-ons: ${selectedAddons.map((a) => a.name).join(", ")}\n`
           : "") +
@@ -269,7 +269,7 @@ export function ClientBookingPage() {
                 onSubmit={handleSubmitService}
               >
                 <div className="space-y-3">
-                  <label className="text-sm font-medium">Servicio *</label>
+                  <span className="text-sm font-medium">Servicio *</span>
                   <div className="grid gap-3">
                     {MOCK_SERVICES.map((service) => (
                       <button
@@ -308,7 +308,8 @@ export function ClientBookingPage() {
 
                 {serviceData.serviceId && (
                   <div className="space-y-3">
-                    <label className="text-sm font-medium">Tipo de sesión *</label>
+                    <input type="hidden" id="tipo-de-sesion-label" />
+                    <label htmlFor="tipo-de-sesion-label" className="text-sm font-medium">Tipo de sesión *</label>
                     <div className="grid grid-cols-2 gap-3">
                       <button
                         aria-label={SERVICE_TYPE_LABELS.new}
@@ -358,7 +359,7 @@ export function ClientBookingPage() {
 
                 {serviceData.type && (
                   <div className="space-y-3">
-                    <label className="text-sm font-medium">Extras (opcional)</label>
+                    <span className="text-sm font-medium">Extras (opcional)</span>
                     <div className="grid gap-2">
                       {MOCK_ADDONS.map((addon) => (
                         <button
@@ -450,7 +451,7 @@ export function ClientBookingPage() {
 
                 {scheduleData.date && (
                   <div className="space-y-3">
-                    <label className="text-sm font-medium">Horario disponible *</label>
+                    <span className="text-sm font-medium">Horario disponible *</span>
                     <div className="grid grid-cols-4 gap-2">
                       {HOURS.map((hour) => (
                         <button
