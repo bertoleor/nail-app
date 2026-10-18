@@ -19,7 +19,7 @@
   - `pnpm install`
   - `pnpm dev` — desarrollo, http://localhost:3000
   - `pnpm typecheck` — `tsc --noEmit`
-  - `pnpm test:unit` — vitest (239 tests reportados al 2026-09-27)
+  - `pnpm test:unit` — vitest (266 tests reportados al 2026-10-18)
   - `pnpm test:e2e` — playwright
   - `pnpm build` — build de producción
 - Env: copiar `.env.example` a `.env.local` y completar. Solo 2 vars se consumen hoy (`NEXT_PUBLIC_WHATSAPP_NUMBER`, `NEXT_PUBLIC_SITE_URL`); el resto es para el backend futuro. Ver `src/lib/env.ts` (validación Zod).
