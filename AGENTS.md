@@ -543,6 +543,17 @@ __tests__/
 
 ---
 
+## Docs del proyecto — rutas canónicas (set infaltables v2)
+
+> Convención de flota: `E:/Hermes/docs/sistema/docs-infaltables-proyectos.md` — raíz = lo que las herramientas consumen; `docs/` = biblioteca con nombre fijo.
+
+- **Raíz:** `README.md` · `AGENTS.md` · `SECURITY.md` · `CONTRIBUTING.md` · `CHANGELOG.md` · `ARCHITECTURE.md` · `LICENSE`
+- **`docs/`:** `docs/DESIGN.md` · `docs/API.md` · `docs/DATABASE.md` · `docs/marca.md` · `docs/plan-accion-YYYY-MM-DD.md` · `docs/runbooks/`
+
+Pendientes en este proyecto (audit 19-writer 2026-10-19): `docs/plan-accion-*.md` (hoy `docs/ROADMAP.md` — ORN-218/224) · `docs/runbooks/` (ORN-217) · `docs/API.md` N/A (mockup sin backend, ADR-001)
+
+---
+
 ## Absolute Restrictions
 
 1. **Zero `any`** in TypeScript

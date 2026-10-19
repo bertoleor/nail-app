@@ -42,6 +42,7 @@
 - ADRs: `docs/ADR-001-mockup-sin-backend.md` (mockup), `docs/ADR-002-es-ar-only.md` (idioma), `docs/ADR-003-demo-vs-saas.md`.
 - Inventario F0: `docs/F0-2026-09-27.md`.
 - Espejo en Hermes: `E:/Hermes/docs/proyectos/nail-app.md`.
+- Set infaltables v2 (rutas canónicas): [AGENTS.md](AGENTS.md) · [SECURITY.md](SECURITY.md) · [CONTRIBUTING.md](CONTRIBUTING.md) · [CHANGELOG.md](CHANGELOG.md) · [ARCHITECTURE.md](ARCHITECTURE.md) · [LICENSE](LICENSE) · [DESIGN.md](docs/DESIGN.md) · [marca.md](docs/marca.md) · [DATABASE.md](docs/DATABASE.md). Pendientes: `docs/plan-accion-*.md` (hoy `docs/ROADMAP.md`) · `docs/runbooks/` (ver `AGENTS.md`).
 
 ## 5. Estado actual
 
