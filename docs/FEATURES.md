@@ -6,16 +6,16 @@ Superficie real verificada por lectura de `src/` (rutas, dominio, mock). Detalle
 
 ## Rutas
 
-| Ruta                 | Rol         | Qué hace                                                                                               |
-| -------------------- | ----------- | ------------------------------------------------------------------------------------------------------ |
-| `/`                  | Público     | Home: "Soy Clienta" → `/reservar`, "Soy Manicurista" → `/admin`                                        |
-| `/reservar`          | Clienta     | Wizard 4 pasos: datos personales → servicio/extras → fecha/horario → confirmación + envío por WhatsApp |
-| `/calculator`        | Público     | Calculadora rápida (reutiliza `CalculatorForm`)                                                        |
-| `/admin`             | Manicurista | Dashboard: stats hoy/semana, pendientes, facturación + accesos rápidos                                 |
-| `/admin/turnos`      | Manicurista | Agenda por día (grilla 09:00–18:30), bloqueos de horario, detalle (confirmar/completar/cancelar)       |
-| `/admin/calculadora` | Manicurista | Presupuesto: clienta + servicio + extras + notas → copiar / WhatsApp / guardar borrador                |
-| `/admin/clientas`    | Manicurista | Lista de clientas                                                                                      |
-| `/admin/servicios`   | Manicurista | Catálogo con precio/duración                                                                           |
+| Ruta                 | Rol         | Qué hace                                                                                                                                                                                                 |
+| -------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/`                  | Público     | Home: "Soy Clienta" → `/reservar`, "Soy Manicurista" → `/admin`                                                                                                                                          |
+| `/reservar`          | Clienta     | Wizard 4 pasos: datos personales → servicio/extras → fecha/horario → confirmación: valida disponibilidad (conflicto/bloqueo/horario) y persiste clienta + turno (`pending`) antes del envío por WhatsApp |
+| `/calculator`        | Público     | Calculadora rápida (reutiliza `CalculatorForm`)                                                                                                                                                          |
+| `/admin`             | Manicurista | Dashboard: stats hoy/semana, pendientes, facturación + accesos rápidos                                                                                                                                   |
+| `/admin/turnos`      | Manicurista | Agenda por día (grilla 09:00–18:30), bloqueos de horario, detalle (confirmar/completar/cancelar)                                                                                                         |
+| `/admin/calculadora` | Manicurista | Presupuesto: clienta + servicio + extras + notas → copiar / WhatsApp / guardar borrador                                                                                                                  |
+| `/admin/clientas`    | Manicurista | Lista de clientas                                                                                                                                                                                        |
+| `/admin/servicios`   | Manicurista | Catálogo con precio/duración                                                                                                                                                                             |
 
 ## Dominio pricing (`src/lib/domain/pricing`)
 
@@ -43,6 +43,15 @@ Addons: diseño artístico ($800, 20min) · decoración con piedras ($1.200, 25m
 - **Client:** nombre, teléfono `+54 9 11`, email/notas opcionales.
 - Detección de conflictos (`conflict.ts`) y utilidades de horario (`time-utils.ts`).
 
+### Reserva desde la clienta (NAIL-H3, 2026-10-16)
+
+`/reservar` ya no es solo un mensaje de WhatsApp: al confirmar corre `checkAvailability`
+(conflicto / bloqueo / horario de atención, el mismo gate que el diálogo de admin); si falla,
+muestra un error `role=alert` por motivo y NO persiste nada. Si pasa, guarda clienta
+(`addClient`) y turno (`addBooking`, estado `pending`, total/duración calculados por el
+dominio) en el store persistido — la confirmación queda respaldada por estado real y el
+envío por WhatsApp queda igual. Copia del diálogo: "¡Reserva registrada!".
+
 ## Mock
 
-6 clientas rioplatenses, ~10 turnos relativos a hoy, 3 bloqueos, 3 presupuestos. Sin persistencia: todo vive en stores Zustand.
+6 clientas rioplatenses, ~10 turnos relativos a hoy, 3 bloqueos, 3 presupuestos. Datos iniciales en memoria; el store Zustand persiste en localStorage los turnos/clientas creados (seed + persist, ver `src/lib/mock/`).
