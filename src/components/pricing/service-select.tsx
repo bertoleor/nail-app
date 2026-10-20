@@ -57,7 +57,11 @@ export function ServiceSelect() {
       </Select>
 
       {selectedService && (
-        <div className="grid grid-cols-2 gap-2 pt-2">
+        <div
+          aria-label="Tipo de sesión"
+          className="grid grid-cols-2 gap-2 pt-2"
+          role="group"
+        >
           <button
             aria-pressed={selectedServiceType === "new"}
             className={`rounded-xl border-2 p-3 text-center transition-all ${

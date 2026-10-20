@@ -21,7 +21,7 @@ function ClientCard({ client, onSelect }: { client: Client; onSelect: (client: C
 
   return (
     <Card
-      className="cursor-pointer transition-shadow hover:shadow-md"
+      className="cursor-pointer transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:outline-none"
       onClick={() => {
         onSelect(client);
       }}
@@ -158,7 +158,13 @@ export default function AdminClientsPage() {
           <DialogHeader>
             <DialogTitle>Nueva clienta</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
+          <form
+            className="space-y-4"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleAddClient();
+            }}
+          >
             <div className="space-y-2">
               <label
                 className="text-sm font-medium"
@@ -229,18 +235,19 @@ export default function AdminClientsPage() {
                 onClick={() => {
                   setShowNewClientDialog(false);
                 }}
+                type="button"
                 variant="outline"
               >
                 {COMMON_ACTIONS.cancel}
               </Button>
               <Button
                 disabled={!newClient.name || !newClient.phone}
-                onClick={handleAddClient}
+                type="submit"
               >
                 Guardar
               </Button>
             </div>
-          </div>
+          </form>
         </DialogContent>
       </Dialog>
     </div>

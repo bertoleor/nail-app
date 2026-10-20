@@ -82,7 +82,8 @@ describe("NewBookingDialog (NAIL-L3)", () => {
 
     await selectClient(user, "María García");
     await selectService(user, "Manicura clásica");
-    await user.click(screen.getByRole("button", { name: /^Nuevo$/ }));
+    // 15-a11y: el nombre accesible del toggle incluye precio+duración (sin aria-label truncante)
+    await user.click(screen.getByRole("button", { name: /^Nuevo( |$)/ }));
     await user.click(screen.getByRole("button", { name: "09:00" }));
     await user.click(screen.getByRole("button", { name: "Guardar turno" }));
 

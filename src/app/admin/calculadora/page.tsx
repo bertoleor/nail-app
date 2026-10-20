@@ -212,7 +212,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                 onValueChange={handleSelectClient}
                 value={selectedClientId}
               >
-                <SelectTrigger>
+                <SelectTrigger aria-label="Seleccionar clienta existente">
                   <SelectValue placeholder="Seleccionar clienta existente..." />
                 </SelectTrigger>
                 <SelectContent>
@@ -274,7 +274,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                 onValueChange={setServiceId}
                 value={serviceId}
               >
-                <SelectTrigger>
+                <SelectTrigger aria-label="Seleccionar servicio">
                   <SelectValue placeholder="Seleccionar servicio..." />
                 </SelectTrigger>
                 <SelectContent>
@@ -290,7 +290,11 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
               </Select>
 
               {serviceId && (
-                <div className="grid grid-cols-2 gap-4">
+                <div
+                  aria-label="Tipo de sesión"
+                  className="grid grid-cols-2 gap-4"
+                  role="group"
+                >
                   <button
                     aria-pressed={serviceType === "new"}
                     className={`rounded-xl border-2 p-4 text-center transition-all ${
@@ -340,7 +344,11 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
               <CardTitle className="text-lg">Extras</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 gap-2">
+              <div
+                aria-label="Extras"
+                className="grid grid-cols-2 gap-2"
+                role="group"
+              >
                 {MOCK_ADDONS.map((addon) => (
                   <button
                     aria-pressed={addonIds.includes(addon.id)}
@@ -369,6 +377,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
             </CardHeader>
             <CardContent>
               <Input
+                aria-label="Notas adicionales para el presupuesto"
                 id="notes-input"
                 onChange={(e) => {
                   setNotes(e.target.value);
@@ -436,6 +445,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                   {COMMON_ACTIONS.sendWhatsApp}
                 </Button>
                 <Button
+                  aria-live="polite"
                   className="w-full"
                   disabled={!serviceId}
                   onClick={handleCopy}
@@ -445,6 +455,7 @@ ${notes ? `📝 Notas: ${notes}\n` : ""}━━━━━━━━━━━━━�
                 </Button>
                 <div className="grid grid-cols-2 gap-3">
                   <Button
+                    aria-live="polite"
                     disabled={!serviceId}
                     onClick={handleSaveDraft}
                     variant="outline"

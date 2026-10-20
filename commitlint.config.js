@@ -9,7 +9,7 @@
     "scope-enum": [
       2,
       "always",
-      ["calculator", "agenda", "auth", "ui", "api", "deps", "config"]
+      ["calculator", "agenda", "a11y", "auth", "ui", "api", "deps", "config"]
     ],
     "subject-max-length": [2, "always", 72],
     "body-max-line-length": [2, "always", 100]

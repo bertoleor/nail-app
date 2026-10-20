@@ -18,8 +18,15 @@ export function AddonList() {
   }
 
   return (
-    <div className="space-y-3">
-      <label className="text-xs font-medium tracking-wider text-[rgba(15,15,20,0.5)] uppercase">
+    <div
+      aria-labelledby="addons-group-label"
+      className="space-y-3"
+      role="group"
+    >
+      <label
+        className="text-xs font-medium tracking-wider text-[rgba(15,15,20,0.5)] uppercase"
+        id="addons-group-label"
+      >
         Extras
       </label>
       <div className="flex flex-wrap gap-2 sm:gap-3">

@@ -168,7 +168,10 @@ function AdminBookingsPageBody() {
               ← Anterior
             </Button>
             <div className="text-center">
-              <p className="font-medium">
+              <p
+                aria-live="polite"
+                className="font-medium"
+              >
                 {format(currentDate, "EEEE d 'de' MMMM", { locale: es })}
               </p>
               {!isToday(currentDate) && (
@@ -209,9 +212,11 @@ function AdminBookingsPageBody() {
               return (
                 <div
                   aria-label={
-                    booking ? `${client?.name}, ${service?.name}, ${hour}` : `${hour}, disponible`
+                    booking
+                      ? `${client?.name}, ${service?.name}, ${hour}, ${BOOKING_STATUS_LABELS[booking.status]}`
+                      : `${hour}, disponible`
                   }
-                  className={`flex items-center gap-4 rounded-lg p-2 ${
+                  className={`flex items-center gap-4 rounded-lg p-2 focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:outline-none ${
                     blocked
                       ? "bg-gray-100"
                       : booking
@@ -365,7 +370,13 @@ function AdminBookingsPageBody() {
           <DialogHeader>
             <DialogTitle>Bloquear horario</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
+          <form
+            className="space-y-4"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleBlockSlot();
+            }}
+          >
             <p className="text-sm text-[rgba(15,15,20,0.6)]">
               Bloquear todo el día del {format(currentDate, "d 'de' MMMM", { locale: es })}
             </p>
@@ -392,18 +403,19 @@ function AdminBookingsPageBody() {
                 onClick={() => {
                   setShowBlockDialog(false);
                 }}
+                type="button"
                 variant="outline"
               >
                 {COMMON_ACTIONS.cancel}
               </Button>
               <Button
                 disabled={!blockReason}
-                onClick={handleBlockSlot}
+                type="submit"
               >
                 Bloquear
               </Button>
             </div>
-          </div>
+          </form>
         </DialogContent>
       </Dialog>
 

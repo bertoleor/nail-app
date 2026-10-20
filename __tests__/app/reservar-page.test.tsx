@@ -38,7 +38,8 @@ async function completeWizard(user: ReturnType<typeof userEvent.setup>) {
 
   // Step 2: service + type
   await user.click(screen.getByRole("button", { name: /esmaltado semipermanente/i }));
-  await user.click(screen.getByRole("button", { name: /^Nuevo$/ }));
+  // 15-a11y: el nombre accesible del toggle incluye precio+duración (sin aria-label truncante)
+  await user.click(screen.getByRole("button", { name: /^Nuevo( |$)/ }));
   await user.click(screen.getByRole("button", { name: "Continuar" }));
 
   // Step 3: schedule

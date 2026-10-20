@@ -205,10 +205,13 @@ export function NewBookingDialog({
 
           {/* Service type */}
           {serviceId && selectedService && (
-            <div className="grid grid-cols-2 gap-3">
+            <div
+              aria-label="Tipo de sesión"
+              className="grid grid-cols-2 gap-3"
+              role="group"
+            >
               {(["new", "maintenance"] as const).map((type) => (
                 <button
-                  aria-label={SERVICE_TYPE_LABELS[type]}
                   aria-pressed={serviceType === type}
                   className={`rounded-xl border-2 p-3 text-center transition-all ${
                     serviceType === type
@@ -237,8 +240,17 @@ export function NewBookingDialog({
 
           {/* Hour picker */}
           {serviceId && (
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Horario</label>
+            <div
+              aria-labelledby="nb-hours-group-label"
+              className="space-y-2"
+              role="group"
+            >
+              <label
+                className="text-sm font-medium"
+                id="nb-hours-group-label"
+              >
+                Horario
+              </label>
               <div className="grid grid-cols-4 gap-2">
                 {HOURS.map((hour) => (
                   <button

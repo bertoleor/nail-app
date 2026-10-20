@@ -2,7 +2,7 @@
 
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -31,6 +31,14 @@ const UNAVAILABLE_MESSAGES: Readonly<Record<AvailabilityReason, string>> = Objec
   "out-of-hours": "Horario no disponible: el turno queda fuera del horario de atención.",
 });
 
+// 15-a11y: nombre legible de cada paso para el indicador de progreso (sr-only)
+const STEP_LABELS: Readonly<Record<Step, string>> = Object.freeze({
+  client: "Tus datos",
+  confirm: "Confirmación",
+  schedule: "Fecha y horario",
+  service: "Servicio",
+});
+
 export function ClientBookingPage() {
   const [step, setStep] = useState<Step>("client");
   const [clientData, setClientData] = useState({
@@ -49,6 +57,20 @@ export function ClientBookingPage() {
   });
   const [showSuccess, setShowSuccess] = useState(false);
   const [availabilityError, setAvailabilityError] = useState<string | null>(null);
+
+  // 15-a11y (WCAG 2.4.3): al cambiar de paso el botón clickeado se desmonta y el
+  // foco caía en <body> — el título del paso activo recibe el foco para no
+  // perder el contexto. El primer render no roba el foco de la página.
+  const stepHeadingRef = useRef<HTMLHeadingElement>(null);
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    stepHeadingRef.current?.focus();
+  }, [step]);
 
   const addBooking = useAppStore((state) => state.addBooking);
   const addClient = useAppStore((state) => state.addClient);
@@ -148,7 +170,11 @@ export function ClientBookingPage() {
         </div>
 
         {/* Progress indicator */}
-        <div className="mb-8 flex justify-center">
+        <div
+          aria-label="Progreso de la reserva"
+          className="mb-8 flex justify-center"
+          role="group"
+        >
           <div className="flex items-center gap-2">
             {(["client", "service", "schedule", "confirm"] as readonly Step[]).map((s, i) => (
               <div
@@ -156,6 +182,7 @@ export function ClientBookingPage() {
                 key={s}
               >
                 <div
+                  aria-current={step === s ? "step" : undefined}
                   className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium ${
                     step === s ||
                     (step === "confirm" && i < 3) ||
@@ -166,9 +193,11 @@ export function ClientBookingPage() {
                   }`}
                 >
                   {i + 1}
+                  <span className="sr-only"> · {STEP_LABELS[s]}</span>
                 </div>
                 {i < 3 && (
                   <div
+                    aria-hidden="true"
                     className={`mx-1 h-1 w-12 rounded ${
                       (step === "service" && i === 0) ||
                       (step === "schedule" && i < 2) ||
@@ -187,7 +216,13 @@ export function ClientBookingPage() {
         {step === "client" && (
           <Card className="border-pink-100 bg-white/80 backdrop-blur-md">
             <CardHeader>
-              <CardTitle className="text-xl">Tus datos</CardTitle>
+              <CardTitle
+                className="text-xl"
+                ref={stepHeadingRef}
+                tabIndex={-1}
+              >
+                Tus datos
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <form
@@ -261,15 +296,30 @@ export function ClientBookingPage() {
         {step === "service" && (
           <Card className="border-pink-100 bg-white/80 backdrop-blur-md">
             <CardHeader>
-              <CardTitle className="text-xl">Elegí tu servicio</CardTitle>
+              <CardTitle
+                className="text-xl"
+                ref={stepHeadingRef}
+                tabIndex={-1}
+              >
+                Elegí tu servicio
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <form
                 className="space-y-6"
                 onSubmit={handleSubmitService}
               >
-                <div className="space-y-3">
-                  <label className="text-sm font-medium">Servicio *</label>
+                <div
+                  aria-labelledby="rb-service-group-label"
+                  className="space-y-3"
+                  role="group"
+                >
+                  <label
+                    className="text-sm font-medium"
+                    id="rb-service-group-label"
+                  >
+                    Servicio *
+                  </label>
                   <div className="grid gap-3">
                     {MOCK_SERVICES.map((service) => (
                       <button
@@ -307,11 +357,19 @@ export function ClientBookingPage() {
                 </div>
 
                 {serviceData.serviceId && (
-                  <div className="space-y-3">
-                    <label className="text-sm font-medium">Tipo de sesión *</label>
+                  <div
+                    aria-labelledby="rb-type-group-label"
+                    className="space-y-3"
+                    role="group"
+                  >
+                    <label
+                      className="text-sm font-medium"
+                      id="rb-type-group-label"
+                    >
+                      Tipo de sesión *
+                    </label>
                     <div className="grid grid-cols-2 gap-3">
                       <button
-                        aria-label={SERVICE_TYPE_LABELS.new}
                         aria-pressed={serviceData.type === "new"}
                         className={`rounded-xl border-2 p-4 text-center transition-all ${
                           serviceData.type === "new"
@@ -332,7 +390,6 @@ export function ClientBookingPage() {
                         </p>
                       </button>
                       <button
-                        aria-label={SERVICE_TYPE_LABELS.maintenance}
                         aria-pressed={serviceData.type === "maintenance"}
                         className={`rounded-xl border-2 p-4 text-center transition-all ${
                           serviceData.type === "maintenance"
@@ -357,8 +414,17 @@ export function ClientBookingPage() {
                 )}
 
                 {serviceData.type && (
-                  <div className="space-y-3">
-                    <label className="text-sm font-medium">Extras (opcional)</label>
+                  <div
+                    aria-labelledby="rb-addons-group-label"
+                    className="space-y-3"
+                    role="group"
+                  >
+                    <label
+                      className="text-sm font-medium"
+                      id="rb-addons-group-label"
+                    >
+                      Extras (opcional)
+                    </label>
                     <div className="grid gap-2">
                       {MOCK_ADDONS.map((addon) => (
                         <button
@@ -424,7 +490,13 @@ export function ClientBookingPage() {
         {step === "schedule" && (
           <Card className="border-pink-100 bg-white/80 backdrop-blur-md">
             <CardHeader>
-              <CardTitle className="text-xl">Elegí fecha y horario</CardTitle>
+              <CardTitle
+                className="text-xl"
+                ref={stepHeadingRef}
+                tabIndex={-1}
+              >
+                Elegí fecha y horario
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
@@ -449,8 +521,17 @@ export function ClientBookingPage() {
                 </div>
 
                 {scheduleData.date && (
-                  <div className="space-y-3">
-                    <label className="text-sm font-medium">Horario disponible *</label>
+                  <div
+                    aria-labelledby="rb-hours-group-label"
+                    className="space-y-3"
+                    role="group"
+                  >
+                    <label
+                      className="text-sm font-medium"
+                      id="rb-hours-group-label"
+                    >
+                      Horario disponible *
+                    </label>
                     <div className="grid grid-cols-4 gap-2">
                       {HOURS.map((hour) => (
                         <button
@@ -543,7 +624,12 @@ export function ClientBookingPage() {
             </DialogHeader>
             <div className="space-y-4 py-4 text-center">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                <span className="text-3xl">✓</span>
+                <span
+                  aria-hidden="true"
+                  className="text-3xl"
+                >
+                  ✓
+                </span>
               </div>
               <p className="text-[rgba(15,15,20,0.6)]">
                 Tu turno quedó guardado como pendiente. Te contactaremos por WhatsApp para
