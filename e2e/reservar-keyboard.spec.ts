@@ -12,9 +12,7 @@ import { expect, test } from "@playwright/test";
  * operabilidad por teclado de los controles CUSTOM de la app.
  */
 test.describe("reservar · wizard operable solo con teclado", () => {
-  test("Tab + Enter completan los pasos y Escape cierra el diálogo de éxito", async ({
-    page,
-  }) => {
+  test("Tab + Enter completan los pasos y Escape cierra el diálogo de éxito", async ({ page }) => {
     await page.goto("/reservar");
 
     // Paso 1: foco explícito en el primer campo, escritura por teclado
